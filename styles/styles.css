@@ -36,6 +36,17 @@
 @font-face {
   font-family:"Helvetica-Neue Fallback";
   font-style:normal;
+  font-weight:400;
+  src:local("Arial");
+  ascent-override:93.98%;
+  descent-override:21.01%;
+  line-gap-override:2.75%;
+  size-adjust:101.31%;
+}
+
+@font-face {
+  font-family:"Helvetica-Neue Fallback";
+  font-style:normal;
   font-weight:700;
   src:local("Arial Bold");
   ascent-override:97.51%;
@@ -53,17 +64,6 @@
   descent-override:20.65%;
   line-gap-override:0.00%;
   size-adjust:116.22%;
-}
-
-@font-face {
-  font-family:"Helvetica-Neue Fallback";
-  font-style:normal;
-  font-weight:400;
-  src:local("Arial");
-  ascent-override:93.98%;
-  descent-override:21.01%;
-  line-gap-override:2.75%;
-  size-adjust:101.31%;
 }
 
 @media (width>=900px) {
