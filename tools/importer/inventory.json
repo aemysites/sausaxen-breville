@@ -408,6 +408,18 @@
           "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
         }
       ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 26,
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-01-caedde121fd5550147e4ce17b5de44d7c0aede4a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[2]"
+        }
+      ]
     }
   ],
   "outliers": [
@@ -572,12 +584,6 @@
       "uuid": "08d7cf8b-35-2886e499881cf400bccc4291749c296db2352e53",
       "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[26]",
       "section": "section-3"
-    },
-    {
-      "url": "https://www.breville.com/en-us",
-      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
-      "uuid": "340ce710-01-caedde121fd5550147e4ce17b5de44d7c0aede4a",
-      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[2]"
     },
     {
       "url": "https://www.breville.com/en-us",
