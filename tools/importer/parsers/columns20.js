@@ -1,32 +1,22 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: ensure element exists
-  if (!element) return;
+  // Step 1: Find all columns (should be direct children of .row)
+  const row = element.querySelector(':scope > .row');
+  const columns = row ? Array.from(row.children) : [];
 
-  // Table header row as per block guidelines
-  const headerRow = ['Columns block (columns20)'];
-
-  // Find the row containing the columns
-  const row = element.querySelector('.row');
-  if (!row) return;
-
-  // Get all immediate column divs
-  const columnDivs = Array.from(row.children);
-
-  // For each column, extract the main circle card image
-  const cells = columnDivs.map((colDiv) => {
-    // Defensive: find the image inside the button
-    const img = colDiv.querySelector('img');
-    // If found, use the image element, else empty string
-    return img || '';
+  // Step 2: For each column, extract the image element (reference, do not clone)
+  const cellsRow = columns.map((col) => {
+    const img = col.querySelector('img');
+    return img || col; // If no image, fall back to the col div
   });
 
-  // Compose the table rows
-  const tableRows = [headerRow, cells];
+  // Step 3: Build the table rows
+  const headerRow = ['Columns block (columns20)'];
+  const rows = [headerRow, cellsRow];
 
-  // Create the block table
-  const blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
+  // Step 4: Create the table using DOMUtils (do not use markdown, only HTML)
+  const table = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element with the block table
-  element.replaceWith(blockTable);
+  // Step 5: Replace the original element with the table
+  element.replaceWith(table);
 }

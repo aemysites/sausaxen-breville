@@ -1,41 +1,43 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: find the main split teaser content
-  const splitTeaser = element.querySelector('.xps-splitteaser');
-  if (!splitTeaser) return;
+  // Find the main columns from the split teaser structure
+  // Left: image/media, Right: content (heading, description)
+  let leftCol = null;
+  let rightCol = null;
 
-  // Find the left and right column wrappers
-  const leftCol = splitTeaser.querySelector('.xps-teaser.left');
-  const rightCol = splitTeaser.querySelector('.xps-teaser__content');
+  // Find the .teaser inside the block
+  const teaser = element.querySelector('.teaser');
+  if (teaser) {
+    leftCol = teaser.querySelector('.xps-teaser.left');
+    rightCol = teaser.querySelector('.xps-teaser__content');
+  }
 
-  // Defensive: ensure both columns exist
-  if (!leftCol || !rightCol) return;
+  // Fallback: if not found, try to find two main children
+  if (!leftCol || !rightCol) {
+    const divs = element.querySelectorAll(':scope > div');
+    if (divs.length >= 2) {
+      leftCol = divs[0];
+      rightCol = divs[1];
+    }
+  }
 
-  // --- LEFT COLUMN ---
-  // Find the image inside the left column
-  let leftImg = leftCol.querySelector('img');
-  // If there is extra decorative content (corn, salmon, etc.), include the entire media wrapper
-  let leftMedia = leftCol.querySelector('.xps-teaser--media');
-  // Use the whole media block if available, otherwise just the image
-  const leftCell = leftMedia || leftImg || leftCol;
+  // Defensive: if still not found, use the whole element as a single column
+  if (!leftCol && !rightCol) {
+    leftCol = element;
+    rightCol = '';
+  }
 
-  // --- RIGHT COLUMN ---
-  // The right column contains heading and description
-  // Use the card tile content block for all text
-  let rightContent = rightCol.querySelector('.xps-card-tile') || rightCol;
-  const rightCell = rightContent;
-
-  // Table header
+  // Ensure all content is included and referenced (not cloned)
+  // Table header must match block name exactly
   const headerRow = ['Columns block (columns21)'];
-  // Table columns row
-  const columnsRow = [leftCell, rightCell];
+  const columnsRow = [leftCol, rightCol];
 
-  // Build the table
+  // Create the columns block table
   const table = WebImporter.DOMUtils.createTable([
     headerRow,
-    columnsRow,
+    columnsRow
   ], document);
 
-  // Replace the original element with the new block table
+  // Replace the original element with the table
   element.replaceWith(table);
 }

@@ -1,74 +1,87 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper to create a link for non-image media (e.g. video)
-  function createLinkFromSrc(src, text = 'View Video') {
-    const a = document.createElement('a');
-    a.href = src;
-    a.textContent = text;
-    a.target = '_blank';
-    return a;
-  }
+  // Build header row: must be exactly one column
+  const headerRow = ['Columns block (columns23)'];
 
-  // Defensive selectors for left and right columns
-  let leftColContent = null;
-  let rightColContent = null;
+  // Find the two main columns: left (media), right (content)
+  const teaser = element.querySelector('.xps-teaser');
+  if (!teaser) return;
 
-  // Find the main splitteaser block
-  const splitTeaser = element.querySelector('.xps-splitteaser');
-  if (splitTeaser) {
-    // Find the left and right teaser columns
-    const teasers = splitTeaser.querySelectorAll('.xps-teaser');
-    if (teasers.length > 0) {
-      // LEFT COLUMN: media (video)
-      const leftTeaser = teasers[0];
-      const mediaWrapper = leftTeaser.querySelector('.xps-teaser--media');
-      if (mediaWrapper) {
-        // Look for video
-        const video = mediaWrapper.querySelector('video');
-        if (video && video.src) {
-          leftColContent = createLinkFromSrc(video.src, 'View Video');
-        }
+  // Left column: media (video or image)
+  let leftCell = '';
+  const mediaWrapper = teaser.querySelector('.xps-teaser--media');
+  if (mediaWrapper) {
+    // Look for video
+    const video = mediaWrapper.querySelector('video');
+    if (video) {
+      const src = video.getAttribute('src');
+      if (src) {
+        // Create an <a> containing an <img> as a video preview
+        const a = document.createElement('a');
+        a.href = src;
+        a.target = '_blank';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Video preview';
+        img.style.maxWidth = '100%';
+        a.appendChild(img);
+        leftCell = a;
       }
-      // If no video, fallback to entire mediaWrapper
-      if (!leftColContent && mediaWrapper) {
-        leftColContent = mediaWrapper;
-      }
-      // Defensive fallback
-      if (!leftColContent) {
-        leftColContent = leftTeaser;
-      }
-
-      // RIGHT COLUMN: content (title, description, button)
-      const contentWrapper = leftTeaser.querySelector('.xps-teaser__content');
-      if (contentWrapper) {
-        rightColContent = contentWrapper;
+    } else {
+      // If image present, use it
+      const img = mediaWrapper.querySelector('img');
+      if (img) {
+        leftCell = img;
       } else {
-        // Defensive fallback: try the next teaser if present
-        if (teasers.length > 1) {
-          rightColContent = teasers[1];
-        }
+        // If neither, use the mediaWrapper itself
+        leftCell = mediaWrapper.cloneNode(true);
       }
     }
   }
+  if (!leftCell) leftCell = document.createTextNode('');
 
-  // Fallbacks if parsing fails
-  if (!leftColContent) {
-    leftColContent = document.createElement('div');
-    leftColContent.textContent = '';
+  // Right column: content
+  let rightCell = '';
+  const contentWrapper = teaser.querySelector('.xps-teaser__content');
+  if (contentWrapper) {
+    // Instead of cloning, extract all text content and button
+    const fragments = [];
+    // Title
+    const title = contentWrapper.querySelector('.xps-card-tile-title');
+    if (title) {
+      const h2 = document.createElement('h2');
+      h2.textContent = title.textContent;
+      fragments.push(h2);
+    }
+    // Description
+    const desc = contentWrapper.querySelector('.xps-card-tile-description');
+    if (desc) {
+      const p = desc.querySelector('p');
+      if (p) {
+        const pElem = document.createElement('p');
+        pElem.textContent = p.textContent;
+        fragments.push(pElem);
+      }
+    }
+    // Button
+    const btn = contentWrapper.querySelector('.xps-card-tile-button-wrapper a');
+    if (btn) {
+      const a = document.createElement('a');
+      a.href = btn.href;
+      a.textContent = btn.textContent.trim();
+      a.target = '_blank';
+      fragments.push(a);
+    }
+    rightCell = fragments;
   }
-  if (!rightColContent) {
-    rightColContent = document.createElement('div');
-    rightColContent.textContent = '';
-  }
+  if (!rightCell || (Array.isArray(rightCell) && rightCell.length === 0)) rightCell = document.createTextNode('');
 
-  // Table structure: header, then one row with two columns
-  const headerRow = ['Columns block (columns23)'];
-  const contentRow = [leftColContent, rightColContent];
-  const cells = [headerRow, contentRow];
+  // Build table: header row must be single column
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    [leftCell, rightCell],
+  ], document);
 
-  // Create table block
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace original element
-  element.replaceWith(block);
+  // Replace the original element
+  element.replaceWith(table);
 }

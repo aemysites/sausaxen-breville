@@ -1,58 +1,63 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the selected tab panel with content
+  // Find the selected tab panel
   const selectedPanel = element.querySelector('.react-tabs__tab-panel--selected');
   if (!selectedPanel) return;
 
-  // Find the carousel of cards
-  const carousel = selectedPanel.querySelector('.xps-carousel-wrapper .splide__list');
-  if (!carousel) return;
+  // Find the carousel list containing the cards
+  const carouselList = selectedPanel.querySelector('.xps-carousel-wrapper .splide__list');
+  if (!carouselList) return;
 
-  // Table header as per block guidelines
+  // Prepare the header row as required
   const headerRow = ['Cards (cards11)'];
   const rows = [headerRow];
 
-  // For each card in carousel
-  const slides = carousel.querySelectorAll('.splide__slide');
+  // For each card/slide, extract image and text content
+  const slides = carouselList.querySelectorAll(':scope > li.splide__slide');
   slides.forEach((slide) => {
-    // Defensive: find image
-    const img = slide.querySelector('.recipe-card__image');
-    // Defensive: find overlay
+    // Extract the card image (first image in card)
+    const img = slide.querySelector('img.recipe-card__image');
+    // Defensive: skip if no image
+    if (!img) return;
+
+    // Extract the overlay containing text content
     const overlay = slide.querySelector('.recipe-card__overlay');
-    if (!img || !overlay) return;
+    if (!overlay) return;
 
-    // Compose text cell content
-    const cellContent = document.createElement('div');
+    // Extract title (h4), subtitle (header), and author
+    const titleEl = overlay.querySelector('.recipe-card__title p');
+    const title = titleEl ? titleEl.textContent.trim() : '';
+    const subtitleEl = overlay.querySelector('.recipe-card__header span');
+    const subtitle = subtitleEl ? subtitleEl.textContent.trim() : '';
+    const authorEl = overlay.querySelector('.recipe-card__footer .xps-partner-tag-title');
+    const author = authorEl ? authorEl.textContent.trim() : '';
 
-    // Tag/Category (e.g., Joule Oven, Smart Ovens)
-    const headerTag = overlay.querySelector('.recipe-card__header .xps-tag');
-    if (headerTag) {
-      cellContent.appendChild(headerTag.cloneNode(true));
+    // Compose the text cell content
+    const textDiv = document.createElement('div');
+    if (subtitle) {
+      const subtitleDiv = document.createElement('div');
+      subtitleDiv.textContent = subtitle;
+      subtitleDiv.style.fontSize = 'smaller';
+      subtitleDiv.style.fontWeight = 'bold';
+      textDiv.appendChild(subtitleDiv);
     }
-
-    // Title (h4)
-    const title = overlay.querySelector('.recipe-card__title .xps-text-h4');
     if (title) {
-      cellContent.appendChild(title.cloneNode(true));
+      const titleElH = document.createElement('h4');
+      titleElH.textContent = title;
+      textDiv.appendChild(titleElH);
+    }
+    if (author) {
+      const authorDiv = document.createElement('div');
+      authorDiv.textContent = author;
+      authorDiv.style.fontSize = 'smaller';
+      textDiv.appendChild(authorDiv);
     }
 
-    // Author (footer)
-    const authorTagBox = overlay.querySelector('.recipe-card__footer .xps-partner-tag-box');
-    if (authorTagBox) {
-      cellContent.appendChild(authorTagBox.cloneNode(true));
-    }
-
-    // Only add row if mandatory fields present
-    if (img && cellContent.childNodes.length > 0) {
-      rows.push([
-        img.cloneNode(true),
-        cellContent
-      ]);
-    }
+    // Compose the row: [image element, text content]
+    rows.push([img, textDiv]);
   });
 
-  // Create the block table
+  // Create the table using DOMUtils
   const table = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element
   element.replaceWith(table);
 }
