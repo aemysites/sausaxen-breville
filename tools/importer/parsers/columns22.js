@@ -1,42 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: find the main split teaser content and image
-  // The structure is deeply nested, so we look for the left (content) and right (image) columns
+  // Defensive: find the main splitteaser block
+  let splitTeaser = element.querySelector('.xps-splitteaser');
+  if (!splitTeaser) splitTeaser = element;
 
-  // Get the main teaser content (left column)
+  // Left column: content
   let leftContent;
-  let rightContent;
-
-  // Find the main content area (text, heading, button)
-  const teaserContent = element.querySelector('.xps-teaser__content');
+  const teaserContent = splitTeaser.querySelector('.xps-teaser__content');
   if (teaserContent) {
     leftContent = teaserContent;
   } else {
-    // fallback: use first column-like div
-    leftContent = element.querySelector('.xps-card-tile') || element;
+    // fallback: grab first child div
+    leftContent = splitTeaser.children[0];
   }
 
-  // Find the image area (right column)
-  const media = element.querySelector('.xps-teaser--media');
-  if (media) {
-    // Just the image itself
-    const img = media.querySelector('img');
-    rightContent = img ? img : media;
+  // Right column: image
+  let rightContent;
+  const teaserMedia = splitTeaser.querySelector('.xps-teaser--media');
+  if (teaserMedia) {
+    rightContent = teaserMedia;
   } else {
-    // fallback: find first image
-    const img = element.querySelector('img');
-    rightContent = img || null;
+    // fallback: find first img
+    const img = splitTeaser.querySelector('img');
+    if (img) {
+      rightContent = img;
+    } else {
+      rightContent = document.createElement('div'); // empty
+    }
   }
 
   // Table header
   const headerRow = ['Columns block (columns22)'];
-  // Table content row: two columns, left (text/button), right (image)
+  // Table content row: left and right columns
   const contentRow = [leftContent, rightContent];
 
-  // Build table
   const cells = [headerRow, contentRow];
   const block = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace original element
   element.replaceWith(block);
 }

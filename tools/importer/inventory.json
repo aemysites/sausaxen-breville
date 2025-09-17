@@ -418,7 +418,7 @@
     {
       "name": "Accordion",
       "cluster": 28,
-      "source": "Accordion", 
+      "source": "Accordion",
       "target": "Accordion (accordion28)",
       "key": "accordion28",
       "instances": [
@@ -428,7 +428,7 @@
           "uuid": "447b2b9c-03-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
           "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]"
         }
-      ]  
+      ]
     }
   ],
   "outliers": [

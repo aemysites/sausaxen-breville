@@ -1,73 +1,84 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Only process the selected tab panel with product cards
+  // Helper to get immediate children by selector
+  function getImmediateChildren(parent, selector) {
+    return Array.from(parent.children).filter(child => child.matches(selector));
+  }
+
+  // Find the selected tab panel (the visible one)
   const selectedPanel = element.querySelector('.react-tabs__tab-panel--selected');
   if (!selectedPanel) return;
 
-  // Find the row containing the product cards
-  const row = selectedPanel.querySelector('.row');
+  // Find the grid container (cards are inside)
+  const grid = selectedPanel.querySelector('.grid-container');
+  if (!grid) return;
+
+  // Find the row containing the cards
+  const row = grid.querySelector('.row');
   if (!row) return;
 
-  // Get all card columns (each card is a col-*)
-  const cardCols = Array.from(row.children).filter(col => col.className && col.className.match(/col-/));
+  // Find all card columns (each card)
+  const cardCols = getImmediateChildren(row, 'div');
 
-  // Table header
-  const headerRow = ['Cards (cards15)'];
-  const rows = [headerRow];
+  // Prepare table rows
+  const rows = [];
+  // Header row as per requirements
+  rows.push(['Cards (cards15)']);
 
   cardCols.forEach(col => {
-    // Each card is inside .xps-product-card-hover
+    // Defensive: look for card wrapper
     const card = col.querySelector('.xps-product-card-hover');
     if (!card) return;
 
     // --- IMAGE CELL ---
-    // Find the main product image (first img inside .xps-product-card-image-zoom-onhover)
-    let img = card.querySelector('.xps-product-card-image-zoom-onhover img');
-    // Defensive: fallback to first img in card if not found
-    if (!img) img = card.querySelector('img');
+    let imageCell = '';
+    // Find the main image in the card
+    const mainImg = card.querySelector('.xps-product-card-hover-media-section img');
+    if (mainImg) {
+      imageCell = mainImg;
+    }
 
     // --- TEXT CELL ---
-    const textContent = document.createElement('div');
-    // Title (h3 inside .xps-product-card-hover-content-title-section)
+    // We'll collect all relevant content into a fragment
+    const textFrag = document.createDocumentFragment();
+    // Title (as heading)
     const titleSection = card.querySelector('.xps-product-card-hover-content-title-section');
     if (titleSection) {
+      // The title is in an h3 inside titleSection
       const title = titleSection.querySelector('h3');
-      if (title) textContent.appendChild(title);
-      // Price (h3 in same section)
-      const price = titleSection.querySelector('.xps-product-card-hover-content-price-section h3');
-      if (price) textContent.appendChild(price);
+      if (title) textFrag.appendChild(title);
+      // The price is in another h3 in the same section (usually second h3)
+      // We'll append it after the title
+      const price = titleSection.querySelectorAll('h3')[1];
+      if (price) textFrag.appendChild(price);
     }
-    // Product label (optional, .xps-product-card-hover-content-product-label-section)
+    // Product label (optional)
     const labelSection = card.querySelector('.xps-product-card-hover-content-product-label-section');
     if (labelSection) {
-      textContent.appendChild(labelSection);
+      // This is usually a div with a span inside
+      textFrag.appendChild(labelSection);
     }
-    // Description (p inside .xps-product-card-hover-content-description-section)
+    // Description
     const descSection = card.querySelector('.xps-product-card-hover-content-description-section');
     if (descSection) {
-      const desc = descSection.querySelector('p');
-      if (desc) textContent.appendChild(desc);
+      textFrag.appendChild(descSection);
     }
-    // Tablet price (optional, p.xps-text-p2-bold)
-    const tabletPriceSection = card.querySelector('.xps-tablet-price-section');
-    if (tabletPriceSection) {
-      const tabletPrice = tabletPriceSection.querySelector('p');
-      if (tabletPrice) textContent.appendChild(tabletPrice);
+    // Tablet price (optional, can be duplicate)
+    const tabletPrice = card.querySelector('.xps-tablet-price-section');
+    if (tabletPrice && !textFrag.contains(tabletPrice)) {
+      textFrag.appendChild(tabletPrice);
     }
-    // Swatch picker (optional)
-    const swatchPicker = card.querySelector('.xps-product-card-hover-content-swatch-picker-container');
-    if (swatchPicker) {
-      // Only include the color swatches list, not the aria-live div
-      const swatchList = swatchPicker.querySelector('ul');
-      if (swatchList) textContent.appendChild(swatchList);
+    // Swatch picker (color dots)
+    const swatchSection = card.querySelector('.xps-product-card-hover-content-swatch-picker-container');
+    if (swatchSection) {
+      textFrag.appendChild(swatchSection);
     }
 
-    // Add the row: [image, textContent]
-    rows.push([img, textContent]);
+    rows.push([imageCell, textFrag]);
   });
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   // Replace the original element
-  element.replaceWith(block);
+  element.replaceWith(table);
 }

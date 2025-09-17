@@ -1,45 +1,56 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the card tile containers
-  const cardRows = [];
+  // Helper to extract cards from the grid
+  function getCards(container) {
+    // Defensive: find all cards by class
+    return Array.from(
+      container.querySelectorAll('.xps-card-tile')
+    );
+  }
 
-  // Always use the required header row
-  const headerRow = ['Cards (cards18)'];
-  cardRows.push(headerRow);
+  // Find the grid container (defensive: look for .grid-container or .br-grid)
+  let gridContainer = element.querySelector('.grid-container') || element.querySelector('.br-grid');
+  if (!gridContainer) gridContainer = element; // fallback if not found
 
-  // Find all direct card tile elements within the block
-  // The structure is: element > ... > .grid-container > ... > .row > .col-xl-4 > .xps-card-tile
-  // We'll find all .xps-card-tile elements under the block
-  const cardTiles = element.querySelectorAll('.xps-card-tile');
+  // Find the row with cards
+  let cardRow = gridContainer.querySelector('.row');
+  if (!cardRow) cardRow = gridContainer; // fallback
 
-  cardTiles.forEach((cardTile) => {
+  const cards = getCards(cardRow);
+
+  // Build table rows
+  const rows = [];
+  // Header row
+  rows.push(['Cards (cards18)']);
+
+  // For each card, extract image and text
+  cards.forEach(card => {
     // Image: find the first img inside the card
-    const imgContainer = cardTile.querySelector('.xps-card-tile-image');
-    let imgEl = null;
-    if (imgContainer) {
-      imgEl = imgContainer.querySelector('img');
-    }
+    const imgContainer = card.querySelector('.xps-card-tile-image');
+    let img = imgContainer ? imgContainer.querySelector('img') : null;
 
-    // Text: find the title (h6)
-    let textEls = [];
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-    if (titleEl) {
-      textEls.push(titleEl);
-    }
+    // Text: find the title (h6) and any description (not present here, but future-proof)
+    const title = card.querySelector('h6');
+    // Defensive: if more text, include it
+    const textElements = [];
+    if (title) textElements.push(title);
+    // If there are other paragraphs, include them
+    const paragraphs = Array.from(card.querySelectorAll('p'));
+    paragraphs.forEach(p => textElements.push(p));
 
-    // If there is other text (description), add it below (not present in this HTML, but future-proof)
-    // For now, only the h6 is present
+    // If no paragraphs, but the title exists, that's all
+    const textCell = textElements.length === 1 ? textElements[0] : textElements;
 
-    // Compose the row: [image, text]
-    cardRows.push([
-      imgEl,
-      textEls.length > 1 ? textEls : textEls[0]
+    // Add row: [image, text]
+    rows.push([
+      img,
+      textCell
     ]);
   });
 
   // Create the table block
-  const block = WebImporter.DOMUtils.createTable(cardRows, document);
+  const block = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element with the block
+  // Replace the original element
   element.replaceWith(block);
 }

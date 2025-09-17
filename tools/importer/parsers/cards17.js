@@ -1,42 +1,42 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get each card column
-  const columns = Array.from(element.querySelectorAll(':scope > div'));
-
-  // Prepare table rows
+  // Helper: get all direct card columns
+  const cardCols = element.querySelectorAll(':scope > div');
   const rows = [];
-  // Header row: always use the block name as specified
+
+  // Always use the required header row
   const headerRow = ['Cards (cards17)'];
   rows.push(headerRow);
 
-  // For each card column, extract image and title
-  columns.forEach((col) => {
-    // Defensive: look for the card tile inside the column
-    const card = col.querySelector('.xps-card-tile');
-    if (!card) return;
+  cardCols.forEach((col) => {
+    // Defensive: find the card tile inside the col
+    const cardTile = col.querySelector('.xps-card-tile');
+    if (!cardTile) return;
 
-    // Image: find the first <img> inside the card
-    const imgWrapper = card.querySelector('.xps-card-tile-image');
+    // Find the image (first image in the card tile)
+    const imgWrapper = cardTile.querySelector('.xps-card-tile-image');
     let img = null;
     if (imgWrapper) {
       img = imgWrapper.querySelector('img');
     }
-    // Title: find the heading (h6)
-    const title = card.querySelector('.xps-card-tile-title');
 
-    // Defensive: skip if no image or no title
-    if (!img || !title) return;
+    // Find the title (h6)
+    const title = cardTile.querySelector('h6');
 
-    // For text cell: wrap the title in a <strong>
-    const strong = document.createElement('strong');
-    strong.textContent = title.textContent;
+    // Compose the text cell: title only (no description or CTA in this HTML)
+    // If title exists, use it directly
+    let textCell = '';
+    if (title) {
+      textCell = title;
+    }
 
-    // Each row: [image, textCell]
-    rows.push([img, strong]);
+    // Only add row if image and title exist
+    if (img && textCell) {
+      rows.push([img, textCell]);
+    }
   });
 
-  // Build the table block
+  // Create the table block
   const table = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element
   element.replaceWith(table);
 }
