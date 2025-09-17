@@ -1,57 +1,73 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the carousel track containing the list of slides
-  const track = element.querySelector('.splide__track');
-  if (!track) return;
-  const list = track.querySelector('.splide__list');
-  if (!list) return;
-
-  // Get all card slides (li elements)
-  const slides = Array.from(list.children);
-  const rows = [];
-  // Header row per spec
-  const headerRow = ['Cards (cards9)'];
-  rows.push(headerRow);
-
-  slides.forEach((slide) => {
-    // Each slide contains a card tile
-    const cardTile = slide.querySelector('.xps-card-tile');
-    if (!cardTile) return;
-
-    // --- IMAGE CELL ---
-    // Find the image inside the card
-    let image = null;
-    const img = cardTile.querySelector('img');
-    if (img) {
-      image = img;
-    }
-
-    // --- TEXT CELL ---
-    // Compose text cell by including all relevant text content
-    const textCell = document.createElement('div');
-    // Title (h5)
-    const title = cardTile.querySelector('.xps-card-tile-title');
-    if (title) {
-      textCell.appendChild(title.cloneNode(true));
-    }
-    // Author name (desc)
-    const desc = cardTile.querySelector('.xps-text-p1');
-    if (desc) {
-      textCell.appendChild(desc.cloneNode(true));
-    }
-    // If there are other text blocks, include them (for future flexibility)
-    Array.from(cardTile.querySelectorAll('.xps-text:not(.xps-card-tile-title):not(.xps-text-p1)')).forEach((el) => {
-      textCell.appendChild(el.cloneNode(true));
+  // Helper to get all card tiles
+  function getCardTiles(root) {
+    const track = root.querySelector('.splide__track');
+    if (!track) return [];
+    const list = track.querySelector('ul');
+    if (!list) return [];
+    return Array.from(list.children).map(li => {
+      const card = li.querySelector('.xps-card-tile');
+      return card || li;
     });
+  }
 
+  // Helper to build the image (with play icon overlay if present)
+  function extractImage(card) {
+    const img = card.querySelector('img');
+    if (!img) return null;
+    return img;
+  }
+
+  // Helper to build the text cell (title + author)
+  function extractTextContent(card) {
+    const fragment = document.createDocumentFragment();
+    // Title (h5)
+    const title = card.querySelector('.xps-card-tile-title');
+    if (title) {
+      const strong = document.createElement('strong');
+      strong.textContent = title.textContent.trim();
+      fragment.appendChild(strong);
+      fragment.appendChild(document.createElement('br'));
+    }
+    // Author (description)
+    const desc = card.querySelector('.xps-text-p1');
+    if (desc) {
+      const p = document.createElement('p');
+      p.textContent = desc.textContent.trim();
+      fragment.appendChild(p);
+    }
+    // Add any additional text nodes that may be present (for flexibility)
+    // Get all direct children of card that are text nodes or elements with text
+    Array.from(card.childNodes).forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        const span = document.createElement('span');
+        span.textContent = node.textContent.trim();
+        fragment.appendChild(span);
+        fragment.appendChild(document.createElement('br'));
+      } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('xps-card-tile-title') && !node.classList.contains('xps-text-p1') && node.textContent.trim()) {
+        const span = document.createElement('span');
+        span.textContent = node.textContent.trim();
+        fragment.appendChild(span);
+        fragment.appendChild(document.createElement('br'));
+      }
+    });
+    return fragment;
+  }
+
+  const headerRow = ['Cards (cards9)'];
+  const rows = [headerRow];
+
+  const cards = getCardTiles(element);
+  cards.forEach(card => {
+    const image = extractImage(card);
+    const textContent = extractTextContent(card);
     rows.push([
       image,
-      textCell
+      textContent
     ]);
   });
 
-  // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }

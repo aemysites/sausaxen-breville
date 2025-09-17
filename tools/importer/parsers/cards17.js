@@ -1,43 +1,42 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: ensure element exists
-  if (!element) return;
+  // Helper to extract card content
+  function extractCardContent(cardEl) {
+    // Find image (first img inside card)
+    const imgContainer = cardEl.querySelector('.xps-card-tile-image');
+    let img = null;
+    if (imgContainer) {
+      img = imgContainer.querySelector('img');
+    }
+    // Find title (h6 inside card)
+    const title = cardEl.querySelector('.xps-card-tile-title');
+    // Compose text cell: title only (no description or CTA in source)
+    let textCell = [];
+    if (title) {
+      textCell.push(title);
+    }
+    return [img, textCell];
+  }
 
-  // Header row as required
-  const headerRow = ['Cards (cards17)'];
-
-  // Get all direct card columns
-  const cardColumns = element.querySelectorAll(':scope > div');
-  const rows = [headerRow];
-
-  cardColumns.forEach((col) => {
-    // Each col contains .widget-tool > .xps-card-tile
-    const cardTile = col.querySelector('.xps-card-tile');
-    if (!cardTile) return;
-
-    // Image: find img inside .xps-card-tile-image
-    const imgWrapper = cardTile.querySelector('.xps-card-tile-image');
-    let imgEl = imgWrapper ? imgWrapper.querySelector('img') : null;
-
-    // Defensive: only include if image exists
-    // Title: h6.xps-card-tile-title
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-
-    // Build text cell: only title present, no description or CTA
-    // Use title element directly if exists
-    const textCell = [];
-    if (titleEl) textCell.push(titleEl);
-
-    // Add row: [image, text]
-    rows.push([
-      imgEl || '',
-      textCell.length > 0 ? textCell : ''
-    ]);
+  // Get all card elements (each .widget-tool contains a card)
+  const cardWrappers = Array.from(element.querySelectorAll(':scope > div'));
+  const rows = [];
+  // Header row: must have exactly one column
+  rows.push(['Cards (cards17)']);
+  // Card rows
+  cardWrappers.forEach((colEl) => {
+    const cardTile = colEl.querySelector('.xps-card-tile');
+    if (cardTile) {
+      const [img, textCell] = extractCardContent(cardTile);
+      // Defensive: only add row if image and text
+      if (img && textCell.length) {
+        rows.push([img, textCell]);
+      }
+    }
   });
 
   // Create table block
   const block = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Replace element with block
+  // Replace original element with block
   element.replaceWith(block);
 }

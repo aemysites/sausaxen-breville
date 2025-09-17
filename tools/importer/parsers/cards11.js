@@ -1,50 +1,69 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  if (!element || !document) return;
+  // Find the selected tab panel (visible content)
+  const selectedPanel = element.querySelector('.react-tabs__tab-panel--selected');
+  if (!selectedPanel) return;
 
+  // Get the main feature details section
+  const featureDetails = selectedPanel.querySelector('.author_feature_details');
+  if (!featureDetails) return;
+
+  // Get the card carousel
+  const carousel = featureDetails.querySelector('.xps-carousel-wrapper');
+  if (!carousel) return;
+
+  // Find all cards (li.splide__slide)
+  const cardEls = carousel.querySelectorAll('li.splide__slide');
+
+  // Build header row
   const headerRow = ['Cards (cards11)'];
   const rows = [headerRow];
 
-  // Find the carousel with cards
-  const cardWrapper = element.querySelector('.xps-carousel-wrapper');
-  if (!cardWrapper) return;
-  const slides = cardWrapper.querySelectorAll('.splide__slide');
+  // For each card, extract image and full text content
+  cardEls.forEach(cardEl => {
+    // Defensive: find image
+    const img = cardEl.querySelector('img.recipe-card__image');
+    // Defensive: find overlay
+    const overlay = cardEl.querySelector('.recipe-card__overlay');
+    let textContent = document.createElement('div');
 
-  slides.forEach((slide) => {
-    if (slide.hasAttribute('aria-hidden') && slide.getAttribute('aria-hidden') === 'true') return;
-
-    // Image (first cell)
-    const img = slide.querySelector('.recipe-card__image');
-
-    // Compose text content (second cell)
-    const overlay = slide.querySelector('.recipe-card__overlay');
-    const textDiv = document.createElement('div');
     if (overlay) {
-      // Tag (header)
-      const tag = overlay.querySelector('.xps-tag span');
-      if (tag) {
-        const tagP = document.createElement('p');
-        tagP.appendChild(document.createTextNode(tag.textContent.trim()));
-        textDiv.appendChild(tagP);
+      // Subtitle (header tag)
+      const subtitleTag = overlay.querySelector('.recipe-card__header .xps-tag span');
+      if (subtitleTag) {
+        const subtitle = document.createElement('strong');
+        subtitle.textContent = subtitleTag.textContent.trim();
+        textContent.appendChild(subtitle);
+        textContent.appendChild(document.createElement('br'));
       }
-      // Title
-      const title = overlay.querySelector('.recipe-card__title .xps-text-h4');
+
+      // Title (h4)
+      const title = overlay.querySelector('.recipe-card__title p');
       if (title) {
-        const titleH = document.createElement('h3');
-        titleH.textContent = title.textContent.trim();
-        textDiv.appendChild(titleH);
+        const heading = document.createElement('span');
+        heading.style.fontWeight = 'bold';
+        heading.textContent = title.textContent.trim();
+        textContent.appendChild(heading);
+        textContent.appendChild(document.createElement('br'));
       }
-      // Author (footer)
-      const author = overlay.querySelector('.recipe-card__footer .xps-partner-tag-title');
-      if (author) {
-        const authorP = document.createElement('p');
-        authorP.textContent = author.textContent.trim();
-        textDiv.appendChild(authorP);
+
+      // Chef name (footer)
+      const chefName = overlay.querySelector('.recipe-card__footer .xps-partner-tag-title');
+      if (chefName) {
+        const chef = document.createElement('span');
+        chef.textContent = chefName.textContent.trim();
+        textContent.appendChild(chef);
       }
     }
-    rows.push([img, textDiv]);
+
+    // Compose row: [image, textContent]
+    const row = [img, textContent];
+    rows.push(row);
   });
 
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(table);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+
+  // Replace the original element
+  element.replaceWith(block);
 }

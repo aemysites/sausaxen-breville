@@ -1,20 +1,18 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the <ul class="scrollable-tabs"> inside the block
-  const tabsList = element.querySelector('ul.scrollable-tabs');
-  if (!tabsList) return;
+  // Defensive: Find the tab list
+  const tabList = element.querySelector('ul.scrollable-tabs');
+  if (!tabList) return;
 
-  // Get all <li> elements (each tab)
-  const tabItems = Array.from(tabsList.children).filter((li) => li.getAttribute('role') === 'tab');
+  // Get all tab <li> elements
+  const tabItems = Array.from(tabList.children).filter(li => li.getAttribute('role') === 'tab');
 
-  // Prepare the table rows
-  const rows = [];
-  // Header row as required
+  // Table header: block name only (one column)
   const headerRow = ['Tabs (tabs16)'];
-  rows.push(headerRow);
+  const rows = [headerRow];
 
-  // For each tab, extract the label and add an empty string for tab content (2 columns per row)
-  tabItems.forEach((li) => {
+  // Each tab row: two columns (label, content)
+  tabItems.forEach(li => {
     let label = '';
     const labelEl = li.querySelector('.xps-partner-tag-title');
     if (labelEl) {
@@ -22,8 +20,9 @@ export default function parse(element, { document }) {
     } else {
       label = li.textContent.trim();
     }
-    // Always output two columns: label and content (empty string for content)
-    rows.push([label, '']);
+    // Per block spec, always provide two columns: label, content (only if content exists)
+    // But in this HTML, there is no tab content, so omit the second column
+    rows.push([label]);
   });
 
   // Create the block table

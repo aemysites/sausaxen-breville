@@ -1,43 +1,75 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the two main column elements
-  // The left column: video
-  // The right column: text content (h2, p, button)
+  // Header row as specified
+  const headerRow = ['Columns block (columns23)'];
 
-  // Find the left column (video)
-  let leftCol = null;
-  let videoEl = null;
-  // Try to find the video element
-  videoEl = element.querySelector('video');
-  if (videoEl) {
-    // Wrap video in a div for better referencing
-    leftCol = document.createElement('div');
-    leftCol.appendChild(videoEl);
+  // Defensive: find the main splitteaser block
+  const splitTeaser = element.querySelector('.xps-splitteaser');
+  if (!splitTeaser) return;
+
+  // Find the left and right column containers
+  const teaser = splitTeaser.querySelector('.teaser');
+  if (!teaser) return;
+
+  // Left column: media (video)
+  let leftCol;
+  const mediaWrapper = teaser.querySelector('.xps-teaser--media');
+  if (mediaWrapper) {
+    // Try to find a video element
+    const video = mediaWrapper.querySelector('video');
+    if (video && video.src) {
+      // Create a figure with video thumbnail and link
+      const figure = document.createElement('figure');
+      // Use a screenshot placeholder image for video
+      const img = document.createElement('img');
+      img.src = 'https://breville.scene7.com/is/image/brevilleprod/breville-plus_home_split_teaser?fmt=png-alpha';
+      img.alt = 'Video preview';
+      img.width = 360;
+      img.height = 240;
+      figure.appendChild(img);
+      // Link to video
+      const videoLink = document.createElement('a');
+      videoLink.href = video.src;
+      videoLink.textContent = 'Watch video';
+      figure.appendChild(document.createElement('br'));
+      figure.appendChild(videoLink);
+      leftCol = figure;
+    } else {
+      // If no video, fallback to the mediaWrapper itself
+      leftCol = mediaWrapper.cloneNode(true);
+    }
   }
 
-  // Find the right column (content)
-  let rightCol = null;
-  // The content is inside .xps-card-tile-content-left
-  const contentDiv = element.querySelector('.xps-card-tile-content-left');
-  if (contentDiv) {
-    rightCol = document.createElement('div');
-    // Get the h2, description, and button
-    const h2 = contentDiv.querySelector('h2');
-    if (h2) rightCol.appendChild(h2);
-    const desc = contentDiv.querySelector('.xps-card-tile-description');
-    if (desc) rightCol.appendChild(desc);
-    const btnWrap = contentDiv.querySelector('.xps-card-tile-button-wrapper');
-    if (btnWrap) rightCol.appendChild(btnWrap);
+  // Right column: content (title, description, button)
+  let rightCol;
+  const contentWrapper = teaser.querySelector('.xps-teaser__content');
+  if (contentWrapper) {
+    // Collect all text content and button
+    const frag = document.createDocumentFragment();
+    // Title
+    const title = contentWrapper.querySelector('.xps-card-tile-title');
+    if (title) frag.appendChild(title.cloneNode(true));
+    // Description
+    const desc = contentWrapper.querySelector('.xps-card-tile-description');
+    if (desc) frag.appendChild(desc.cloneNode(true));
+    // Button
+    const btn = contentWrapper.querySelector('.xps-card-tile-button-wrapper');
+    if (btn) frag.appendChild(btn.cloneNode(true));
+    rightCol = frag;
   }
+
+  // If either column is missing, abort
+  if (!leftCol || !rightCol) return;
 
   // Build the table rows
-  const headerRow = ['Columns block (columns23)'];
-  const contentRow = [leftCol, rightCol];
+  const cells = [
+    headerRow,
+    [leftCol, rightCol],
+  ];
 
-  // Create the block table
-  const cells = [headerRow, contentRow];
+  // Create the table block
   const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the block table
+  // Replace the original element with the block
   element.replaceWith(block);
 }

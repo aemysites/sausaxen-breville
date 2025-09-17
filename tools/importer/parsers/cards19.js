@@ -1,44 +1,54 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the carousel list of cards
-  const cardsList = element.querySelector('ul.splide__list');
-  if (!cardsList) return;
+  // Find the carousel list of cards
+  const list = element.querySelector('ul.splide__list');
+  if (!list) return;
 
-  // Table header
+  // Table header as required
   const headerRow = ['Cards (cards19)'];
   const rows = [headerRow];
 
-  // Get all card slides (li elements)
-  const cardItems = cardsList.querySelectorAll('li.splide__slide');
-  cardItems.forEach((li) => {
-    // Find the card container
-    const card = li.querySelector('.xps-circle-card');
+  // Get all card slides
+  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide'));
+
+  slides.forEach((slide) => {
+    // Get the card container
+    const card = slide.querySelector('.xps-circle-card');
     if (!card) return;
 
-    // Image: find the img inside the card header
-    let imageEl = null;
+    // --- Image/Icon cell ---
+    let imgCell = null;
     const header = card.querySelector('.xps-circle-card__header');
     if (header) {
-      imageEl = header.querySelector('img');
+      const img = header.querySelector('img');
+      if (img) {
+        imgCell = img;
+      }
     }
 
-    // Text: find the title inside the card body
-    let textEl = null;
+    // --- Text cell ---
+    // Title is inside .xps-circle-card__body > .xps-text-p2-bold.xps-circle-card--title
+    let textCell = '';
     const body = card.querySelector('.xps-circle-card__body');
     if (body) {
-      textEl = body.querySelector('.xps-circle-card--title');
+      const title = body.querySelector('.xps-text-p2-bold.xps-circle-card--title');
+      if (title) {
+        textCell = title.textContent.trim();
+      }
     }
 
-    // Defensive: only add if image and text are present
-    if (imageEl && textEl) {
-      rows.push([
-        imageEl,
-        textEl,
-      ]);
+    // Add row if image and text cell are present
+    if (imgCell && textCell) {
+      rows.push([imgCell, textCell]);
     }
   });
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  // Fix header row colspan to match two columns
+  const th = table.querySelector('th');
+  if (th && rows.length > 1 && rows[1].length === 2) {
+    th.setAttribute('colspan', '2');
+  }
+  element.replaceWith(table);
 }

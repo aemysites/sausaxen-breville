@@ -1,22 +1,30 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: ensure element exists
   if (!element) return;
 
-  // Header row per spec
+  // Block header row as per guidelines
   const headerRow = ['Columns block (columns20)'];
 
-  // Find all immediate column divs (each col-lg-2 etc)
+  // Find all columns (each .col-lg-2 is a column)
   const colDivs = Array.from(element.querySelectorAll(':scope > .row > div'));
 
-  // For each column, extract its main content (the circle card)
-  // We'll reference the whole col div for resilience
-  const contentRow = colDivs.map(col => col);
+  // For each column, reference the content element (the card)
+  const columnCells = colDivs.map((colDiv) => {
+    // Find the card inside the column
+    const card = colDiv.querySelector('.xps-circle-card');
+    // Defensive: if not found, fallback to colDiv itself
+    return card || colDiv;
+  });
 
-  // Compose the table
-  const cells = [headerRow, contentRow];
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Build the table rows: header, then columns
+  const rows = [
+    headerRow,
+    columnCells,
+  ];
 
-  // Replace the original element
-  element.replaceWith(blockTable);
+  // Create the columns block table
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+
+  // Replace the original element with the block table
+  element.replaceWith(table);
 }

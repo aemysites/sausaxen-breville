@@ -1,31 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the main content and image columns
-  // The structure is: element > grid-container-fluid > grid-container > xps-splitteaser > teaser > xps-teaser
-  // Inside xps-teaser: .xps-teaser__content (left), .xps-teaser--media (right)
+  // Defensive: find the main content and image columns
+  // The structure is: left column (content), right column (image)
+
+  // Find the immediate content wrapper (left column)
+  let leftContent = null;
+  let rightContent = null;
+
+  // Look for the .xps-teaser__content (left) and .xps-teaser--media (right)
   const teaser = element.querySelector('.xps-teaser');
-  if (!teaser) return;
+  if (teaser) {
+    leftContent = teaser.querySelector('.xps-teaser__content');
+    rightContent = teaser.querySelector('.xps-teaser--media');
+  }
 
-  // Left column: content
-  const leftContent = teaser.querySelector('.xps-teaser__content');
-  // Right column: image/media
-  const rightMedia = teaser.querySelector('.xps-teaser--media');
+  // Fallbacks if structure changes
+  if (!leftContent) {
+    // Try to find a content block with h2 and description
+    leftContent = element.querySelector('.xps-card-tile-content-left');
+  }
+  if (!rightContent) {
+    // Try to find an image inside the block
+    const imgWrap = element.querySelector('.aspect-ratio');
+    if (imgWrap) {
+      rightContent = imgWrap;
+    } else {
+      // Try to find any image
+      const img = element.querySelector('img');
+      if (img) {
+        rightContent = img;
+      }
+    }
+  }
 
-  // Defensive: If either column missing, fallback to children
-  const leftCell = leftContent || teaser.children[0];
-  const rightCell = rightMedia || teaser.children[1];
-
-  // Table header
+  // Build the table rows
   const headerRow = ['Columns block (columns22)'];
-  // Table columns row
-  const columnsRow = [leftCell, rightCell];
+  const columnsRow = [leftContent, rightContent];
 
-  // Build table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    columnsRow
-  ], document);
+  // Create the block table
+  const cells = [headerRow, columnsRow];
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element
-  element.replaceWith(table);
+  // Replace the original element with the block table
+  element.replaceWith(block);
 }
