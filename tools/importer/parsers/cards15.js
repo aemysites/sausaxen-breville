@@ -1,73 +1,68 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Only process the selected tab panel with product cards
+  // Defensive: find the selected tab panel containing the cards
   const selectedPanel = element.querySelector('.react-tabs__tab-panel--selected');
   if (!selectedPanel) return;
 
-  // Find the row containing the product cards
-  const row = selectedPanel.querySelector('.row');
-  if (!row) return;
+  // Find the grid container inside the selected panel
+  const gridContainer = selectedPanel.querySelector('.grid-container');
+  if (!gridContainer) return;
 
-  // Get all card columns (each card is a col-*)
-  const cardCols = Array.from(row.children).filter(col => col.className && col.className.match(/col-/));
+  // Find all card columns (each card is inside a col-... div)
+  const cardColumns = gridContainer.querySelectorAll('.row > div');
+  if (!cardColumns.length) return;
 
-  // Table header
+  // Header row must match block name exactly
   const headerRow = ['Cards (cards15)'];
   const rows = [headerRow];
 
-  cardCols.forEach(col => {
-    // Each card is inside .xps-product-card-hover
+  cardColumns.forEach((col) => {
+    // Defensive: find the card wrapper
     const card = col.querySelector('.xps-product-card-hover');
     if (!card) return;
 
     // --- IMAGE CELL ---
-    // Find the main product image (first img inside .xps-product-card-image-zoom-onhover)
-    let img = card.querySelector('.xps-product-card-image-zoom-onhover img');
-    // Defensive: fallback to first img in card if not found
-    if (!img) img = card.querySelector('img');
+    let imageCell = null;
+    const img = card.querySelector('.xps-product-card-hover-media-section img');
+    if (img) {
+      imageCell = img;
+    } else {
+      // fallback: try to find any image
+      const fallbackImg = card.querySelector('img');
+      if (fallbackImg) imageCell = fallbackImg;
+    }
 
     // --- TEXT CELL ---
     const textContent = document.createElement('div');
-    // Title (h3 inside .xps-product-card-hover-content-title-section)
-    const titleSection = card.querySelector('.xps-product-card-hover-content-title-section');
+    // Title
+    const titleSection = card.querySelector('.xps-product-card-hover-content-title-section h3');
     if (titleSection) {
-      const title = titleSection.querySelector('h3');
-      if (title) textContent.appendChild(title);
-      // Price (h3 in same section)
-      const price = titleSection.querySelector('.xps-product-card-hover-content-price-section h3');
-      if (price) textContent.appendChild(price);
+      textContent.appendChild(titleSection);
     }
-    // Product label (optional, .xps-product-card-hover-content-product-label-section)
+    // Price (first price, not the tablet duplicate)
+    const priceSection = card.querySelector('.xps-product-card-hover-content-title-section .xps-product-card-hover-content-price-section h3');
+    if (priceSection && priceSection !== titleSection) {
+      textContent.appendChild(priceSection);
+    }
+    // Product label (if present)
     const labelSection = card.querySelector('.xps-product-card-hover-content-product-label-section');
     if (labelSection) {
       textContent.appendChild(labelSection);
     }
-    // Description (p inside .xps-product-card-hover-content-description-section)
-    const descSection = card.querySelector('.xps-product-card-hover-content-description-section');
+    // Description
+    const descSection = card.querySelector('.xps-product-card-hover-content-description-section p');
     if (descSection) {
-      const desc = descSection.querySelector('p');
-      if (desc) textContent.appendChild(desc);
+      textContent.appendChild(descSection);
     }
-    // Tablet price (optional, p.xps-text-p2-bold)
-    const tabletPriceSection = card.querySelector('.xps-tablet-price-section');
-    if (tabletPriceSection) {
-      const tabletPrice = tabletPriceSection.querySelector('p');
-      if (tabletPrice) textContent.appendChild(tabletPrice);
-    }
-    // Swatch picker (optional)
-    const swatchPicker = card.querySelector('.xps-product-card-hover-content-swatch-picker-container');
+    // Swatch picker (color dots)
+    const swatchPicker = card.querySelector('.xps-product-card-hover-content-swatch-picker-container ul.xps-swatchpicker-container');
     if (swatchPicker) {
-      // Only include the color swatches list, not the aria-live div
-      const swatchList = swatchPicker.querySelector('ul');
-      if (swatchList) textContent.appendChild(swatchList);
+      textContent.appendChild(swatchPicker);
     }
 
-    // Add the row: [image, textContent]
-    rows.push([img, textContent]);
+    rows.push([imageCell, textContent]);
   });
 
-  // Create the block table
   const block = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element
   element.replaceWith(block);
 }

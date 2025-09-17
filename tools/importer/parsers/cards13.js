@@ -1,45 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the carousel list of cards
+  // Find the carousel list containing all cards
   const list = element.querySelector('ul.splide__list');
   if (!list) return;
 
-  // Table header row
+  // Get all card slides (li elements)
+  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide'));
+
+  // Table header row: must be exactly one column
   const headerRow = ['Cards (cards13)'];
   const rows = [headerRow];
 
-  // Get all visible slides (cards)
-  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide'));
-
-  slides.forEach((li) => {
-    // Defensive: Find the card anchor
-    const cardLink = li.querySelector('a.xps-card-tile');
+  slides.forEach((slide) => {
+    // Each slide contains a div > a.xps-card-tile
+    const cardLink = slide.querySelector('a.xps-card-tile');
     if (!cardLink) return;
 
-    // Find image container and image
-    const imgContainer = cardLink.querySelector('.xps-card-tile-image');
-    let imgEl = null;
-    if (imgContainer) {
-      imgEl = imgContainer.querySelector('img');
+    // Image: inside .xps-card-tile-image
+    const imageWrapper = cardLink.querySelector('.xps-card-tile-image');
+    let img = imageWrapper ? imageWrapper.querySelector('img') : null;
+    let imageCell = img ? img : '';
+
+    // Title: inside .xps-card-tile-title
+    const title = cardLink.querySelector('.xps-card-tile-title');
+    let textCell;
+    if (title) {
+      const strong = document.createElement('strong');
+      strong.textContent = title.textContent.trim();
+      textCell = strong;
+    } else {
+      textCell = '';
     }
 
-    // Find title
-    const titleEl = cardLink.querySelector('.xps-card-tile-title');
-
-    // Compose text cell: title only (no description or CTA in source)
-    const textCell = [];
-    if (titleEl) textCell.push(titleEl);
-
-    // Compose row: [image, text]
-    rows.push([
-      imgEl || '',
-      textCell.length ? textCell : ''
-    ]);
+    rows.push([imageCell, textCell]);
   });
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Replace the original element
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }

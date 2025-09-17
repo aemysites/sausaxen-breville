@@ -1,70 +1,89 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Only proceed if element exists
-  if (!element) return;
+  // Helper to extract all slides from the carousel
+  function getSlides(carouselRoot) {
+    // Find the <ul class="splide__list"> inside the carousel
+    const list = carouselRoot.querySelector('ul.splide__list');
+    if (!list) return [];
+    // Each <li> is a slide
+    return Array.from(list.children).filter(li => li.matches('li.splide__slide'));
+  }
 
-  // Table header as required
-  const headerRow = ['Carousel (carousel3)'];
-  const rows = [headerRow];
+  // Helper to get image element from a slide
+  function getImage(slide) {
+    // Find the first <img> inside the slide
+    const img = slide.querySelector('img');
+    return img || null;
+  }
 
-  // Find the carousel list of slides (ul.splide__list)
-  // Defensive: Search for the carousel wrapper
-  const carouselWrapper = element.querySelector('.xps-carousel-wrapper');
-  if (!carouselWrapper) return;
+  // Helper to get text content from a slide
+  function getTextContent(slide) {
+    // Find the card tile inside the slide
+    const card = slide.querySelector('.xps-card-tile');
+    if (!card) return null;
 
-  const splideList = carouselWrapper.querySelector('ul.splide__list');
-  if (!splideList) return;
-
-  // Get all slide <li> elements
-  const slideLis = splideList.querySelectorAll(':scope > li.splide__slide');
-
-  slideLis.forEach((li) => {
-    // Defensive: Find the card tile inside each slide
-    const cardTile = li.querySelector('.xps-card-tile');
-    if (!cardTile) return;
-
-    // Find image (first cell)
-    let imgEl = null;
-    const imgWrapper = cardTile.querySelector('.xps-card-tile-image');
-    if (imgWrapper) {
-      imgEl = imgWrapper.querySelector('img');
-    }
-
-    // Second cell: Text content
-    const textCellContent = [];
-
-    // Title (bold quote)
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-    if (titleEl) {
-      // Convert to heading element for semantic structure
-      const heading = document.createElement('h3');
-      heading.textContent = titleEl.textContent;
-      textCellContent.push(heading);
-    }
-
-    // Description (product name and author)
-    const descEl = cardTile.querySelector('.xps-card-tile-description');
-    if (descEl) {
-      // Defensive: Only add if not empty
-      if (descEl.textContent.trim()) {
-        // Use the whole block for resilience
-        textCellContent.push(descEl);
+    // Title
+    let title = card.querySelector('.xps-card-tile-title');
+    // Defensive: sometimes the title is inside an <h3>, sometimes a <div>
+    if (title) {
+      // Wrap in <h3> if not already
+      if (title.tagName.toLowerCase() !== 'h3') {
+        const h3 = document.createElement('h3');
+        h3.append(title.textContent);
+        title = h3;
       }
     }
 
-    // Add row: [image, text content]
-    // Defensive: Only add if image exists
-    if (imgEl) {
+    // Description
+    const desc = card.querySelector('.xps-card-tile-description');
+    // Defensive: could be null
+    let descNodes = [];
+    if (desc) {
+      // Use all child nodes (e.g. <p>, <span>)
+      descNodes = Array.from(desc.childNodes).filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent.trim()));
+    }
+
+    // Compose text cell
+    const cellContent = [];
+    if (title) cellContent.push(title);
+    if (descNodes.length) cellContent.push(...descNodes);
+    if (cellContent.length === 0) return null;
+    return cellContent;
+  }
+
+  // Find the carousel root inside the block
+  // Defensive: look for .xps-carousel-wrapper or .splide
+  let carouselRoot = element.querySelector('.xps-carousel-wrapper');
+  if (!carouselRoot) {
+    carouselRoot = element.querySelector('.splide');
+  }
+  if (!carouselRoot) return;
+
+  // Extract slides
+  const slides = getSlides(carouselRoot);
+  if (!slides.length) return;
+
+  // Build table rows
+  const rows = [];
+  // Header row
+  rows.push(['Carousel (carousel3)']);
+
+  // Each slide: [image, text]
+  slides.forEach(slide => {
+    const img = getImage(slide);
+    const textContent = getTextContent(slide);
+    // Only add if there is an image
+    if (img) {
       rows.push([
-        imgEl,
-        textCellContent.length ? textCellContent : ''
+        img,
+        textContent || ''
       ]);
     }
   });
 
-  // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  // Create the table block
+  const table = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element
-  element.replaceWith(block);
+  // Replace the original element with the table
+  element.replaceWith(table);
 }

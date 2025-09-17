@@ -1,58 +1,72 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the carousel track containing the cards
+  // Table header row
+  const headerRow = ['Cards (cards12)'];
+
+  // Find the carousel track (where the cards are)
   const track = element.querySelector('.splide__track');
   if (!track) return;
-  const list = track.querySelector('.splide__list');
-  if (!list) return;
 
-  // Only use real slides, not clones
-  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide') && !li.classList.contains('splide__slide--clone'));
+  // Get all visible/non-clone slides only
+  const slides = Array.from(track.querySelectorAll('.splide__slide')).filter(slide => !slide.classList.contains('splide__slide--clone'));
 
-  const headerRow = ['Cards (cards12)'];
-  const rows = [headerRow];
+  // Defensive fallback: If no slides, try all li children
+  const cardItems = slides.length ? slides : Array.from(track.querySelectorAll('li'));
 
-  slides.forEach((slide) => {
-    // Defensive: Find the card aspect container
-    const aspect = slide.querySelector('.xps-recipe-card-aspect');
-    if (!aspect) return;
-    const card = aspect.querySelector('.xps-recipe-card');
-    if (!card) return;
+  // Build card rows
+  const rows = cardItems.map(slide => {
+    // Find the card container
+    const card = slide.querySelector('.xps-recipe-card');
+    if (!card) return null;
 
-    // IMAGE: First cell
+    // Image (first cell)
     const img = card.querySelector('img.recipe-card__image');
-    if (!img) return;
 
-    // TEXT: Second cell
-    // We'll build a fragment containing all text content
+    // Text cell: Compose tag, title, and partner
     const overlay = card.querySelector('.recipe-card__overlay');
-    const textContent = document.createElement('div');
-    textContent.style.display = 'contents'; // flatten
+    const textParts = [];
 
-    // Tag (optional, above title)
-    const tag = overlay && overlay.querySelector('.recipe-card__header .xps-tag');
-    if (tag) {
-      textContent.appendChild(tag.cloneNode(true));
+    // Tag (optional)
+    const tagSpan = overlay && overlay.querySelector('.recipe-card__header .xps-tag span');
+    if (tagSpan) {
+      const tagP = document.createElement('p');
+      tagP.textContent = tagSpan.textContent.trim();
+      textParts.push(tagP);
     }
 
-    // Title (h4)
-    const titleWrap = overlay && overlay.querySelector('.recipe-card__title .xps-card-tile-title');
-    if (titleWrap) {
-      textContent.appendChild(titleWrap.cloneNode(true));
+    // Title (mandatory)
+    const h4 = overlay && overlay.querySelector('.recipe-card__title .xps-card-tile-title h4');
+    if (h4) {
+      // Clone the heading to preserve formatting
+      textParts.push(h4.cloneNode(true));
     }
 
-    // Partner tag (author, optional)
-    const partnerTag = overlay && overlay.querySelector('.recipe-card__footer .xps-partner-tag');
-    if (partnerTag) {
-      textContent.appendChild(partnerTag.cloneNode(true));
+    // Partner tag (optional)
+    const partnerBox = overlay && overlay.querySelector('.recipe-card__footer .xps-partner-tag-box');
+    if (partnerBox) {
+      // Compose avatar and name
+      const avatarImg = partnerBox.querySelector('.xps-partner-tag-avatar-img');
+      const partnerName = partnerBox.querySelector('.xps-partner-tag-title');
+      if (avatarImg && partnerName) {
+        // Inline avatar and name
+        const partnerDiv = document.createElement('div');
+        partnerDiv.appendChild(avatarImg.cloneNode(true));
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = partnerName.textContent.trim();
+        nameSpan.style.marginLeft = '8px';
+        partnerDiv.appendChild(nameSpan);
+        textParts.push(partnerDiv);
+      }
     }
 
-    // Defensive: If no text content, skip
-    if (!textContent.textContent.trim()) return;
+    // Defensive: If no image or no text, skip this card
+    if (!img || textParts.length === 0) return null;
 
-    rows.push([img.cloneNode(true), textContent]);
-  });
+    return [img.cloneNode(true), textParts];
+  }).filter(Boolean);
 
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  // Compose table
+  const cells = [headerRow, ...rows];
+  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

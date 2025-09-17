@@ -1,44 +1,45 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the card tile containers
-  const cardRows = [];
+  // Defensive: Find the grid container holding the cards
+  const grid = element.querySelector('.grid-container');
+  if (!grid) return;
 
-  // Always use the required header row
+  // Find all card columns within the grid
+  const cardCols = grid.querySelectorAll('.row > .col-xl-4, .row > .col-lg-4, .row > .col-md-12, .row > .col-sm-12, .row > .col-xs-12');
+
+  // Prepare the header row
   const headerRow = ['Cards (cards18)'];
-  cardRows.push(headerRow);
+  const rows = [headerRow];
 
-  // Find all direct card tile elements within the block
-  // The structure is: element > ... > .grid-container > ... > .row > .col-xl-4 > .xps-card-tile
-  // We'll find all .xps-card-tile elements under the block
-  const cardTiles = element.querySelectorAll('.xps-card-tile');
+  // For each card column, extract image and text content
+  cardCols.forEach((col) => {
+    // Defensive: Find the card tile inside the column
+    const card = col.querySelector('.xps-card-tile');
+    if (!card) return;
 
-  cardTiles.forEach((cardTile) => {
-    // Image: find the first img inside the card
-    const imgContainer = cardTile.querySelector('.xps-card-tile-image');
+    // Find image container and image
+    const imgContainer = card.querySelector('.xps-card-tile-image');
     let imgEl = null;
     if (imgContainer) {
       imgEl = imgContainer.querySelector('img');
     }
 
-    // Text: find the title (h6)
-    let textEls = [];
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-    if (titleEl) {
-      textEls.push(titleEl);
-    }
+    // Find the card title (h6)
+    const titleEl = card.querySelector('.xps-card-tile-title');
 
-    // If there is other text (description), add it below (not present in this HTML, but future-proof)
-    // For now, only the h6 is present
+    // Compose the text cell: if title exists, use it
+    let textCell = [];
+    if (titleEl) textCell.push(titleEl);
 
-    // Compose the row: [image, text]
-    cardRows.push([
-      imgEl,
-      textEls.length > 1 ? textEls : textEls[0]
+    // Add the row: image in first cell, text in second
+    rows.push([
+      imgEl || '',
+      textCell.length ? textCell : '',
     ]);
   });
 
   // Create the table block
-  const block = WebImporter.DOMUtils.createTable(cardRows, document);
+  const block = WebImporter.DOMUtils.createTable(rows, document);
 
   // Replace the original element with the block
   element.replaceWith(block);

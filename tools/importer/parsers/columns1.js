@@ -1,35 +1,30 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the left and right column containers
-  // Left: image/media
-  // Right: content (title, description, button)
-  const leftCol = element.querySelector('.xps-teaser--media');
-  const rightCol = element.querySelector('.xps-teaser__content');
+  // Find the main grid container
+  const gridContainer = element.querySelector('.grid-container');
+  if (!gridContainer) return;
 
-  // Defensive fallback: If not found, try to get first/second child of .xps-teaser
-  let leftContent = leftCol;
-  let rightContent = rightCol;
-  if (!leftContent || !rightContent) {
-    const teaser = element.querySelector('.xps-teaser');
-    if (teaser) {
-      const teaserChildren = teaser.children;
-      leftContent = leftContent || teaserChildren[0];
-      rightContent = rightContent || teaserChildren[1];
-    }
-  }
+  // Find the split teaser (contains both columns)
+  const splitTeaser = gridContainer.querySelector('.xps-splitteaser');
+  if (!splitTeaser) return;
 
-  // Table header row
+  // Left column: image/media
+  const leftMedia = splitTeaser.querySelector('.xps-teaser--media');
+  // Right column: content
+  const rightContent = splitTeaser.querySelector('.xps-teaser__content');
+  if (!leftMedia || !rightContent) return;
+
+  // Table header must match block name exactly
   const headerRow = ['Columns block (columns1)'];
+  // Table columns: left (image), right (content)
+  const columnsRow = [leftMedia, rightContent];
 
-  // Table content row: two columns
-  const contentRow = [leftContent, rightContent];
-
-  // Build table
+  // Create the block table
   const table = WebImporter.DOMUtils.createTable([
     headerRow,
-    contentRow
+    columnsRow,
   ], document);
 
-  // Replace original element
+  // Replace the original element with the table
   element.replaceWith(table);
 }
