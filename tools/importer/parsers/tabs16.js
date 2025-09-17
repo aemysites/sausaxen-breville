@@ -1,26 +1,20 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the tab list (ul.scrollable-tabs)
-  const tabList = element.querySelector('ul.scrollable-tabs');
-  if (!tabList) return;
+  // Find the tabs list
+  const tabsList = element.querySelector('ul.scrollable-tabs');
+  if (!tabsList) return;
 
-  // Get all tab <li> elements
-  const tabItems = Array.from(tabList.children).filter(li => li.getAttribute('role') === 'tab');
-
-  // Table header row: must be a single cell
+  // Table header row
   const headerRow = ['Tabs (tabs16)'];
   const rows = [headerRow];
 
-  // Each tab row: [label, content] (content is empty string if not present)
-  tabItems.forEach(tab => {
-    let label = '';
-    const labelEl = tab.querySelector('.xps-partner-tag-title');
-    if (labelEl) {
-      label = labelEl.textContent.trim();
-    } else {
-      label = tab.textContent.trim();
-    }
-    // Always create two columns: label and content (content is empty string if not present)
+  // Each tab is a <li> with label inside <p.xps-partner-tag-title>
+  const tabItems = tabsList.querySelectorAll(':scope > li');
+  tabItems.forEach((li) => {
+    // Find the tab label
+    const labelEl = li.querySelector('.xps-partner-tag-title');
+    let label = labelEl ? labelEl.textContent.trim() : '';
+    // For tabs block, tab content is mandatory (second column), but not present in HTML, so use an empty string for content
     rows.push([label, '']);
   });
 

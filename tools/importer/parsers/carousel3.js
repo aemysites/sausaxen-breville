@@ -1,69 +1,62 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Only proceed if element exists
-  if (!element) return;
+  // Helper to get all carousel slides
+  function getSlides(carouselList) {
+    // Each <li> in the carousel list is a slide
+    return Array.from(carouselList.querySelectorAll(':scope > li'));
+  }
 
-  // Table header as required
+  // Find the carousel list within the element
+  const carouselList = element.querySelector('.splide__list');
+  if (!carouselList) return;
+
+  // Build the table header
   const headerRow = ['Carousel (carousel3)'];
-  const rows = [headerRow];
 
-  // Find the carousel list of slides (ul.splide__list)
-  // Defensive: Search for the carousel wrapper
-  const carouselWrapper = element.querySelector('.xps-carousel-wrapper');
-  if (!carouselWrapper) return;
+  // Build the rows for each slide
+  const rows = getSlides(carouselList).map((slide) => {
+    // Defensive: find the card tile inside the slide
+    const cardTile = slide.querySelector('.xps-card-tile');
+    if (!cardTile) return null;
 
-  const splideList = carouselWrapper.querySelector('ul.splide__list');
-  if (!splideList) return;
-
-  // Get all slide <li> elements
-  const slideLis = splideList.querySelectorAll(':scope > li.splide__slide');
-
-  slideLis.forEach((li) => {
-    // Defensive: Find the card tile inside each slide
-    const cardTile = li.querySelector('.xps-card-tile');
-    if (!cardTile) return;
-
-    // Find image (first cell)
-    let imgEl = null;
+    // Get the image element (first cell)
+    let imgCell = null;
     const imgWrapper = cardTile.querySelector('.xps-card-tile-image');
     if (imgWrapper) {
-      imgEl = imgWrapper.querySelector('img');
+      const img = imgWrapper.querySelector('img');
+      if (img) imgCell = img;
     }
 
-    // Second cell: Text content
-    const textCellContent = [];
-
-    // Title (bold quote)
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-    if (titleEl) {
-      // Convert to heading element for semantic structure
+    // Get the text content (second cell)
+    // Compose title and description as a single block
+    const textBlock = document.createElement('div');
+    // Title
+    const title = cardTile.querySelector('.xps-card-tile-title');
+    if (title) {
+      // Use a heading for the title
       const heading = document.createElement('h3');
-      heading.textContent = titleEl.textContent;
-      textCellContent.push(heading);
+      heading.textContent = title.textContent;
+      textBlock.appendChild(heading);
     }
+    // Description
+    const desc = cardTile.querySelector('.xps-card-tile-description');
+    if (desc) {
+      // Append all paragraphs inside description
+      Array.from(desc.children).forEach((child) => {
+        textBlock.appendChild(child);
+      });
+    }
+    // Only add textBlock if it has content
+    const textCell = textBlock.childNodes.length ? textBlock : '';
 
-    // Description (product name and author)
-    const descEl = cardTile.querySelector('.xps-card-tile-description');
-    if (descEl) {
-      // Defensive: Only add if not empty
-      if (descEl.textContent.trim()) {
-        // Use the whole block for resilience
-        textCellContent.push(descEl);
-      }
-    }
+    return [imgCell, textCell];
+  }).filter(Boolean); // Remove any nulls
 
-    // Add row: [image, text content]
-    // Defensive: Only add if image exists
-    if (imgEl) {
-      rows.push([
-        imgEl,
-        textCellContent.length ? textCellContent : ''
-      ]);
-    }
-  });
+  // Compose the table cells
+  const cells = [headerRow, ...rows];
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
   // Replace the original element
   element.replaceWith(block);

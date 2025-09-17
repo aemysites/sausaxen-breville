@@ -1,26 +1,45 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Extract left (text) and right (media) columns
-  const leftContent = element.querySelector('.xps-teaser__content');
-  const rightContent = element.querySelector('.xps-teaser--media');
-
-  // Defensive: Ensure both columns exist
-  if (!leftContent || !rightContent) return;
-
-  // 2. For the right column, if it contains a <video>, replace it with an <img> using a representative poster (not available here), or leave as-is (per requirements, keep all content in a cell)
-  // In this case, we leave the <video> as is, since there's no poster or fallback image, and the block expects all content.
-
-  // 3. Table header row: must match block name exactly
+  // Header row as per block requirements
   const headerRow = ['Columns block (columns2)'];
-  // 4. Table content row: left and right columns
-  const contentRow = [leftContent, rightContent];
 
-  // 5. Create the block table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    contentRow,
-  ], document);
+  // Defensive: find the two main columns (content left, media right)
+  // The structure is deeply nested, but the two main columns are:
+  // - Left: .xps-card-tile-content-left (contains heading, description, button)
+  // - Right: .xps-teaser--media (contains video)
 
-  // 6. Replace the original element with the new block
-  element.replaceWith(table);
+  let leftCol, rightCol;
+  // Find left column
+  leftCol = element.querySelector('.xps-card-tile-content-left');
+  // Find right column
+  rightCol = element.querySelector('.xps-teaser--media');
+
+  // Defensive fallback: if not found, try to get first/second child of .xps-teaser
+  if (!leftCol || !rightCol) {
+    const teaser = element.querySelector('.xps-teaser');
+    if (teaser) {
+      const children = Array.from(teaser.children);
+      leftCol = leftCol || children.find(el => el.classList.contains('xps-teaser__content'));
+      rightCol = rightCol || children.find(el => el.classList.contains('xps-teaser--media'));
+    }
+  }
+
+  // Defensive: if still missing, fallback to first/second child div
+  if (!leftCol || !rightCol) {
+    const divs = element.querySelectorAll(':scope div');
+    leftCol = leftCol || divs[0];
+    rightCol = rightCol || divs[1];
+  }
+
+  // Build the columns row
+  const columnsRow = [leftCol, rightCol];
+
+  // Compose the table cells
+  const cells = [headerRow, columnsRow];
+
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the block table
+  element.replaceWith(block);
 }

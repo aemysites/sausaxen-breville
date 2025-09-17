@@ -1,35 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Header row: must match block name exactly
+  // 1. Extract the hero image (background/visual)
+  let imageEl = '';
+  const mediaDiv = element.querySelector('.xps-teaser--media');
+  if (mediaDiv) {
+    const img = mediaDiv.querySelector('img');
+    if (img) imageEl = img;
+  }
+
+  // 2. Extract content: heading, description, CTA (in order)
+  const contentArr = [];
+  const contentDiv = element.querySelector('.xps-teaser__content');
+  if (contentDiv) {
+    // Heading (keep heading level and bold if present)
+    const heading = contentDiv.querySelector('.xps-card-tile-title');
+    if (heading) contentArr.push(heading);
+    // Description (keep all text, including paragraphs)
+    const desc = contentDiv.querySelector('.xps-card-tile-description');
+    if (desc) contentArr.push(desc);
+    // CTA button (as link with text)
+    const btn = contentDiv.querySelector('.xps-card-tile-button-wrapper a');
+    if (btn) contentArr.push(btn);
+  }
+
+  // 3. Build the table rows
   const headerRow = ['Hero (hero24)'];
+  const imageRow = [imageEl || ''];
+  const contentRow = [contentArr.length ? contentArr : ''];
 
-  // 2. Background image (row 2)
-  let imageEl = null;
-  const img = element.querySelector('img');
-  if (img) imageEl = img;
-
-  // 3. Content cell (row 3): heading, subheading, CTA
-  const contentCellItems = [];
-  // Heading: h2.xps-card-tile-title
-  const heading = element.querySelector('h2.xps-card-tile-title');
-  if (heading) contentCellItems.push(heading);
-  // Subheading: p inside .xps-card-tile-description
-  const subheading = element.querySelector('.xps-card-tile-description p');
-  if (subheading) contentCellItems.push(subheading);
-  // CTA: a inside .xps-card-tile-button-wrapper
-  const cta = element.querySelector('.xps-card-tile-button-wrapper a');
-  if (cta) contentCellItems.push(cta);
-
-  // 4. Table rows
-  const rows = [
+  // 4. Create the table
+  const table = WebImporter.DOMUtils.createTable([
     headerRow,
-    [imageEl ? imageEl : ''],
-    [contentCellItems]
-  ];
+    imageRow,
+    contentRow,
+  ], document);
 
-  // 5. Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-
-  // 6. Replace the original element
-  element.replaceWith(block);
+  // 5. Replace the original element with the block table
+  element.replaceWith(table);
 }
