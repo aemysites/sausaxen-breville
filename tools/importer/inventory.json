@@ -1,0 +1,874 @@
+{
+  "fragments": [
+    {
+      "name": "nav",
+      "path": "/nav",
+      "totalBoxes": 1,
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-00-ddc2a537691afef027314d1f281f813e02da4858",
+          "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-00-ddc2a537691afef027314d1f281f813e02da4858",
+          "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-00-ddc2a537691afef027314d1f281f813e02da4858",
+          "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[1]"
+        }
+      ],
+      "styles": {
+        "height": 24,
+        "background": "rgb(248, 248, 248) none repeat scroll 0% 0% / auto padding-box border-box"
+      }
+    },
+    {
+      "name": "footer",
+      "path": "/footer",
+      "totalBoxes": 1,
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-40-b03ef818d376f228411b223fabedace1cdc04549",
+          "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[3]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-39-b03ef818d376f228411b223fabedace1cdc04549",
+          "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[3]"
+        },
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-08-b03ef818d376f228411b223fabedace1cdc04549",
+          "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[3]"
+        }
+      ],
+      "styles": {
+        "background": "rgb(49, 54, 56) none repeat scroll 0% 0% / auto padding-box border-box"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Columns",
+      "cluster": 1,
+      "source": "Columns block",
+      "target": "Columns block (columns1)",
+      "key": "columns1",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-18-396b53496094e3e1433eb2f1804079005f7cb045",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[12]",
+          "section": "section-5"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-15-396b53496094e3e1433eb2f1804079005f7cb045",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[12]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-16-33c14169c521e55642fed7e733414dc8b3d6da9a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[13]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-17-564f8720a20049a3926d2d0322724b68eb5b2d12",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[14]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-18-c0b0f478462e92412161cd955d09faeafebee449",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[15]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-19-441d1a579794350ae6bd62486b7990e4b4e2b328",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[16]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-20-8a2d8f66f28d537a0eb6881d9895fecba269b98d",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[17]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-25-a60510839a129e623020b3f4e767c7ef3126f015",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[21]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-27-87ef5dad2d2985ac9fea25fe0e743dcd16f707ca",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[23]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 2,
+      "source": "Columns block",
+      "target": "Columns block (columns2)",
+      "key": "columns2",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-39-961e344f6ebf55b783002a2716a3ead1ef265471",
+          "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[2]",
+          "section": "section-6"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-38-961e344f6ebf55b783002a2716a3ead1ef265471",
+          "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[2]",
+          "section": "section-6"
+        },
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-07-961e344f6ebf55b783002a2716a3ead1ef265471",
+          "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[2]",
+          "section": "section-6"
+        }
+      ]
+    },
+    {
+      "name": "unknown",
+      "cluster": 3,
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-01-c91597fa0a577dd28ba887bf477080273e4c8e69",
+          "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-01-c91597fa0a577dd28ba887bf477080273e4c8e69",
+          "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-01-c91597fa0a577dd28ba887bf477080273e4c8e69",
+          "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 4,
+      "source": "Cards",
+      "target": "Cards (cards4)",
+      "key": "cards4",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-21-6121feabf104d18f1b20baa0d8da5c38f25b5259",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[14]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 5,
+      "source": "Hero",
+      "target": "Hero (hero5)",
+      "key": "hero5",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-37-d971c423914b0a811f821fe0df56baae9d6e718c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 6,
+      "source": "Carousel",
+      "target": "Carousel (carousel6)",
+      "key": "carousel6",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-32-3edc92c5668de7d006b70d84493c26b4688f79ff",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[22]/div[1]/div[2]",
+          "section": "section-6"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 7,
+      "source": "Carousel",
+      "target": "Carousel (carousel7)",
+      "key": "carousel7",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-35-d5f5f0ce2588b7b7b243e3b58d0d43775816b3a0",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[25]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 8,
+      "source": "Cards",
+      "target": "Cards (cards8)",
+      "key": "cards8",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-10-e2325683122bf2a1799c4fb58b3cc0fb8730183c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 9,
+      "source": "Cards",
+      "target": "Cards (cards9)",
+      "key": "cards9",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-13-bbb4aa82d137014a33268f540aa0c9ff18d94c15",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[8]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 10,
+      "source": "Cards",
+      "target": "Cards (cards10)",
+      "key": "cards10",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-23-229853ec4267f637f4950b0230065862ef194225",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[19]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 11,
+      "source": "Cards",
+      "target": "Cards (cards11)",
+      "key": "cards11",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-23-fd910e3f21fa62e8bf04532e880bf9c84fe3f66e",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[16]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-6"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 12,
+      "source": "Columns block",
+      "target": "Columns block (columns12)",
+      "key": "columns12",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-05-c1053bf05bb0ba4fade9ceed7750b5d156926ee3",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]",
+          "section": "section-3"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 13,
+      "source": "Cards",
+      "target": "Cards (cards13)",
+      "key": "cards13",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-16-2039f17215b727578b10f6c059355da1b732600c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 14,
+      "source": "Cards",
+      "target": "Cards (cards14)",
+      "key": "cards14",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-27-1795380c53131dc3f457adc2de6e937dcabddf52",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[18]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 15,
+      "source": "Hero",
+      "target": "Hero (hero15)",
+      "key": "hero15",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-29-cd0df689de926835441c6fa70282aa56ea996a29",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[25]/div[2]/div[1]/ul[1]/li[3]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 16,
+      "source": "Cards",
+      "target": "Cards (cards16)",
+      "key": "cards16",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-13-f79f80410a8a0d4793cc40899e7d3e18f54b75cd",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 17,
+      "source": "Cards",
+      "target": "Cards (cards17)",
+      "key": "cards17",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-33-d5d9842baf6900a96fef26a17f3af3585f2c7c70",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 18,
+      "source": "Cards",
+      "target": "Cards (cards18)",
+      "key": "cards18",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-08-e2325683122bf2a1799c4fb58b3cc0fb8730183c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "cluster": 19,
+      "source": "Tabs",
+      "target": "Tabs (tabs19)",
+      "key": "tabs19",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-12-8ac0917f791a2efa9f8e1f797d71adcc863a0dfc",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[1]/div[1]/div[1]/div[1]/div[1]",
+          "section": "section-8"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 20,
+      "source": "Cards",
+      "target": "Cards (cards20)",
+      "key": "cards20",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-05-80d561c56096db7501030547ff4cc7ccf34cc1b1",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]/div[1]/div[2]"
+        }
+      ]
+    }
+  ],
+  "outliers": [
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-00-ddc2a537691afef027314d1f281f813e02da4858",
+      "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-02-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-03-caedde121fd5550147e4ce17b5de44d7c0aede4a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[2]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-04-38f357559dd6e76c0705e551e60d469419cc92fe",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]",
+      "section": "section-4"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-06-2e15373058a499ae5402731850fec34c2c5eeec3",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-07-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-08-3cada5de259767ccd1c975a8e995f87408929587",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[5]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-09-2350f855e88840eab76d2658bb167005ec968837",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-11-4c3d4e94175d36cd03479c076c83a7f49e6148cc",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[7]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-12-6c818fe11fcbe0e7952c609e1551f2997f658b6a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[8]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-14-777d1821f742cd820ab3bd0764c493d036eb7d7a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[9]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-15-ba736dc2b3cb31e19ddcabe14dafbb12ef5f967d",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-17-fffc993c2ca30ff01cb9715b6ffc52df6df99447",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[11]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-19-33c14169c521e55642fed7e733414dc8b3d6da9a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[13]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-20-edf2f99301931c1ba5344c8229210e0c478515d0",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[14]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-22-c0b0f478462e92412161cd955d09faeafebee449",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[15]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-24-355067823e7b04ab3cbc8a796f8d0f3672d204bb",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[16]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ul[1]/li[7]",
+      "section": "section-7"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-25-8a2d8f66f28d537a0eb6881d9895fecba269b98d",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[17]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-26-de4097702695d64dc786a81bebcac00e034c5b42",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[18]/div[1]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-28-268882505f55744155736f259b91c3ee8d13fb03",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[19]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-29-01701fd0305fb113176eec5283e2c7e9cd3f2ebd",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[20]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-30-a60510839a129e623020b3f4e767c7ef3126f015",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[21]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-31-9c53b5a9ada2fcc94e6f2794f504bffb01cc5eda",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[22]/div[1]/div[1]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-33-87ef5dad2d2985ac9fea25fe0e743dcd16f707ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[23]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-34-839ffa2badfa03e751effa6955f264cddb975eab",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[24]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-36-2886e499881cf400bccc4291749c296db2352e53",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[26]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-38-def9ee914b81151f44aaa50ccfcb0aa9b90aae08",
+      "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[1]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-40-b03ef818d376f228411b223fabedace1cdc04549",
+      "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[3]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-00-ddc2a537691afef027314d1f281f813e02da4858",
+      "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-02-caedde121fd5550147e4ce17b5de44d7c0aede4a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[2]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-03-87b45918a3d04ebcec21a5697b34ae3e5b959af7",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-04-ea7b9cb80ea7d01c315cfc773598daceed7daf20",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-06-3cada5de259767ccd1c975a8e995f87408929587",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[5]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-07-2350f855e88840eab76d2658bb167005ec968837",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-09-4c3d4e94175d36cd03479c076c83a7f49e6148cc",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[7]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-10-e65a325980e101b8065312c24999d2eabd404047",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[8]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-11-777d1821f742cd820ab3bd0764c493d036eb7d7a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[9]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-14-fffc993c2ca30ff01cb9715b6ffc52df6df99447",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[11]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-21-90876ac525a3d602a8e714c906a4279978281a75",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[18]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-22-1c5c91aa8a4619be52330e78042d711d96940bff",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[19]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-24-01701fd0305fb113176eec5283e2c7e9cd3f2ebd",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[20]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-26-49a0fedfef03912d20c0c93f4bed15c22d90ffa0",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[22]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-28-839ffa2badfa03e751effa6955f264cddb975eab",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[24]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-30-30ff50a0451276a817e48a395ad775a5e490dde8",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[25]/div[3]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-31-2886e499881cf400bccc4291749c296db2352e53",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[26]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-32-f7e3f437d652f76dda80c657a1d5939e6ebc73ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-34-569165ec0c1f5ad00d765eba08ab102e3b4c5154",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[3]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-35-bd7462ff2cc721cade3ce44ef3db2c552195e555",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[4]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-36-d503e8289206703ad789f7887aad095c83f8ff23",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[28]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-37-def9ee914b81151f44aaa50ccfcb0aa9b90aae08",
+      "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[1]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-39-b03ef818d376f228411b223fabedace1cdc04549",
+      "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[3]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-00-ddc2a537691afef027314d1f281f813e02da4858",
+      "xpath": "/html[1]/body[1]/div[1]/header[1]/div[1]/div[1]/div[1]/div[1]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-02-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-03-87b45918a3d04ebcec21a5697b34ae3e5b959af7",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-04-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-05-3cada5de259767ccd1c975a8e995f87408929587",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[5]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-06-def9ee914b81151f44aaa50ccfcb0aa9b90aae08",
+      "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[1]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-08-b03ef818d376f228411b223fabedace1cdc04549",
+      "xpath": "/html[1]/body[1]/div[1]/footer[1]/div[1]/div[1]/footer[1]/div[1]/div[3]",
+      "section": "section-6"
+    }
+  ],
+  "sections": [
+    {
+      "name": "section-1",
+      "background": "rgb(248, 248, 248) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 3
+    },
+    {
+      "name": "section-2",
+      "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 25
+    },
+    {
+      "name": "section-3",
+      "background": "rgb(245, 245, 245) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 4
+    },
+    {
+      "name": "section-4",
+      "background": "rgb(248, 244, 240) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    },
+    {
+      "name": "section-5",
+      "background": "rgba(49, 54, 56, 0.04) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    },
+    {
+      "name": "section-6",
+      "background": "rgb(49, 54, 56) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 14
+    },
+    {
+      "name": "section-7",
+      "background": "rgba(255, 255, 255, 0.08) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    },
+    {
+      "name": "section-8",
+      "background": "rgba(49, 54, 56, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 1
+    }
+  ]
+}
