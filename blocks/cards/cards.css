@@ -187,7 +187,6 @@
   padding: 0;
 }
 
-/* Use grid for multi-column layout and responsive stacking */
 .cards.cards8 > ul {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -204,7 +203,6 @@
   }
 }
 
-/* Each card is a flex column, items centered horizontally, but not stretched vertically */
 .cards.cards8 > ul > li {
   background-color: #fafafa;
   border-radius: 12px;
@@ -221,7 +219,6 @@
   box-sizing: border-box;
 }
 
-/* Icon container: always provides space (even when missing), aligns with text, margin for separation */
 .cards.cards8 .cards-card-image {
   display: flex;
   align-items: center;
@@ -231,7 +228,6 @@
   min-height: 32px;
 }
 
-/* Icon image: centered, fixed size, visible if present */
 .cards.cards8 .cards-card-image img {
   width: 32px;
   height: 32px;
@@ -240,7 +236,6 @@
   margin: 0 auto;
 }
 
-/* Card text: bold, centered, compact */
 .cards.cards8 .cards-card-body {
   text-align: center;
   margin: 0;
@@ -250,7 +245,6 @@
   justify-content: center;
 }
 
-/* Tweak paragraph for tighter visual grouping */
 .cards.cards8 .cards-card-body p {
   font-weight: 700;
   font-size: 1.08rem;
@@ -260,4 +254,129 @@
   line-height: 1.4;
   letter-spacing: 0.01em;
   padding: 0;
+}
+
+
+.cards.cards9 {
+  padding: 0 16px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Layout: horizontal row of cards, three visible at a time */
+.cards.cards9 > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 410px;
+}
+
+/* Hide additional cards beyond three for desktop/large screens */
+@media (width >= 900px) {
+  .cards.cards9 > ul > li:nth-child(n+4) {
+    display: none;
+  }
+}
+
+/* Stack cards vertically for narrow screens */
+@media (width <= 800px) {
+  .cards.cards9 > ul {
+    flex-direction: column;
+    gap: 24px;
+    overflow-x: unset;
+    min-height: unset;
+  }
+
+  .cards.cards9 > ul > li {
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Card container styles */
+.cards.cards9 > ul > li {
+  background: transparent;
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 6%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 387px;
+  max-width: 387px;
+  height: 410px;
+  flex: 0 0 387px;
+  position: relative;
+}
+
+/* Card image area: show image if present, remove gray placeholder */
+.cards.cards9 .cards-card-image {
+  position: relative;
+  width: 100%;
+  height: 236px;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card image itself: fill area */
+.cards.cards9 .cards-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* Card body (title & subtitle) tightly stacked below image */
+.cards.cards9 .cards-card-body {
+  padding: 16px 24px 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  font-size: 16px;
+  color: #757575;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Title styling */
+.cards.cards9 .cards-card-body strong {
+  font-weight: bold;
+  font-size: 20px;
+  color: #000;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Subtitle/Author styling */
+
+/* Remove line breaks for tight stacking */
+.cards.cards9 .cards-card-body br {
+  display: none;
+}
+
+/* Responsive: smaller card/image body on small screens */
+@media (width <= 800px) {
+  .cards.cards9 .cards-card-image {
+    height: 180px;
+  }
+
+  .cards.cards9 .cards-card-body {
+    padding: 14px 12px 0;
+  }
 }
