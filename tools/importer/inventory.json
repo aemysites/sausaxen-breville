@@ -398,7 +398,7 @@
       ]
     },
     {
-      "name": "new",
+      "name": "Hero",
       "cluster": 25,
       "instances": [
         {
