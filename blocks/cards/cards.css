@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -34,7 +35,6 @@
   padding: 0;
 }
 
-/* Multi-column grid, responsive */
 .cards.cards7 > ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -56,7 +56,6 @@
   }
 }
 
-/* Card container: balanced padding/height */
 .cards.cards7 > ul > li {
   border: 1px solid #e6e6e6;
   background: #fff;
@@ -71,7 +70,6 @@
   justify-content: flex-start;
 }
 
-/* IMAGE AREA: ensure images always show and are centered */
 .cards.cards7 .cards-card-image {
   display: flex;
   align-items: center;
@@ -91,7 +89,6 @@
   box-shadow: none;
 }
 
-/* Card Body: vertical stack, price/title row flex-horizontal */
 .cards.cards7 .cards-card-body {
   width: 100%;
   display: flex;
@@ -104,7 +101,6 @@
   margin-bottom: 4px;
 }
 
-/* Title/Price row: flex row, visually side by side */
 .cards.cards7 .cards-card-body h3 {
   font-size: 16px;
   font-weight: 600;
@@ -125,7 +121,6 @@
   padding-left: 16px;
 }
 
-/* Description: tight below title row */
 .cards.cards7 .cards-card-body p {
   font-size: 13px;
   color: #666;
@@ -134,7 +129,6 @@
   font-weight: 400;
 }
 
-/* Swatch Row: visually bold and tight spacing */
 .cards.cards7 .cards-card-body ul {
   display: flex;
   flex-direction: row;
@@ -165,7 +159,6 @@
   display: block;
 }
 
-/* Responsive tweaks for smaller screens */
 @media (width <= 600px) {
   .cards.cards7 {
     padding: 0;
@@ -185,4 +178,86 @@
     max-width: 110px;
     height: 60px;
   }
+}
+
+
+.cards.cards8 {
+  background-color: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* Use grid for multi-column layout and responsive stacking */
+.cards.cards8 > ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (width <= 900px) {
+  .cards.cards8 > ul {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Each card is a flex column, items centered horizontally, but not stretched vertically */
+.cards.cards8 > ul > li {
+  background-color: #fafafa;
+  border-radius: 12px;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 24px 18px 20px;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+/* Icon container: always provides space (even when missing), aligns with text, margin for separation */
+.cards.cards8 .cards-card-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 100%;
+  min-height: 32px;
+}
+
+/* Icon image: centered, fixed size, visible if present */
+.cards.cards8 .cards-card-image img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Card text: bold, centered, compact */
+.cards.cards8 .cards-card-body {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tweak paragraph for tighter visual grouping */
+.cards.cards8 .cards-card-body p {
+  font-weight: 700;
+  font-size: 1.08rem;
+  text-align: center;
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  padding: 0;
 }
