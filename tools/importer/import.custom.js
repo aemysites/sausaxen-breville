@@ -37,4 +37,32 @@ export const customElements = [];
 /**
  * Custom transformers
  */
-export const customTransformers = {};
+export const customTransformers = {
+  /**
+   * Removes unwanted navigation and header elements from the page
+   * @param {Document} document - The document to transform
+   */
+  inject: (hookName, element, context) => {
+    if (hookName === 'beforeTransform') {
+      try {
+        // Try to get document from context, element, or global
+        const doc = context?.document || element?.ownerDocument || element?.document || document;
+        
+        if (doc) {
+          // Check and remove .Header
+                   doc.querySelector(".header")?.remove();
+                   doc.querySelector(".footer")?.remove();
+                   doc.querySelector(".ot-floating-button__front")?.remove();
+                   doc.querySelector(".ot-sdk-container")?.remove();
+                   doc.querySelector(".fancybox-wrap")?.remove();
+          
+          console.log('All element removals completed');
+        } else {
+          console.log('Debug: document is null, context:', context, 'element:', element);
+        }
+      } catch (e) {
+        // noop
+      }
+    }
+  },
+};
