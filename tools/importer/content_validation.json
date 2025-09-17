@@ -1,0 +1,1005 @@
+{
+  "fragments": [],
+  "blocks": [
+    {
+      "name": "Columns",
+      "cluster": 1,
+      "source": "Columns block",
+      "target": "Columns block (columns1)",
+      "key": "columns1",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-14-396b53496094e3e1433eb2f1804079005f7cb045",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[12]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-18-441d1a579794350ae6bd62486b7990e4b4e2b328",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[16]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-24-a60510839a129e623020b3f4e767c7ef3126f015",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[21]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 2,
+      "source": "Columns block",
+      "target": "Columns block (columns2)",
+      "key": "columns2",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-17-c0b0f478462e92412161cd955d09faeafebee449",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[15]"
+        },
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-19-8a2d8f66f28d537a0eb6881d9895fecba269b98d",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[17]"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 3,
+      "source": "Carousel",
+      "target": "Carousel (carousel3)",
+      "key": "carousel3",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-34-d5f5f0ce2588b7b7b243e3b58d0d43775816b3a0",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[25]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 4,
+      "source": "Hero",
+      "target": "Hero (hero4)",
+      "key": "hero4",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-36-d971c423914b0a811f821fe0df56baae9d6e718c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 6,
+      "source": "Columns block",
+      "target": "Columns block (columns6)",
+      "key": "columns6",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-15-2039f17215b727578b10f6c059355da1b732600c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 7,
+      "source": "Cards",
+      "target": "Cards (cards7)",
+      "key": "cards7",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-26-1795380c53131dc3f457adc2de6e937dcabddf52",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[18]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 8,
+      "source": "Cards",
+      "target": "Cards (cards8)",
+      "key": "cards8",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-32-d5d9842baf6900a96fef26a17f3af3585f2c7c70",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[2]",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_27__div_2",
+              "differences": [
+                {
+                  "change_type": "equal",
+                  "text": "Personalized Tutorials and Support Free shipping on orders over $49 Master your appliance with our expert Masterclasses Access and manage your warranty"
+                }
+              ],
+              "dissimilarity_score": -0.0
+            }
+          ],
+          "similarity_score": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 9,
+      "source": "Cards",
+      "target": "Cards (cards9)",
+      "key": "cards9",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-20-6121feabf104d18f1b20baa0d8da5c38f25b5259",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[14]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 10,
+      "source": "Carousel",
+      "target": "Carousel (carousel10)",
+      "key": "carousel10",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-31-3edc92c5668de7d006b70d84493c26b4688f79ff",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[22]/div[1]/div[2]",
+          "section": "section-5"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 11,
+      "source": "Cards",
+      "target": "Cards (cards11)",
+      "key": "cards11",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-22-fd910e3f21fa62e8bf04532e880bf9c84fe3f66e",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[16]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-5"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 12,
+      "source": "Cards",
+      "target": "Cards (cards12)",
+      "key": "cards12",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-12-bbb4aa82d137014a33268f540aa0c9ff18d94c15",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[8]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 13,
+      "source": "Cards",
+      "target": "Cards (cards13)",
+      "key": "cards13",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-22-229853ec4267f637f4950b0230065862ef194225",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[19]/div[1]/div[2]",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_19__div__div_2",
+              "differences": [
+                {
+                  "change_type": "equal",
+                  "text": "Damson Blue Brass Sea Salt Brass Olive Tapenade Brass Noir Black Truffle Sea Salt Damson Blue Black Stainless Steel Almond Nougat Olive Tapenade Red Velvet Cake"
+                }
+              ],
+              "dissimilarity_score": -0.0
+            }
+          ],
+          "similarity_score": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 14,
+      "source": "Hero",
+      "target": "Hero (hero14)",
+      "key": "hero14",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-28-cd0df689de926835441c6fa70282aa56ea996a29",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[25]/div[2]/div[1]/ul[1]/li[3]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 15,
+      "source": "Cards",
+      "target": "Cards (cards15)",
+      "key": "cards15",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-12-f79f80410a8a0d4793cc40899e7d3e18f54b75cd",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[1]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-3",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_10__div__div__div__div__div_2",
+              "differences": [
+                {
+                  "change_type": "deletion",
+                  "text": "the Oracle\u00ae Jet "
+                },
+                {
+                  "change_type": "equal",
+                  "text": "the Oracle\u00ae Jet $1,999.95 Cold Extraction Enabled The new standard in automation, performance & speed"
+                },
+                {
+                  "change_type": "deletion",
+                  "text": ". $1,999.95 the Bambino\u00ae Plus "
+                },
+                {
+                  "change_type": "insertion",
+                  "text": ". "
+                },
+                {
+                  "change_type": "equal",
+                  "text": "the Bambino\u00ae Plus $499.95 Serious espresso. Plus auto milk"
+                },
+                {
+                  "change_type": "deletion",
+                  "text": ". $499.95 the Barista Express\u00ae Impress "
+                },
+                {
+                  "change_type": "insertion",
+                  "text": ". "
+                },
+                {
+                  "change_type": "equal",
+                  "text": "the Barista Express\u00ae Impress $799.95 Impressive Puck. Less mess. Less fuss"
+                },
+                {
+                  "change_type": "deletion",
+                  "text": ". $799"
+                },
+                {
+                  "change_type": "equal",
+                  "text": "."
+                },
+                {
+                  "change_type": "deletion",
+                  "text": "95"
+                }
+              ],
+              "dissimilarity_score": 0.04
+            }
+          ],
+          "similarity_score": 0.96
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "cluster": 16,
+      "source": "Tabs",
+      "target": "Tabs (tabs16)",
+      "key": "tabs16",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-11-8ac0917f791a2efa9f8e1f797d71adcc863a0dfc",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[1]/div[1]/div[1]/div[1]/div[1]",
+          "section": "section-7",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_10__div__div__div__div__div",
+              "differences": [
+                {
+                  "change_type": "equal",
+                  "text": "Coffee & Espresso Drip Coffee Coffee & Espresso Accessories Ovens, Air Fryers & Microwaves Juicers & Blenders Grills, Presses & Toasters Cookers Coffee Grinders Water & Tea Food Prep Specialty Appliances Commercial"
+                }
+              ],
+              "dissimilarity_score": -0.0
+            }
+          ],
+          "similarity_score": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 17,
+      "source": "Cards",
+      "target": "Cards (cards17)",
+      "key": "cards17",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-07-e2325683122bf2a1799c4fb58b3cc0fb8730183c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[2]",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_6__div_2",
+              "differences": [
+                {
+                  "change_type": "equal",
+                  "text": "Espresso machine quiz Countertop oven quiz Juicer & blender quiz"
+                }
+              ],
+              "dissimilarity_score": 0.0
+            }
+          ],
+          "similarity_score": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 18,
+      "source": "Cards",
+      "target": "Cards (cards18)",
+      "key": "cards18",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-09-e2325683122bf2a1799c4fb58b3cc0fb8730183c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 19,
+      "source": "Cards",
+      "target": "Cards (cards19)",
+      "key": "cards19",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-04-80d561c56096db7501030547ff4cc7ccf34cc1b1",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]/div[1]/div[2]",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_4__div__div_2",
+              "differences": [
+                {
+                  "change_type": "equal",
+                  "text": "Espresso Ovens & Air Fryers Soda & Sparkling Water Makers Espresso Machine Cleaning Supplies Juicers Food Processors Drip Coffee Blenders Sous Vide Pizza Ovens Commercial"
+                }
+              ],
+              "dissimilarity_score": 0.0
+            }
+          ],
+          "similarity_score": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 20,
+      "source": "Columns block",
+      "target": "Columns block (columns20)",
+      "key": "columns20",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-04-c1053bf05bb0ba4fade9ceed7750b5d156926ee3",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 21,
+      "source": "Columns block",
+      "target": "Columns block (columns21)",
+      "key": "columns21",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-17-396b53496094e3e1433eb2f1804079005f7cb045",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[12]",
+          "section": "section-4"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 22,
+      "source": "Columns block",
+      "target": "Columns block (columns22)",
+      "key": "columns22",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-26-87ef5dad2d2985ac9fea25fe0e743dcd16f707ca",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[23]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 23,
+      "source": "Columns block",
+      "target": "Columns block (columns23)",
+      "key": "columns23",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-16-564f8720a20049a3926d2d0322724b68eb5b2d12",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[14]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 24,
+      "source": "Hero",
+      "target": "Hero (hero24)",
+      "key": "hero24",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-15-33c14169c521e55642fed7e733414dc8b3d6da9a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[13]",
+          "differences": [
+            {
+              "element_id": "html__body__div__main__div__div__div_13",
+              "differences": [
+                {
+                  "change_type": "equal",
+                  "text": "Explore the Luxe Brewer\u2122 Range Precision brewing, Cold Brew mode, customizable settings, and dual filter options\u2014crafted coffee from glass or thermal carafes, all in one smart system. Shop the Range"
+                }
+              ],
+              "dissimilarity_score": -0.0
+            }
+          ],
+          "similarity_score": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 25,
+      "source": "Hero",
+      "target": "Hero (hero25)",
+      "key": "hero25",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-01-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 26,
+      "source": "Hero",
+      "target": "Hero (hero26)",
+      "key": "hero26",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us",
+          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+          "uuid": "340ce710-01-caedde121fd5550147e4ce17b5de44d7c0aede4a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 27,
+      "source": "Hero",
+      "target": "Hero (hero27)",
+      "key": "hero27",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-01-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
+        }
+      ]
+    },
+    {
+      "name": "Accordion",
+      "cluster": 28,
+      "source": "Accordion",
+      "target": "Accordion (accordion28)",
+      "key": "accordion28",
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-03-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]"
+        }
+      ]
+    }
+  ],
+  "outliers": [
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-02-caedde121fd5550147e4ce17b5de44d7c0aede4a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[2]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-03-38f357559dd6e76c0705e551e60d469419cc92fe",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]",
+      "section": "section-2"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-05-2e15373058a499ae5402731850fec34c2c5eeec3",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-06-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]",
+      "section": "section-1"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-07-3cada5de259767ccd1c975a8e995f87408929587",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[5]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-08-2350f855e88840eab76d2658bb167005ec968837",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-10-4c3d4e94175d36cd03479c076c83a7f49e6148cc",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[7]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-11-6c818fe11fcbe0e7952c609e1551f2997f658b6a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[8]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-13-777d1821f742cd820ab3bd0764c493d036eb7d7a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[9]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-14-ba736dc2b3cb31e19ddcabe14dafbb12ef5f967d",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[10]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-16-fffc993c2ca30ff01cb9715b6ffc52df6df99447",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[11]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-18-33c14169c521e55642fed7e733414dc8b3d6da9a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[13]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-19-edf2f99301931c1ba5344c8229210e0c478515d0",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[14]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-21-c0b0f478462e92412161cd955d09faeafebee449",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[15]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-23-355067823e7b04ab3cbc8a796f8d0f3672d204bb",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[16]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ul[1]/li[7]",
+      "section": "section-6"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-24-8a2d8f66f28d537a0eb6881d9895fecba269b98d",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[17]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-25-de4097702695d64dc786a81bebcac00e034c5b42",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[18]/div[1]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-27-268882505f55744155736f259b91c3ee8d13fb03",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[19]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-28-01701fd0305fb113176eec5283e2c7e9cd3f2ebd",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[20]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-29-a60510839a129e623020b3f4e767c7ef3126f015",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[21]",
+      "section": "section-5"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-30-9c53b5a9ada2fcc94e6f2794f504bffb01cc5eda",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[22]/div[1]/div[1]",
+      "section": "section-5"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-32-87ef5dad2d2985ac9fea25fe0e743dcd16f707ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[23]",
+      "section": "section-5"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-33-839ffa2badfa03e751effa6955f264cddb975eab",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[24]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/brevilleplus",
+      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+      "uuid": "08d7cf8b-35-2886e499881cf400bccc4291749c296db2352e53",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[26]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-02-87b45918a3d04ebcec21a5697b34ae3e5b959af7",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-03-ea7b9cb80ea7d01c315cfc773598daceed7daf20",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-05-3cada5de259767ccd1c975a8e995f87408929587",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[5]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-06-2350f855e88840eab76d2658bb167005ec968837",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[6]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-08-4c3d4e94175d36cd03479c076c83a7f49e6148cc",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[7]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-09-e65a325980e101b8065312c24999d2eabd404047",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[8]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-10-777d1821f742cd820ab3bd0764c493d036eb7d7a",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[9]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-13-fffc993c2ca30ff01cb9715b6ffc52df6df99447",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[11]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-20-90876ac525a3d602a8e714c906a4279978281a75",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[18]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-21-1c5c91aa8a4619be52330e78042d711d96940bff",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[19]/div[1]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-23-01701fd0305fb113176eec5283e2c7e9cd3f2ebd",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[20]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-25-49a0fedfef03912d20c0c93f4bed15c22d90ffa0",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[22]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-27-839ffa2badfa03e751effa6955f264cddb975eab",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[24]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-29-30ff50a0451276a817e48a395ad775a5e490dde8",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[25]/div[3]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-30-2886e499881cf400bccc4291749c296db2352e53",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[26]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-31-f7e3f437d652f76dda80c657a1d5939e6ebc73ca",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[1]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-33-569165ec0c1f5ad00d765eba08ab102e3b4c5154",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[3]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-34-bd7462ff2cc721cade3ce44ef3db2c552195e555",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[27]/div[4]"
+    },
+    {
+      "url": "https://www.breville.com/en-us",
+      "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
+      "uuid": "340ce710-35-d503e8289206703ad789f7887aad095c83f8ff23",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[28]",
+      "section": "section-3"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-02-87b45918a3d04ebcec21a5697b34ae3e5b959af7",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]"
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+      "uuid": "447b2b9c-04-3cada5de259767ccd1c975a8e995f87408929587",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[5]"
+    }
+  ],
+  "pages": [
+    {
+      "url": "https://www.breville.com/en-us",
+      "differences": [
+        {
+          "change_type": "equal",
+          "text": "the Oracle\u00ae Dual Boiler Ultimate Automation. Ultimate Performance. Learn More Buy Now Shop by category Espresso Ovens & Air Fryers Soda & Sparkling Water Makers Espresso Machine Cleaning Supplies Juicers Food Processors Drip Coffee Blenders Sous Vide Pizza Ovens Commercial Find your perfect appliance with a few easy questions Espresso machine quiz Countertop oven quiz Juicer & blender quiz Our Best Sellers Coffee & Espresso Drip Coffee Coffee & Espresso Accessories Ovens, Air Fryers & Microwaves Juicers & Blenders Grills, Presses & Toasters Cookers Coffee Grinders Water & Tea Food Prep Specialty Appliances Commercial the Oracle\u00ae Jet"
+        },
+        {
+          "change_type": "deletion",
+          "text": " the Oracle\u00ae Jet"
+        },
+        {
+          "change_type": "equal",
+          "text": " $1,999.95 Cold Extraction Enabled The new standard in automation, performance & speed"
+        },
+        {
+          "change_type": "deletion",
+          "text": ". $1,999.95 the Bambino\u00ae Plus "
+        },
+        {
+          "change_type": "insertion",
+          "text": ". "
+        },
+        {
+          "change_type": "equal",
+          "text": "the Bambino\u00ae Plus $499.95 Serious espresso. Plus auto milk"
+        },
+        {
+          "change_type": "deletion",
+          "text": ". $499.95 the Barista Express\u00ae Impress "
+        },
+        {
+          "change_type": "insertion",
+          "text": ". "
+        },
+        {
+          "change_type": "equal",
+          "text": "the Barista Express\u00ae Impress $799.95 Impressive Puck. Less mess. Less fuss"
+        },
+        {
+          "change_type": "deletion",
+          "text": ". $799.95 "
+        },
+        {
+          "change_type": "insertion",
+          "text": ". "
+        },
+        {
+          "change_type": "equal",
+          "text": "Earn up to $200 cashback with the Fast-Track Barista Pack. Buy an espresso or coffee machine and get 2 free bags of beans and up to $200 cashback when you order from beanz.com. *T&C apply Get started Explore the Luxe Brewer\u2122 Range Precision brewing, Cold Brew mode, customizable settings, and dual filter options\u2014crafted coffee from glass or thermal carafes, all in one smart system. Shop the Range Cook confidently with Breville+ Find free recipes, classes and guides designed to help you cook faster, smarter, and more deliciously. Tested and tuned by our resident experts for your Breville appliance. Learn More Introducing the Brass Accents Range Elevate your kitchen with a perfect blend of sophistication and modern luxury. Featuring an exclusive brass-colored finish, this stunning range adds a refined touch to any countertop. Available in Luxe colors: Damson Blue, Olive Tapenade, and Sea Salt. Shop the collection "
+        },
+        {
+          "change_type": "insertion",
+          "text": "https://breville.scene7.com/is/content/brevilleprod/Brass_GIF_Homepage_Spit_Teaser_CA "
+        },
+        {
+          "change_type": "equal",
+          "text": "Introducing the Craft Collection\u2122 Elevate your espresso experience with our premium collection of espresso accessories, designed for optimal control and performance, and accented with rich American walnut wood. Learn More Keep Your Espresso Machine in Peak Condition Protect your Espresso appliance with genuine cleaning supplies designed for peak performance. Our descaling solutions, tablets, and filters prevent buildup and ensure every shot stays smooth and balanced. Shop directly from Breville for guaranteed quality. Shop All Cleaning Supplies"
+        },
+        {
+          "change_type": "insertion",
+          "text": " https://breville.scene7.com/is/content/brevilleprod/Product_hub_Cleaning_video_option1-1"
+        },
+        {
+          "change_type": "equal",
+          "text": " Which color matches your culinary style? Shop all colors Damson Blue Brass Sea Salt Brass Olive Tapenade Brass Noir Black Truffle Sea Salt Damson Blue Black Stainless Steel Almond Nougat Olive Tapenade Red Velvet Cake an Aboriginal Culinary Journey\u2122 Experience, celebrate and be part of maintaining the world\u2019s oldest living food culture while giving back to the artists and communities who have shared their art and stories for the collection. Shop The Collection Coffee beans from the best roasters in the country Beanz.com offers 270+ specialty coffees at roaster-direct prices, always freshly roasted and delivered to your door. Now you can save up to 20% with our new Large Bag sizes. Explore Beanz.com Popular Recipes Hash Brown Waffles with Tomato Salsa Tailored for the Smart Waffle\u2122 Pro 4 Slice Serve these crispy, savory waffles with the suggested tomato salsa or try a latke-inspired take and dollop with sour cream and applesauce. View recipe Popular Recipes Air-Fried Asparagus and Peas with Feta and Mint Tailored for the Smart Oven\u00ae Air Fryer Pro This dish is delicous with fresh peas in springtime but frozen peas make it a year-round pleasure. Serve as a bright side to grilled fish or steak. View recipe "
+        },
+        {
+          "change_type": "insertion",
+          "text": "Hero (hero14) "
+        },
+        {
+          "change_type": "equal",
+          "text": "Popular Recipes Turbo Chicken Breast with Gnocchi and Mushroom Ragu Tailored for the Joule\u00ae Turbo Sous Vide One of the benefits of sous vide cooking is the hands-off time. While the chicken cooks, whip up a one-pot mushroom ragu. Add fluffy gnocchi for a Tuscan-inspired feast. View recipe Popular Recipes Vanilla Dirty Iced Matcha Tailored for the Oracle\u2122 Jet Amp up your matcha latte with a double shot of cold espresso and a hint of vanilla then marvel at the perfect ratios and pretty layers. View recipe Popular Recipes Hash Brown Waffles with Tomato Salsa Tailored for the Smart Waffle\u2122 Pro 4 Slice Serve these crispy, savory waffles with the suggested tomato salsa or try a latke-inspired take and dollop with sour cream and applesauce. View recipe Popular Recipes Air-Fried Asparagus and Peas with Feta and Mint Tailored for the Smart Oven\u00ae Air Fryer Pro This dish is delicous with fresh peas in springtime but frozen peas make it a year-round pleasure. Serve as a bright side to grilled fish or steak. View recipe Popular Recipes Turbo Chicken Breast with Gnocchi and Mushroom Ragu Tailored for the Joule\u00ae Turbo Sous Vide One of the benefits of sous vide cooking is the hands-off time. While the chicken cooks, whip up a one-pot mushroom ragu. Add fluffy gnocchi for a Tuscan-inspired feast. View recipe Popular Recipes Vanilla Dirty Iced Matcha Tailored for the Oracle\u2122 Jet Amp up your matcha latte with a double shot of cold espresso and a hint of vanilla then marvel at the perfect ratios and pretty layers. View recipe My Breville Create a MyBreville account and get access to all these amazing features. Personalized Tutorials and Support Free shipping on orders over $49 Master your appliance with our expert Masterclasses Access and manage your warranty Join My Breville"
+        },
+        {
+          "change_type": "insertion",
+          "text": " Find a retailer Blog Remanufactured Products Register a product Sign Up United States Be the first to know about our product releases! Enter Your Email You agree to receive promotions, surveys and more from us and our affiliated brands and you have read our Privacy Policy. You can unsubscribe at any time. Sign Up \u00a9 2025 Breville Pty Limited. All rights reserved. Support Register a Product Support Center Breville Innovation Program FAQ Warranty Return Policy Retailer Terms & Conditions Promotional Terms & Conditions Job Candidate Policy Careers Open Source Acknowledgments Breville Cookware Chemicals Disclosure the Fast-Track Barista Pack T&Cs About Breville About Us Patents Breville Affiliates Program Diversity & Inclusion Social Responsibility Modern Slavery Act Terms Of Use EULA Privacy Notice Cookie Notice Site Map \u00a9 2025 Breville Pty Limited. All rights reserved. About Cookies On This Site We use cookies and other tracking technologies for purposes including to enhance your browsing experience, provide personalized content and social media features, serve our marketing and advertising, and analyze website traffic. By continuing to use our website, you consent to the use of tracking technologies as described in our cookie notice . Privacy Preference Center When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer. More information Allow All Manage Consent Preferences Strictly Necessary Cookies Always Active These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information. Sale of Personal Data [x] Sale of Personal Data Under the California Consumer Privacy Act, you have the right to opt-out of the sale of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale of personal information by using this toggle switch. If you opt out we will not be able to offer you personalised ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link. If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences. Targeting Cookies [ ] Switch Label label These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising. Social Media Cookies [ ] Switch Label label These cookies are set by a range of social media services that we have added to the site to enable you to share our content with your friends and networks. They are capable of tracking your browser across other sites and building up a profile of your interests. This may impact the content and messages you see on other websites you visit. If you do not allow these cookies you may not be able to use or see these sharing tools. Performance Cookies [ ] Switch Label label These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance. Cookie List Search\u2026 Clear [ ] checkbox label label Apply Cancel Consent Leg.Interest [ ] checkbox label label [ ] checkbox label label [ ] checkbox label label Reject All Confirm My Choices"
+        }
+      ],
+      "similarity_score": 0.7957009519901893
+    },
+    {
+      "url": "https://www.breville.com/en-us/sales",
+      "differences": [
+        {
+          "change_type": "equal",
+          "text": "Sales & Offers Filter Sort by 0 Products Filters Sort by"
+        },
+        {
+          "change_type": "deletion",
+          "text": " "
+        },
+        {
+          "change_type": "insertion",
+          "text": " [ ] "
+        },
+        {
+          "change_type": "equal",
+          "text": "High to Low Price"
+        },
+        {
+          "change_type": "deletion",
+          "text": " "
+        },
+        {
+          "change_type": "insertion",
+          "text": " [ ] "
+        },
+        {
+          "change_type": "equal",
+          "text": "Low to High Price"
+        },
+        {
+          "change_type": "deletion",
+          "text": " "
+        },
+        {
+          "change_type": "insertion",
+          "text": " [ ] "
+        },
+        {
+          "change_type": "equal",
+          "text": "Relevance Show 0 Results Frequently asked What\u2019s on sale? How long does the sale last? How much can I save? How do I find out about upcoming discounts and offers? Do sale items qualify for free shipping? Are sale items returnable"
+        },
+        {
+          "change_type": "deletion",
+          "text": "?"
+        },
+        {
+          "change_type": "insertion",
+          "text": "? Find a retailer Blog Remanufactured Products Register a product Sign Up United States Be the first to know about our product releases! Enter Your Email You agree to receive promotions, surveys and more from us and our affiliated brands and you have read our Privacy Policy. You can unsubscribe at any time. Sign Up \u00a9 2025 Breville Pty Limited. All rights reserved. Support Register a Product Support Center Breville Innovation Program FAQ Warranty Return Policy Retailer Terms & Conditions Promotional Terms & Conditions Job Candidate Policy Careers Open Source Acknowledgments Breville Cookware Chemicals Disclosure the Fast-Track Barista Pack T&Cs About Breville About Us Patents Breville Affiliates Program Diversity & Inclusion Social Responsibility Modern Slavery Act Terms Of Use EULA Privacy Notice Cookie Notice Site Map \u00a9 2025 Breville Pty Limited. All rights reserved. About Cookies On This Site We use cookies and other tracking technologies for purposes including to enhance your browsing experience, provide personalized content and social media features, serve our marketing and advertising, and analyze website traffic. By continuing to use our website, you consent to the use of tracking technologies as described in our cookie notice . Privacy Preference Center When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer. More information Allow All Manage Consent Preferences Strictly Necessary Cookies Always Active These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information. Sale of Personal Data [x] Sale of Personal Data Under the California Consumer Privacy Act, you have the right to opt-out of the sale of your personal information to third parties. These cookies collect information for analytics and to personalize your experience with targeted ads. You may exercise your right to opt out of the sale of personal information by using this toggle switch. If you opt out we will not be able to offer you personalised ads and will not hand over your personal information to any third parties. Additionally, you may contact our legal department for further clarification about your rights as a California consumer by using this Exercise My Rights link. If you have enabled privacy controls on your browser (such as a plugin), we have to take that as a valid request to opt-out. Therefore we would not be able to track your activity through the web. This may affect our ability to personalize ads according to your preferences. Targeting Cookies [ ] Switch Label label These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising. Social Media Cookies [ ] Switch Label label These cookies are set by a range of social media services that we have added to the site to enable you to share our content with your friends and networks. They are capable of tracking your browser across other sites and building up a profile of your interests. This may impact the content and messages you see on other websites you visit. If you do not allow these cookies you may not be able to use or see these sharing tools. Performance Cookies [ ] Switch Label label These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance. Cookie List Search\u2026 Clear [ ] checkbox label label Apply Cancel Consent Leg.Interest [ ] checkbox label label [ ] checkbox label label [ ] checkbox label label Reject All Confirm My Choices"
+        }
+      ],
+      "similarity_score": 0.2754501365348268
+    }
+  ]
+}
