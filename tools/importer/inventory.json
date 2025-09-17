@@ -396,15 +396,21 @@
           "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[13]"
         }
       ]
+    },
+    {
+      "name": "new",
+      "cluster": 25,
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/brevilleplus",
+          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
+          "uuid": "08d7cf8b-01-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
+        }
+      ]
     }
   ],
   "outliers": [
-    {
-      "url": "https://www.breville.com/en-us/brevilleplus",
-      "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
-      "uuid": "08d7cf8b-01-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
-      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
-    },
     {
       "url": "https://www.breville.com/en-us/brevilleplus",
       "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
