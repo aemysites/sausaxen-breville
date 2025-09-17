@@ -1,28 +1,49 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: find the main split teaser area
+  // Defensive: find the left and right column containers
+  // The structure is: split-teaser-wrapper > grid-container-fluid > grid-container > xps-splitteaser > teaser > left/right
+  // We want the image (left) and the content (right)
+
+  // Find the main splitteaser block
   const splitTeaser = element.querySelector('.xps-splitteaser');
   if (!splitTeaser) return;
 
-  // Find the left (image/media) and right (content) columns
-  const leftCol = splitTeaser.querySelector('.xps-teaser.left');
-  const rightCol = splitTeaser.querySelector('.xps-teaser__content');
+  // Find the teaser (contains left and right)
+  const teaser = splitTeaser.querySelector('.teaser');
+  if (!teaser) return;
 
-  // Defensive: if either column is missing, abort
-  if (!leftCol || !rightCol) return;
+  // Left column: image
+  const leftCol = teaser.querySelector('.xps-teaser.left');
+  let leftCellContent = '';
+  if (leftCol) {
+    // Find the image inside leftCol
+    const img = leftCol.querySelector('img');
+    if (img) {
+      leftCellContent = img;
+    }
+  }
 
-  // Header row as required
+  // Right column: text content
+  let rightCellContent = '';
+  const rightContent = teaser.querySelector('.xps-teaser__content');
+  if (rightContent) {
+    // Use the card tile (contains h2 and description)
+    const cardTile = rightContent.querySelector('.xps-card-tile');
+    if (cardTile) {
+      rightCellContent = cardTile;
+    } else {
+      rightCellContent = rightContent;
+    }
+  }
+
+  // Build the table rows
   const headerRow = ['Columns block (columns21)'];
+  const contentRow = [leftCellContent, rightCellContent];
+  const cells = [headerRow, contentRow];
 
-  // Second row: two columns, left is image/media, right is content
-  const cellsRow = [leftCol, rightCol];
+  // Create the table block
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Build the table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    cellsRow,
-  ], document);
-
-  // Replace the original element with the block table
-  element.replaceWith(table);
+  // Replace the original element with the block
+  element.replaceWith(block);
 }

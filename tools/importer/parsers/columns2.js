@@ -1,51 +1,44 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find left (text) and right (media) columns
-  let leftCol = element.querySelector('.xps-teaser__content');
-  let rightCol = element.querySelector('.xps-teaser--media');
-
-  // Fallbacks for robustness
-  if (!leftCol) {
-    leftCol = element.querySelector('.xps-card-tile-content-left') || element;
-  }
-  if (!rightCol) {
-    rightCol = element.querySelector('.xps-teaser--media') || null;
+  // Helper: create a link for video src
+  function createVideoLink(videoEl) {
+    const src = videoEl.getAttribute('src');
+    if (!src) return null;
+    const a = document.createElement('a');
+    a.href = src;
+    a.textContent = src;
+    return a;
   }
 
-  // --- LEFT COLUMN: Gather all relevant content as a single block ---
-  let leftContent = [];
-  if (leftCol) {
-    // Collect all direct children (to preserve structure and all text)
-    leftContent = Array.from(leftCol.children);
-    // If nothing found, fallback to leftCol itself
-    if (leftContent.length === 0) leftContent = [leftCol];
+  // Extract left column: heading, description, button
+  let leftCol = document.createElement('div');
+  const teaserContent = element.querySelector('.xps-teaser__content');
+  if (teaserContent) {
+    // Instead of appending the node itself, clone its children for flexibility
+    Array.from(teaserContent.children).forEach(child => {
+      leftCol.appendChild(child.cloneNode(true));
+    });
   }
 
-  // --- RIGHT COLUMN: Prefer video, else fallback to container (to preserve all content) ---
-  let rightContent = [];
-  if (rightCol) {
-    // If there's a <video>, create a link to its src
-    const video = rightCol.querySelector('video');
-    if (video && video.src) {
-      const videoLink = document.createElement('a');
-      videoLink.href = video.src;
-      videoLink.textContent = video.src;
-      rightContent.push(videoLink);
-    } else {
-      // Otherwise, include the entire rightCol block (to capture all possible media)
-      rightContent = [rightCol];
+  // Extract right column: video
+  let rightCol = document.createElement('div');
+  const mediaWrapper = element.querySelector('.xps-teaser--media');
+  if (mediaWrapper) {
+    const videoEl = mediaWrapper.querySelector('video');
+    if (videoEl) {
+      const videoLink = createVideoLink(videoEl);
+      if (videoLink) rightCol.appendChild(videoLink);
     }
   }
 
-  // Table header
+  // Table header: block name EXACTLY
   const headerRow = ['Columns block (columns2)'];
-  // Table content row: two columns
-  const contentRow = [leftContent, rightContent];
+  // Table row: left and right columns
+  const row = [leftCol, rightCol];
 
-  // Build table
-  const cells = [headerRow, contentRow];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  // Create table
+  const table = WebImporter.DOMUtils.createTable([headerRow, row], document);
 
-  // Replace element
-  element.replaceWith(block);
+  // Replace element with table
+  element.replaceWith(table);
 }

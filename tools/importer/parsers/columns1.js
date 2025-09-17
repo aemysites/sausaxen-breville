@@ -1,25 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the main split teaser container
+  // Defensive: Find the main split teaser columns
+  const columns = [];
+
+  // Find the left and right column wrappers
+  // The left column contains the image (inside .xps-teaser--media)
+  // The right column contains the text and button (inside .xps-teaser__content)
   const splitTeaser = element.querySelector('.xps-splitteaser');
   if (!splitTeaser) return;
 
-  // Find the left column (image/media)
-  const leftCol = splitTeaser.querySelector('.xps-teaser--media');
-  // Find the right column (content)
-  const rightCol = splitTeaser.querySelector('.xps-teaser__content');
+  // Left column: image
+  let leftCol = null;
+  const leftTeaser = splitTeaser.querySelector('.xps-teaser.left');
+  if (leftTeaser) {
+    const media = leftTeaser.querySelector('.xps-teaser--media');
+    if (media) {
+      leftCol = media;
+    }
+  }
 
-  // Defensive: If either column is missing, abort
-  if (!leftCol || !rightCol) return;
+  // Right column: content (title, description, button)
+  let rightCol = null;
+  if (leftTeaser) {
+    const content = leftTeaser.querySelector('.xps-teaser__content');
+    if (content) {
+      rightCol = content;
+    }
+  }
 
-  // Table header: must match target block name exactly
-  const headerRow = ['Columns block (columns1)'];
-  // Table content row: reference the actual DOM elements
-  const contentRow = [leftCol, rightCol];
+  // Build the columns row
+  const row = [];
+  if (leftCol) row.push(leftCol);
+  if (rightCol) row.push(rightCol);
 
-  // Build the table
-  const table = WebImporter.DOMUtils.createTable([headerRow, contentRow], document);
+  // Only build if at least one column found
+  if (row.length === 0) return;
 
-  // Replace the original element with the block table
-  element.replaceWith(table);
+  const cells = [
+    ['Columns block (columns1)'], // Header row
+    row // Columns row
+  ];
+
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(block);
 }

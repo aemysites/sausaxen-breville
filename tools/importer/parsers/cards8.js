@@ -1,33 +1,27 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get all card columns (direct children of the row)
-  const cardCols = element.querySelectorAll(':scope > div');
+  if (!element) return;
 
-  // Table header row as per block guidelines
+  // Header row: exactly one column, block name only
   const headerRow = ['Cards (cards8)'];
   const rows = [headerRow];
 
-  // For each card column, extract image and text
+  // Get all direct card columns (each card is inside a col-*)
+  const cardCols = element.querySelectorAll(':scope > div');
+
   cardCols.forEach((col) => {
-    // Defensive: find the card container inside the column
-    const card = col.querySelector(':scope > div');
+    const card = col.querySelector('.xps-support-card');
     if (!card) return;
-
-    // Find the image (icon)
     const img = card.querySelector('img');
-    // Find the text block (usually a div with a p)
     const textBlock = card.querySelector('.xps-text');
-
-    // Defensive: skip if no image or text
-    if (!img || !textBlock) return;
-
-    // Reference the actual elements (do not clone)
-    rows.push([img, textBlock]);
+    if (img && textBlock) {
+      rows.push([img, textBlock]);
+    }
   });
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
+  // Do NOT set colspan on header cell; leave as single column only
 
-  // Replace the original element
-  element.replaceWith(block);
+  element.replaceWith(blockTable);
 }

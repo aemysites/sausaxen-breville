@@ -1,78 +1,43 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper to extract visible slides only (not clones)
-  function getSlides(element) {
-    const list = element.querySelector('.splide__list');
-    if (!list) return [];
-    return Array.from(list.children).filter(li =>
-      li.classList.contains('splide__slide') && !li.classList.contains('splide__slide--clone')
-    );
-  }
+  // Find the carousel track containing the list of slides
+  const track = element.querySelector('.splide__track');
+  if (!track) return;
+  const list = track.querySelector('.splide__list');
+  if (!list) return;
 
-  // Helper to extract image from card
-  function getCardImage(card) {
-    return card.querySelector('img');
-  }
+  // Get all real (non-clone) slides
+  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide') && !li.classList.contains('splide__slide--clone'));
 
-  // Helper to extract all text content from card
-  function getCardText(card) {
-    const overlay = card.querySelector('.recipe-card__overlay');
-    if (!overlay) return '';
-    const frag = document.createElement('div');
-    // Tag/category
-    const tag = overlay.querySelector('.recipe-card__header .xps-tag span');
-    if (tag) {
-      const tagDiv = document.createElement('div');
-      tagDiv.textContent = tag.textContent.trim();
-      tagDiv.style.fontWeight = 'bold';
-      tagDiv.style.fontSize = '0.9em';
-      frag.appendChild(tagDiv);
-    }
-    // Title
-    const title = overlay.querySelector('.recipe-card__title h4');
-    if (title) {
-      const titleDiv = document.createElement('div');
-      titleDiv.textContent = title.textContent.trim();
-      titleDiv.style.fontWeight = 'bold';
-      titleDiv.style.fontSize = '1.1em';
-      frag.appendChild(titleDiv);
-    }
-    // Partner/author
-    const partner = overlay.querySelector('.recipe-card__footer .xps-partner-tag-title');
-    if (partner) {
-      const partnerDiv = document.createElement('div');
-      partnerDiv.textContent = partner.textContent.trim();
-      partnerDiv.style.fontSize = '0.9em';
-      partnerDiv.style.marginTop = '8px';
-      frag.appendChild(partnerDiv);
-    }
-    // If nothing found, fallback to all text
-    if (!frag.textContent.trim()) {
-      frag.textContent = overlay.textContent.trim();
-    }
-    return frag;
-  }
-
-  // Find the splide carousel
-  const splide = element.querySelector('.splide');
-  if (!splide) return;
-  const slides = getSlides(splide);
-
-  // Build table rows
+  // Table header
   const headerRow = ['Cards (cards12)'];
   const rows = [headerRow];
-  slides.forEach(slide => {
-    const card = slide.querySelector('.xps-recipe-card');
+
+  slides.forEach((slide) => {
+    // Find the card aspect wrapper
+    const cardAspect = slide.querySelector('.xps-recipe-card-aspect');
+    if (!cardAspect) return;
+    const card = cardAspect.querySelector('.xps-recipe-card');
     if (!card) return;
-    const img = getCardImage(card);
-    const textElem = getCardText(card);
-    rows.push([
-      img,
-      textElem
-    ]);
+
+    // Image (first cell)
+    const img = card.querySelector('img.recipe-card__image');
+    const imageCell = img ? img : '';
+
+    // Text content (second cell)
+    const overlay = card.querySelector('.recipe-card__overlay');
+    let textCell = '';
+    if (overlay) {
+      // Instead of picking only specific elements, clone the overlay and remove the image if present
+      const overlayClone = overlay.cloneNode(true);
+      // Remove any images inside the overlay (shouldn't be any, but defensive)
+      overlayClone.querySelectorAll('img').forEach(img => img.remove());
+      textCell = overlayClone;
+    }
+    rows.push([imageCell, textCell]);
   });
 
-  // Create block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(block);
+  // Create and replace
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }
