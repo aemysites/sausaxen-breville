@@ -1,51 +1,26 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find left (text) and right (media) columns
-  let leftCol = element.querySelector('.xps-teaser__content');
-  let rightCol = element.querySelector('.xps-teaser--media');
+  // 1. Extract left (text) and right (media) columns
+  const leftContent = element.querySelector('.xps-teaser__content');
+  const rightContent = element.querySelector('.xps-teaser--media');
 
-  // Fallbacks for robustness
-  if (!leftCol) {
-    leftCol = element.querySelector('.xps-card-tile-content-left') || element;
-  }
-  if (!rightCol) {
-    rightCol = element.querySelector('.xps-teaser--media') || null;
-  }
+  // Defensive: Ensure both columns exist
+  if (!leftContent || !rightContent) return;
 
-  // --- LEFT COLUMN: Gather all relevant content as a single block ---
-  let leftContent = [];
-  if (leftCol) {
-    // Collect all direct children (to preserve structure and all text)
-    leftContent = Array.from(leftCol.children);
-    // If nothing found, fallback to leftCol itself
-    if (leftContent.length === 0) leftContent = [leftCol];
-  }
+  // 2. For the right column, if it contains a <video>, replace it with an <img> using a representative poster (not available here), or leave as-is (per requirements, keep all content in a cell)
+  // In this case, we leave the <video> as is, since there's no poster or fallback image, and the block expects all content.
 
-  // --- RIGHT COLUMN: Prefer video, else fallback to container (to preserve all content) ---
-  let rightContent = [];
-  if (rightCol) {
-    // If there's a <video>, create a link to its src
-    const video = rightCol.querySelector('video');
-    if (video && video.src) {
-      const videoLink = document.createElement('a');
-      videoLink.href = video.src;
-      videoLink.textContent = video.src;
-      rightContent.push(videoLink);
-    } else {
-      // Otherwise, include the entire rightCol block (to capture all possible media)
-      rightContent = [rightCol];
-    }
-  }
-
-  // Table header
+  // 3. Table header row: must match block name exactly
   const headerRow = ['Columns block (columns2)'];
-  // Table content row: two columns
+  // 4. Table content row: left and right columns
   const contentRow = [leftContent, rightContent];
 
-  // Build table
-  const cells = [headerRow, contentRow];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  // 5. Create the block table
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    contentRow,
+  ], document);
 
-  // Replace element
-  element.replaceWith(block);
+  // 6. Replace the original element with the new block
+  element.replaceWith(table);
 }

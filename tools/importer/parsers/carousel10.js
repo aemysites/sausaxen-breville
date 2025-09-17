@@ -1,66 +1,49 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the carousel slides container
-  const slidesList = element.querySelector('.splide__list');
-  if (!slidesList) return;
-
-  // Helper to extract image or video as <img>
-  function extractMedia(slideEl) {
-    // Try to find an <img> first
-    const img = slideEl.querySelector('img');
-    if (img) return img;
-    // If no image, try to find a <video>
-    const video = slideEl.querySelector('video');
-    if (video && video.src) {
-      // Create an <img> element with the video poster if available, else use the video src as fallback
-      const poster = video.getAttribute('poster');
-      const src = poster || video.src;
-      if (src) {
-        const imgEl = document.createElement('img');
-        imgEl.src = src;
-        return imgEl;
-      }
-    }
-    // If neither found, fallback: return null
-    return null;
+  // Helper to create an <img> from a video src
+  function createVideoImg(videoEl) {
+    if (!videoEl || !videoEl.src) return '';
+    const img = document.createElement('img');
+    img.src = videoEl.src;
+    img.alt = '';
+    return img;
   }
 
-  // Helper to extract all text content (title, description, CTA)
-  function extractTextContent(slideEl) {
-    // Get the main content wrapper
-    const content = slideEl.querySelector('.xps-teaser__content') || slideEl.querySelector('.xps-card-tile');
-    if (!content) return '';
-    // Clone the content node to avoid mutating the DOM
-    const contentClone = content.cloneNode(true);
-    // Remove any media elements from the clone
-    const mediaEls = contentClone.querySelectorAll('img, video');
-    mediaEls.forEach(el => el.remove());
-    // Return the full block of content (preserves heading, description, CTA)
-    return contentClone;
-  }
+  // Find all real slides (ignore clones)
+  const slides = Array.from(
+    element.querySelectorAll('.splide__slide')
+  ).filter(slide => !slide.classList.contains('splide__slide--clone'));
 
-  // Only use real slides (not clones)
-  const slideEls = Array.from(slidesList.children)
-    .filter(li => li.classList.contains('splide__slide') && !li.classList.contains('splide__slide--clone'));
-
-  // Table header row
+  // Table header must match block name exactly
   const headerRow = ['Carousel (carousel10)'];
   const rows = [headerRow];
 
-  // For each slide, extract media and text content
-  slideEls.forEach(slideEl => {
-    // Defensive: find the main teaser wrapper
-    const teaser = slideEl.querySelector('.teaser, .xps-teaser');
-    const mediaCell = extractMedia(teaser || slideEl);
-    const textCell = extractTextContent(teaser || slideEl);
+  slides.forEach(slide => {
+    // Find the left media (video)
+    let imageCell = '';
+    const videoEl = slide.querySelector('.xps-teaser--media video');
+    if (videoEl) {
+      imageCell = createVideoImg(videoEl);
+    }
+
+    // Find the right content
+    let contentCell = '';
+    const content = slide.querySelector('.xps-teaser__content');
+    if (content) {
+      // Instead of targeting only heading/desc, grab all content
+      // This ensures all text is included
+      const cellContent = Array.from(content.childNodes)
+        .filter(node => node.nodeType === 1 || (node.nodeType === 3 && node.textContent.trim()))
+        .map(node => node.cloneNode(true));
+      if (cellContent.length) contentCell = cellContent;
+    }
+
     rows.push([
-      mediaCell || '',
-      textCell || ''
+      imageCell,
+      contentCell || ''
     ]);
   });
 
-  // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }
