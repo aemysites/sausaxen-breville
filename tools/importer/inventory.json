@@ -453,6 +453,18 @@
           "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[13]"
         }
       ]
+    },
+    {
+      "name": "new",
+      "cluster": 25,
+      "instances": [
+        {
+          "url": "https://www.breville.com/en-us/sales",
+          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
+          "uuid": "447b2b9c-03-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]"
+        }
+      ]
     }
   ],
   "outliers": [
@@ -767,12 +779,6 @@
       "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
       "uuid": "447b2b9c-02-87b45918a3d04ebcec21a5697b34ae3e5b959af7",
       "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[3]"
-    },
-    {
-      "url": "https://www.breville.com/en-us/sales",
-      "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
-      "uuid": "447b2b9c-03-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
-      "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]"
     },
     {
       "url": "https://www.breville.com/en-us/sales",
