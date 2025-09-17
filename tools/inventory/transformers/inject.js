@@ -13,10 +13,11 @@
 (() => {
    
     try {
-        document.querySelector(".help-left-navigation")?.remove();
-        document.querySelector("#ces_holder")?.remove();
-        document.querySelector("#hmb-header")?.remove();
-        document.querySelector(".help-search")?.remove();
+        document.querySelector(".header")?.remove();
+        document.querySelector(".footer")?.remove();
+        document.querySelector(".ot-floating-button__front")?.remove();
+        document.querySelector(".ot-sdk-container")?.remove();
+        document.querySelector(".fancybox-wrap")?.remove();
       } catch (e) {
         // noop
       }
