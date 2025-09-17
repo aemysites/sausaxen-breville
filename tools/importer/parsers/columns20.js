@@ -3,20 +3,30 @@ export default function parse(element, { document }) {
   // Defensive: ensure element exists
   if (!element) return;
 
-  // Header row per spec
+  // Table header row as per block guidelines
   const headerRow = ['Columns block (columns20)'];
 
-  // Find all immediate column divs (each col-lg-2 etc)
-  const colDivs = Array.from(element.querySelectorAll(':scope > .row > div'));
+  // Find the row containing the columns
+  const row = element.querySelector('.row');
+  if (!row) return;
 
-  // For each column, extract its main content (the circle card)
-  // We'll reference the whole col div for resilience
-  const contentRow = colDivs.map(col => col);
+  // Get all immediate column divs
+  const columnDivs = Array.from(row.children);
 
-  // Compose the table
-  const cells = [headerRow, contentRow];
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // For each column, extract the main circle card image
+  const cells = columnDivs.map((colDiv) => {
+    // Defensive: find the image inside the button
+    const img = colDiv.querySelector('img');
+    // If found, use the image element, else empty string
+    return img || '';
+  });
 
-  // Replace the original element
+  // Compose the table rows
+  const tableRows = [headerRow, cells];
+
+  // Create the block table
+  const blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
+
+  // Replace the original element with the block table
   element.replaceWith(blockTable);
 }

@@ -1,31 +1,42 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the main content and image columns
-  // The structure is: element > grid-container-fluid > grid-container > xps-splitteaser > teaser > xps-teaser
-  // Inside xps-teaser: .xps-teaser__content (left), .xps-teaser--media (right)
-  const teaser = element.querySelector('.xps-teaser');
-  if (!teaser) return;
+  // Defensive: find the main split teaser content and image
+  // The structure is deeply nested, so we look for the left (content) and right (image) columns
 
-  // Left column: content
-  const leftContent = teaser.querySelector('.xps-teaser__content');
-  // Right column: image/media
-  const rightMedia = teaser.querySelector('.xps-teaser--media');
+  // Get the main teaser content (left column)
+  let leftContent;
+  let rightContent;
 
-  // Defensive: If either column missing, fallback to children
-  const leftCell = leftContent || teaser.children[0];
-  const rightCell = rightMedia || teaser.children[1];
+  // Find the main content area (text, heading, button)
+  const teaserContent = element.querySelector('.xps-teaser__content');
+  if (teaserContent) {
+    leftContent = teaserContent;
+  } else {
+    // fallback: use first column-like div
+    leftContent = element.querySelector('.xps-card-tile') || element;
+  }
+
+  // Find the image area (right column)
+  const media = element.querySelector('.xps-teaser--media');
+  if (media) {
+    // Just the image itself
+    const img = media.querySelector('img');
+    rightContent = img ? img : media;
+  } else {
+    // fallback: find first image
+    const img = element.querySelector('img');
+    rightContent = img || null;
+  }
 
   // Table header
   const headerRow = ['Columns block (columns22)'];
-  // Table columns row
-  const columnsRow = [leftCell, rightCell];
+  // Table content row: two columns, left (text/button), right (image)
+  const contentRow = [leftContent, rightContent];
 
   // Build table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    columnsRow
-  ], document);
+  const cells = [headerRow, contentRow];
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
   // Replace original element
-  element.replaceWith(table);
+  element.replaceWith(block);
 }

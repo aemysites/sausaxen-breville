@@ -1,103 +1,97 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper to extract image from card
+  // Helper to extract card image
   function getCardImage(card) {
-    // Find the first img inside the media section
-    const mediaSection = card.querySelector('.xps-product-card-hover-media-section');
-    if (mediaSection) {
-      const img = mediaSection.querySelector('img');
-      if (img) return img;
-    }
-    return null;
+    // Find the first img inside the card
+    const img = card.querySelector('img');
+    return img || null;
   }
 
-  // Helper to extract text content from card
+  // Helper to extract card text content (title, price, description, swatches)
   function getCardText(card) {
     const contentSection = card.querySelector('.xps-product-card-hover-content-section');
     if (!contentSection) return document.createElement('div');
-    const textContainer = document.createElement('div');
+    const frag = document.createDocumentFragment();
 
-    // Title
+    // Title & price (h3)
     const titleSection = contentSection.querySelector('.xps-product-card-hover-content-title-section');
     if (titleSection) {
+      // Title
       const title = titleSection.querySelector('h3');
-      if (title) {
-        // Use a heading element for semantic structure
-        const heading = document.createElement('h3');
-        heading.textContent = title.textContent.trim();
-        textContainer.appendChild(heading);
-      }
-      // Price (first price, bold price is repeated below)
-      const priceSection = titleSection.querySelector('.xps-product-card-hover-content-price-section h3');
-      if (priceSection) {
-        // Add price as strong text
-        const price = document.createElement('strong');
-        price.textContent = priceSection.textContent.trim();
-        textContainer.appendChild(price);
+      if (title) frag.appendChild(title);
+      // Price (h3)
+      const price = titleSection.querySelector('.xps-product-card-hover-content-price-section h3');
+      if (price) {
+        // Only add price if it's not a duplicate of below (p)
+        frag.appendChild(price);
       }
     }
 
     // Description
-    const descSection = contentSection.querySelector('.xps-product-card-hover-content-description-section p');
+    const descSection = contentSection.querySelector('.xps-product-card-hover-content-description-section');
     if (descSection) {
-      const desc = document.createElement('p');
-      desc.textContent = descSection.textContent.trim();
-      textContainer.appendChild(desc);
+      const desc = descSection.querySelector('p');
+      if (desc) frag.appendChild(desc);
     }
 
-    // Swatch picker (color options)
-    const swatchContainer = contentSection.querySelector('.xps-product-card-hover-content-swatch-picker-container .xps-swatchpicker-container');
-    if (swatchContainer) {
-      // Only include the swatch row if there are swatches
-      const swatchRow = document.createElement('div');
-      swatchRow.style.display = 'flex';
-      swatchRow.style.flexWrap = 'wrap';
-      swatchRow.style.gap = '4px';
-      swatchContainer.querySelectorAll('.xps-swatchpicker-static').forEach((swatch) => {
-        const swatchImg = swatch.querySelector('img');
-        if (swatchImg) {
-          // Use the swatch image directly
-          swatchRow.appendChild(swatchImg);
-        }
-      });
-      if (swatchRow.childNodes.length > 0) {
-        textContainer.appendChild(swatchRow);
+    // Tablet price (p) -- only if not already present
+    const tabletPriceSection = contentSection.querySelector('.xps-tablet-price-section');
+    if (tabletPriceSection) {
+      const tabletPrice = tabletPriceSection.querySelector('p');
+      if (tabletPrice) {
+        // Avoid duplicate price
+        const alreadyHas = Array.from(frag.children).some(
+          (child) => child.textContent.trim() === tabletPrice.textContent.trim()
+        );
+        if (!alreadyHas) frag.appendChild(tabletPrice);
       }
     }
 
-    // Optionally, add CTA (if present)
-    // In this HTML, the link is only around the image, not a CTA at the bottom
-    // If you want to add the product link as a CTA, uncomment below:
-    // const link = card.querySelector('a[href]');
-    // if (link) {
-    //   const cta = document.createElement('a');
-    //   cta.href = link.href;
-    //   cta.textContent = 'View Product';
-    //   textContainer.appendChild(cta);
-    // }
+    // Swatch picker (color dots)
+    const swatchContainer = contentSection.querySelector('.xps-product-card-hover-content-swatch-picker-container .xps-swatchpicker-container');
+    if (swatchContainer) {
+      // Only add if there are swatches
+      if (swatchContainer.children.length > 0) {
+        frag.appendChild(swatchContainer);
+      }
+    }
 
-    return textContainer;
+    // Optionally, add CTA link (not present in this HTML, but for future-proofing)
+    // Example: a button or link at the bottom of contentSection
+    // (Not implemented here as not present)
+
+    // Wrap fragment in a div for table cell
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(frag);
+    return wrapper;
   }
 
-  // Get all cards in the block
+  // Get all cards (immediate children with class 'xps-product-card-hover')
   const cards = Array.from(element.querySelectorAll(':scope > .xps-product-card-hover'));
 
-  // Build table rows
-  const rows = [];
-  // Header row
-  rows.push(['Cards (cards7)']);
+  // Defensive: fallback if cards are not direct children
+  if (cards.length === 0) {
+    // Try to find all .xps-product-card-hover descendants
+    const fallbackCards = Array.from(element.querySelectorAll('.xps-product-card-hover'));
+    if (fallbackCards.length > 0) {
+      cards.push(...fallbackCards);
+    }
+  }
 
-  // Card rows
+  // Table header
+  const headerRow = ['Cards (cards7)'];
+  const rows = [headerRow];
+
+  // For each card, build a row: [image, text content]
   cards.forEach((card) => {
     const img = getCardImage(card);
     const text = getCardText(card);
-    rows.push([
-      img ? img : '',
-      text
-    ]);
+    rows.push([img, text]);
   });
 
-  // Create and replace
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(table);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+
+  // Replace the original element
+  element.replaceWith(block);
 }

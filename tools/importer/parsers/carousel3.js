@@ -1,59 +1,70 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the carousel wrapper
+  // Defensive: Only proceed if element exists
+  if (!element) return;
+
+  // Table header as required
+  const headerRow = ['Carousel (carousel3)'];
+  const rows = [headerRow];
+
+  // Find the carousel list of slides (ul.splide__list)
+  // Defensive: Search for the carousel wrapper
   const carouselWrapper = element.querySelector('.xps-carousel-wrapper');
   if (!carouselWrapper) return;
 
-  // Find the slides list
-  const slidesList = carouselWrapper.querySelector('ul.splide__list');
-  if (!slidesList) return;
+  const splideList = carouselWrapper.querySelector('ul.splide__list');
+  if (!splideList) return;
 
-  // Prepare table rows
-  const rows = [];
-  // Header row as required
-  rows.push(['Carousel (carousel3)']);
+  // Get all slide <li> elements
+  const slideLis = splideList.querySelectorAll(':scope > li.splide__slide');
 
-  // Get all slides
-  const slides = slidesList.querySelectorAll('li.splide__slide');
-  slides.forEach((slide) => {
-    // Each slide contains a .xps-card-tile
-    const cardTile = slide.querySelector('.xps-card-tile');
+  slideLis.forEach((li) => {
+    // Defensive: Find the card tile inside each slide
+    const cardTile = li.querySelector('.xps-card-tile');
     if (!cardTile) return;
 
-    // Image cell: find the image inside aspect-ratio
-    let imageCell = '';
-    const img = cardTile.querySelector('.aspect-ratio img');
-    if (img) {
-      imageCell = img;
+    // Find image (first cell)
+    let imgEl = null;
+    const imgWrapper = cardTile.querySelector('.xps-card-tile-image');
+    if (imgWrapper) {
+      imgEl = imgWrapper.querySelector('img');
     }
 
-    // Text cell: get title and description
+    // Second cell: Text content
     const textCellContent = [];
-    // Title
+
+    // Title (bold quote)
     const titleEl = cardTile.querySelector('.xps-card-tile-title');
     if (titleEl) {
-      // If it's bold, wrap in h3
-      if (/p1-bold/.test(titleEl.className)) {
-        const heading = document.createElement('h3');
-        heading.textContent = titleEl.textContent;
-        textCellContent.push(heading);
-      } else {
-        textCellContent.push(titleEl);
-      }
-    }
-    // Description
-    const descEl = cardTile.querySelector('.xps-card-tile-description');
-    if (descEl) {
-      descEl.querySelectorAll('p').forEach((p) => {
-        textCellContent.push(p);
-      });
+      // Convert to heading element for semantic structure
+      const heading = document.createElement('h3');
+      heading.textContent = titleEl.textContent;
+      textCellContent.push(heading);
     }
 
-    rows.push([imageCell, textCellContent]);
+    // Description (product name and author)
+    const descEl = cardTile.querySelector('.xps-card-tile-description');
+    if (descEl) {
+      // Defensive: Only add if not empty
+      if (descEl.textContent.trim()) {
+        // Use the whole block for resilience
+        textCellContent.push(descEl);
+      }
+    }
+
+    // Add row: [image, text content]
+    // Defensive: Only add if image exists
+    if (imgEl) {
+      rows.push([
+        imgEl,
+        textCellContent.length ? textCellContent : ''
+      ]);
+    }
   });
 
   // Create the block table
   const block = WebImporter.DOMUtils.createTable(rows, document);
+
   // Replace the original element
   element.replaceWith(block);
 }

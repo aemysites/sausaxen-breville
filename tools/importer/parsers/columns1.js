@@ -1,25 +1,35 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the main split teaser container
-  const splitTeaser = element.querySelector('.xps-splitteaser');
-  if (!splitTeaser) return;
+  // Defensive: Find the left and right column containers
+  // Left: image/media
+  // Right: content (title, description, button)
+  const leftCol = element.querySelector('.xps-teaser--media');
+  const rightCol = element.querySelector('.xps-teaser__content');
 
-  // Find the left column (image/media)
-  const leftCol = splitTeaser.querySelector('.xps-teaser--media');
-  // Find the right column (content)
-  const rightCol = splitTeaser.querySelector('.xps-teaser__content');
+  // Defensive fallback: If not found, try to get first/second child of .xps-teaser
+  let leftContent = leftCol;
+  let rightContent = rightCol;
+  if (!leftContent || !rightContent) {
+    const teaser = element.querySelector('.xps-teaser');
+    if (teaser) {
+      const teaserChildren = teaser.children;
+      leftContent = leftContent || teaserChildren[0];
+      rightContent = rightContent || teaserChildren[1];
+    }
+  }
 
-  // Defensive: If either column is missing, abort
-  if (!leftCol || !rightCol) return;
-
-  // Table header: must match target block name exactly
+  // Table header row
   const headerRow = ['Columns block (columns1)'];
-  // Table content row: reference the actual DOM elements
-  const contentRow = [leftCol, rightCol];
 
-  // Build the table
-  const table = WebImporter.DOMUtils.createTable([headerRow, contentRow], document);
+  // Table content row: two columns
+  const contentRow = [leftContent, rightContent];
 
-  // Replace the original element with the block table
+  // Build table
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    contentRow
+  ], document);
+
+  // Replace original element
   element.replaceWith(table);
 }

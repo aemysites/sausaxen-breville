@@ -1,53 +1,53 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: check for required containers
-  const details = element.querySelector('.xps-slide-show-card-content-details');
-  const imageContainer = element.querySelector('.xps-slide-show-card-content-image-container');
+  // Defensive: Only proceed if element exists
+  if (!element) return;
 
   // --- HEADER ROW ---
   const headerRow = ['Hero (hero14)'];
 
   // --- IMAGE ROW ---
-  let imageRow;
-  let bgImg = null;
-  if (imageContainer) {
-    // Find any <img> inside imageContainer
-    const img = imageContainer.querySelector('img');
-    if (img) {
-      bgImg = img;
-    }
+  // Find the background image (if any)
+  // The image is inside .xps-circle-card__header img (circle card), but the visual background is implied by the aspect-ratio container
+  // For this block, use the prominent product image if present
+  let imageEl = null;
+  const circleHeader = element.querySelector('.xps-circle-card__header');
+  if (circleHeader) {
+    imageEl = circleHeader.querySelector('img');
   }
-  imageRow = [bgImg ? bgImg : ''];
+  // Defensive: fallback to any img inside the block if not found
+  if (!imageEl) {
+    imageEl = element.querySelector('img');
+  }
+  const imageRow = [imageEl ? imageEl : ''];
 
   // --- CONTENT ROW ---
-  // Compose the content cell
-  const contentFragments = [];
+  // Compose content: Title, subtitle, description, CTA, and circle card info
+  const contentParts = [];
 
-  if (details) {
-    // Popular Recipes (subheading)
-    const subheading = details.querySelector('.xps-text-p3');
-    if (subheading) contentFragments.push(subheading);
+  // Subheading (Popular Recipes)
+  const subheading = element.querySelector('.xps-text-p3');
+  if (subheading) contentParts.push(subheading);
 
-    // Main Heading
-    const heading = details.querySelector('.xps-card-tile-title');
-    if (heading) contentFragments.push(heading);
+  // Title (h3)
+  const title = element.querySelector('.xps-card-tile-title');
+  if (title) contentParts.push(title);
 
-    // Circle card (product info)
-    const circleCard = details.querySelector('.xps-circle-card');
-    if (circleCard) contentFragments.push(circleCard);
+  // Circle card ("Tailored for" + product name)
+  const circleCard = element.querySelector('.xps-circle-card');
+  if (circleCard) contentParts.push(circleCard);
 
-    // Description paragraph
-    const desc = details.querySelector('.xps-card-tile-description');
-    if (desc) contentFragments.push(desc);
+  // Description paragraph
+  const description = element.querySelector('.xps-card-tile-description');
+  if (description) contentParts.push(description);
 
-    // CTA Button (View recipe)
-    const cta = details.querySelector('.xps-card-tile-button-wrapper');
-    if (cta) contentFragments.push(cta);
-  }
+  // CTA button ("View recipe")
+  const cta = element.querySelector('.xps-card-tile-button-wrapper');
+  if (cta) contentParts.push(cta);
 
-  const contentRow = [contentFragments];
+  const contentRow = [contentParts];
 
-  // --- TABLE ASSEMBLY ---
+  // --- TABLE CREATION ---
   const cells = [
     headerRow,
     imageRow,
@@ -55,5 +55,7 @@ export default function parse(element, { document }) {
   ];
 
   const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace original element with block table
   element.replaceWith(block);
 }

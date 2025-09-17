@@ -1,33 +1,48 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get all card columns (direct children of the row)
-  const cardCols = element.querySelectorAll(':scope > div');
+  if (!element) return;
 
-  // Table header row as per block guidelines
+  // Table header row: must be exactly one column with block name
   const headerRow = ['Cards (cards8)'];
   const rows = [headerRow];
 
-  // For each card column, extract image and text
+  // Get all card containers (each col contains a card)
+  const cardCols = element.querySelectorAll(':scope > div');
+
   cardCols.forEach((col) => {
-    // Defensive: find the card container inside the column
-    const card = col.querySelector(':scope > div');
+    const card = col.querySelector('.xps-support-card');
     if (!card) return;
 
-    // Find the image (icon)
+    // Find image (mandatory)
     const img = card.querySelector('img');
-    // Find the text block (usually a div with a p)
-    const textBlock = card.querySelector('.xps-text');
 
-    // Defensive: skip if no image or text
-    if (!img || !textBlock) return;
+    // Find text content (mandatory)
+    const textDiv = card.querySelector('.xps-text');
+    let textContent = null;
+    if (textDiv) {
+      // Extract the text as a heading (strong) and description (if present)
+      const p = textDiv.querySelector('p');
+      if (p) {
+        // Create a fragment for cell content
+        const frag = document.createDocumentFragment();
+        const strong = document.createElement('strong');
+        strong.textContent = p.textContent;
+        frag.appendChild(strong);
+        textContent = frag;
+      } else {
+        textContent = textDiv;
+      }
+    }
 
-    // Reference the actual elements (do not clone)
-    rows.push([img, textBlock]);
+    // Only add row if both image and text are present
+    if (img && textContent) {
+      rows.push([img, textContent]);
+    }
   });
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element
-  element.replaceWith(block);
+  // Replace the original element with the new table
+  element.replaceWith(table);
 }

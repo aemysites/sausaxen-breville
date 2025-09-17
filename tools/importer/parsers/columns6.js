@@ -1,45 +1,42 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the main grid container
+  // Defensive: Find the grid container that holds all the cards
   const gridContainer = element.querySelector('.grid-container');
   if (!gridContainer) return;
 
-  // Find the row that contains the columns
-  const row = gridContainer.querySelector('.row.row-gap');
+  // Find the row that contains all the columns
+  const row = gridContainer.querySelector('.row');
   if (!row) return;
 
-  // Get all immediate column children
-  const columnDivs = Array.from(row.children).filter(div => div.classList.contains('col-xl-3'));
-  if (columnDivs.length === 0) return;
+  // Get all immediate column divs (each is a column)
+  const colDivs = Array.from(row.children).filter(child => child.classList.contains('col-xl-3'));
+  if (colDivs.length === 0) return;
 
-  // Each column: extract the card (image + title)
-  const columns = columnDivs.map(col => {
-    // Defensive: find the card container
+  // For each column, extract the card content (image + title)
+  const columnCells = colDivs.map(col => {
+    // Defensive: Find the card inside the column
     const card = col.querySelector('.xps-circle-card');
     if (!card) return document.createElement('div');
-
-    // Find the image
-    const imgContainer = card.querySelector('.xps-circle-card__header img');
-    // Find the title
-    const titleContainer = card.querySelector('.xps-circle-card__body .xps-circle-card--title');
-
-    // Compose cell content
+    // Get image
+    const imgHeader = card.querySelector('.xps-circle-card__header img');
+    // Get title
+    const titleDiv = card.querySelector('.xps-circle-card__body .xps-circle-card--title');
+    // Compose cell: image (if exists) + title (if exists)
     const cellContent = [];
-    if (imgContainer) cellContent.push(imgContainer);
-    if (titleContainer) cellContent.push(titleContainer);
-
+    if (imgHeader) cellContent.push(imgHeader);
+    if (titleDiv) cellContent.push(titleDiv);
+    // Return as array for cell
     return cellContent;
   });
 
-  // Table header
+  // Table rows: header, then content row
   const headerRow = ['Columns block (columns6)'];
-  // Table content row (one row, N columns)
-  const contentRow = columns;
-
-  // Build table
+  const contentRow = columnCells;
   const cells = [headerRow, contentRow];
+
+  // Create the block table
   const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element
+  // Replace the original element with the block table
   element.replaceWith(block);
 }
