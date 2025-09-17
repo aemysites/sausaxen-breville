@@ -1,58 +1,47 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the carousel list of cards
+  // Find the carousel list of cards
   const list = element.querySelector('ul.splide__list');
   if (!list) return;
 
-  // Header row for the block table
+  // Prepare header row
   const headerRow = ['Cards (cards9)'];
   const rows = [headerRow];
 
-  // Get all card slides (li elements)
-  const cards = list.querySelectorAll('li.splide__slide');
+  // Get all card slides
+  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide'));
 
-  cards.forEach((card) => {
-    // Defensive: Find the card tile container
-    const cardTile = card.querySelector('.xps-card-tile');
+  slides.forEach((slide) => {
+    // Find the card tile root
+    const cardTile = slide.querySelector('.xps-card-tile');
     if (!cardTile) return;
 
     // --- IMAGE CELL ---
-    // Find the image inside the video modal
     let imageEl = null;
-    const imgContainer = cardTile.querySelector('.xps-video-modal .aspect-ratio img');
-    if (imgContainer) {
-      imageEl = imgContainer.cloneNode(true);
+    const img = cardTile.querySelector('img');
+    if (img) {
+      imageEl = img;
     }
 
     // --- TEXT CELL ---
-    // Title (h5)
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-    // Description (p1)
-    const descEl = cardTile.querySelector('.xps-text-p1');
+    // Instead of picking only specific elements, grab all text content in the card tile except the image
+    // We'll clone the cardTile, remove the image container, and use the rest as the text cell
+    const textCellDiv = document.createElement('div');
+    // Clone all children except the video modal (which contains the image)
+    Array.from(cardTile.children).forEach(child => {
+      if (!child.classList.contains('xps-video-modal')) {
+        textCellDiv.appendChild(child.cloneNode(true));
+      }
+    });
 
-    // Compose text cell (ensure all text is included)
-    const textCell = document.createElement('div');
-    if (titleEl) {
-      const h = document.createElement('strong');
-      h.textContent = titleEl.textContent.trim();
-      textCell.appendChild(h);
-      textCell.appendChild(document.createElement('br'));
-    }
-    if (descEl) {
-      const d = document.createElement('span');
-      d.textContent = descEl.textContent.trim();
-      textCell.appendChild(d);
-    }
-
-    // Add row: [image, text]
+    // Compose row: [image, text]
     rows.push([
       imageEl,
-      textCell.childNodes.length ? textCell : ''
+      textCellDiv
     ]);
   });
 
-  // Create the block table
+  // Create block table
   const block = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element with the block table
   element.replaceWith(block);
 }

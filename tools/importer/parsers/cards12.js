@@ -1,58 +1,49 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the carousel track containing the cards
+  // Defensive: find the carousel track (contains the list of cards)
   const track = element.querySelector('.splide__track');
   if (!track) return;
+
+  // Find the list of slides (cards)
   const list = track.querySelector('.splide__list');
   if (!list) return;
 
   // Only use real slides, not clones
-  const slides = Array.from(list.children).filter(li => li.classList.contains('splide__slide') && !li.classList.contains('splide__slide--clone'));
+  const slides = Array.from(list.children).filter(li => {
+    // Only include real slides (not clones)
+    return li.classList.contains('splide__slide') && !li.classList.contains('splide__slide--clone');
+  });
 
+  // Table header
   const headerRow = ['Cards (cards12)'];
   const rows = [headerRow];
 
-  slides.forEach((slide) => {
-    // Defensive: Find the card aspect container
+  slides.forEach(slide => {
+    // Defensive: find the card aspect container
     const aspect = slide.querySelector('.xps-recipe-card-aspect');
     if (!aspect) return;
     const card = aspect.querySelector('.xps-recipe-card');
     if (!card) return;
 
-    // IMAGE: First cell
+    // Find the image (first cell)
     const img = card.querySelector('img.recipe-card__image');
-    if (!img) return;
+    // Defensive: only add if img exists
+    const imageCell = img || '';
 
-    // TEXT: Second cell
-    // We'll build a fragment containing all text content
+    // Second cell: text content
+    // Get overlay
     const overlay = card.querySelector('.recipe-card__overlay');
-    const textContent = document.createElement('div');
-    textContent.style.display = 'contents'; // flatten
-
-    // Tag (optional, above title)
-    const tag = overlay && overlay.querySelector('.recipe-card__header .xps-tag');
-    if (tag) {
-      textContent.appendChild(tag.cloneNode(true));
+    let textCell = '';
+    if (overlay) {
+      // Instead of picking specific elements, clone the entire overlay for full text content
+      textCell = overlay.cloneNode(true);
     }
 
-    // Title (h4)
-    const titleWrap = overlay && overlay.querySelector('.recipe-card__title .xps-card-tile-title');
-    if (titleWrap) {
-      textContent.appendChild(titleWrap.cloneNode(true));
-    }
-
-    // Partner tag (author, optional)
-    const partnerTag = overlay && overlay.querySelector('.recipe-card__footer .xps-partner-tag');
-    if (partnerTag) {
-      textContent.appendChild(partnerTag.cloneNode(true));
-    }
-
-    // Defensive: If no text content, skip
-    if (!textContent.textContent.trim()) return;
-
-    rows.push([img.cloneNode(true), textContent]);
+    rows.push([imageCell, textCell]);
   });
 
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(table);
+  // Create table block
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+  // Replace original element
+  element.replaceWith(block);
 }

@@ -1,35 +1,38 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
+  // Header row for the block table
+  const headerRow = ['Columns block (columns1)'];
+
   // Defensive: Find the left and right column containers
   // Left: image/media
   // Right: content (title, description, button)
-  const leftCol = element.querySelector('.xps-teaser--media');
-  const rightCol = element.querySelector('.xps-teaser__content');
+  let leftCol, rightCol;
 
-  // Defensive fallback: If not found, try to get first/second child of .xps-teaser
-  let leftContent = leftCol;
-  let rightContent = rightCol;
-  if (!leftContent || !rightContent) {
-    const teaser = element.querySelector('.xps-teaser');
+  // The structure is: element > .grid-container-fluid > .grid-container > .xps-splitteaser > .teaser > .xps-teaser.left.width-50.center
+  // Inside .xps-teaser: .xps-teaser--media (left), .xps-teaser__content (right)
+  const splitTeaser = element.querySelector('.xps-splitteaser');
+  if (splitTeaser) {
+    const teaser = splitTeaser.querySelector('.teaser .xps-teaser');
     if (teaser) {
-      const teaserChildren = teaser.children;
-      leftContent = leftContent || teaserChildren[0];
-      rightContent = rightContent || teaserChildren[1];
+      leftCol = teaser.querySelector('.xps-teaser--media');
+      rightCol = teaser.querySelector('.xps-teaser__content');
     }
   }
 
-  // Table header row
-  const headerRow = ['Columns block (columns1)'];
+  // Defensive fallback: if not found, try direct children
+  if (!leftCol || !rightCol) {
+    const divs = element.querySelectorAll(':scope div');
+    leftCol = leftCol || divs[0];
+    rightCol = rightCol || divs[1];
+  }
 
-  // Table content row: two columns
-  const contentRow = [leftContent, rightContent];
+  // Compose the columns row
+  const columnsRow = [leftCol, rightCol];
 
-  // Build table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    contentRow
-  ], document);
+  // Build the table
+  const cells = [headerRow, columnsRow];
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element
-  element.replaceWith(table);
+  // Replace the original element with the block table
+  element.replaceWith(blockTable);
 }

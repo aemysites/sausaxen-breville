@@ -1,35 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Header row: must match block name exactly
-  const headerRow = ['Hero (hero24)'];
-
-  // 2. Background image (row 2)
+  // 1. Extract the image (background asset)
   let imageEl = null;
-  const img = element.querySelector('img');
-  if (img) imageEl = img;
+  const mediaDiv = element.querySelector('.xps-teaser--media');
+  if (mediaDiv) {
+    imageEl = mediaDiv.querySelector('img');
+  } else {
+    imageEl = element.querySelector('img');
+  }
 
-  // 3. Content cell (row 3): heading, subheading, CTA
-  const contentCellItems = [];
-  // Heading: h2.xps-card-tile-title
-  const heading = element.querySelector('h2.xps-card-tile-title');
-  if (heading) contentCellItems.push(heading);
-  // Subheading: p inside .xps-card-tile-description
-  const subheading = element.querySelector('.xps-card-tile-description p');
-  if (subheading) contentCellItems.push(subheading);
-  // CTA: a inside .xps-card-tile-button-wrapper
-  const cta = element.querySelector('.xps-card-tile-button-wrapper a');
-  if (cta) contentCellItems.push(cta);
+  // 2. Extract the content (title, description, CTA)
+  let contentEl = null;
+  const contentDiv = element.querySelector('.xps-teaser__content');
+  if (contentDiv) {
+    contentEl = contentDiv;
+  } else {
+    // fallback: find first heading in block
+    const heading = element.querySelector('h1, h2, h3, h4, h5, h6');
+    if (heading) {
+      contentEl = heading.parentElement;
+    }
+  }
 
-  // 4. Table rows
-  const rows = [
+  // 3. Compose the table rows
+  const headerRow = ['Hero (hero24)'];
+  const imageRow = [imageEl ? imageEl : ''];
+  const contentRow = [contentEl ? contentEl : ''];
+
+  const cells = [
     headerRow,
-    [imageEl ? imageEl : ''],
-    [contentCellItems]
+    imageRow,
+    contentRow,
   ];
 
-  // 5. Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  // 4. Create the block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // 6. Replace the original element
+  // 5. Replace the original element with the block table
   element.replaceWith(block);
 }

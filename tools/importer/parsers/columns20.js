@@ -1,32 +1,30 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: ensure element exists
-  if (!element) return;
+  // Defensive: get all direct column divs
+  const colDivs = Array.from(element.querySelectorAll(':scope > .row > .col-lg-2'));
 
-  // Table header row as per block guidelines
-  const headerRow = ['Columns block (columns20)'];
+  // Each column's main content is the image inside a button inside aspect-ratio
+  const cells = [];
 
-  // Find the row containing the columns
-  const row = element.querySelector('.row');
-  if (!row) return;
-
-  // Get all immediate column divs
-  const columnDivs = Array.from(row.children);
-
-  // For each column, extract the main circle card image
-  const cells = columnDivs.map((colDiv) => {
-    // Defensive: find the image inside the button
+  colDivs.forEach((colDiv) => {
+    // Find the image inside this column
     const img = colDiv.querySelector('img');
-    // If found, use the image element, else empty string
-    return img || '';
+    if (img) {
+      cells.push(img);
+    } else {
+      // If no image, push empty string
+      cells.push('');
+    }
   });
 
-  // Compose the table rows
+  // Table header
+  const headerRow = ['Columns block (columns20)'];
+  // Second row: all columns side by side
   const tableRows = [headerRow, cells];
 
   // Create the block table
-  const blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
+  const block = WebImporter.DOMUtils.createTable(tableRows, document);
 
-  // Replace the original element with the block table
-  element.replaceWith(blockTable);
+  // Replace the original element
+  element.replaceWith(block);
 }

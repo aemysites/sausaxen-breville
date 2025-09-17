@@ -1,58 +1,65 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the selected tab panel with content
+  // Defensive: Find the selected tab panel (the visible content)
   const selectedPanel = element.querySelector('.react-tabs__tab-panel--selected');
   if (!selectedPanel) return;
 
-  // Find the carousel of cards
-  const carousel = selectedPanel.querySelector('.xps-carousel-wrapper .splide__list');
-  if (!carousel) return;
+  // Find the left panel (feature details)
+  const featureDetails = selectedPanel.querySelector('.author_feature_details');
+  // Find the right panel (cards)
+  const cardContainer = selectedPanel.querySelector('.author_feature_card .xps-carousel-wrapper .splide__list');
+  if (!featureDetails || !cardContainer) return;
 
-  // Table header as per block guidelines
+  // Header row
   const headerRow = ['Cards (cards11)'];
   const rows = [headerRow];
 
-  // For each card in carousel
-  const slides = carousel.querySelectorAll('.splide__slide');
-  slides.forEach((slide) => {
-    // Defensive: find image
+  // Get the left panel content: Partner Chefs title, avatar, description
+  // We'll use this for the first card
+  const leftTagBox = featureDetails.querySelector('.xps-partner-tag-box');
+  const leftAvatar = leftTagBox ? leftTagBox.querySelector('.xps-partner-tag-avatar-img') : null;
+  const leftTitle = leftTagBox ? leftTagBox.querySelector('.xps-partner-tag-title') : null;
+  const leftDesc = featureDetails.querySelector('.xps-card-tile-description');
+
+  // Compose left panel card content
+  const leftTextContent = document.createElement('div');
+  if (leftTitle) leftTextContent.appendChild(leftTitle);
+  if (leftDesc) leftTextContent.appendChild(leftDesc);
+
+  // First row: left panel
+  if (leftAvatar && leftTextContent.childNodes.length) {
+    rows.push([leftAvatar, leftTextContent]);
+  }
+
+  // Now process each card in the carousel
+  const cardSlides = cardContainer.querySelectorAll('.splide__slide');
+  cardSlides.forEach((slide) => {
+    // Find image
     const img = slide.querySelector('.recipe-card__image');
-    // Defensive: find overlay
+    // Find overlay content
     const overlay = slide.querySelector('.recipe-card__overlay');
     if (!img || !overlay) return;
 
-    // Compose text cell content
-    const cellContent = document.createElement('div');
+    // Compose text content for the card
+    const textContent = document.createElement('div');
 
-    // Tag/Category (e.g., Joule Oven, Smart Ovens)
-    const headerTag = overlay.querySelector('.recipe-card__header .xps-tag');
-    if (headerTag) {
-      cellContent.appendChild(headerTag.cloneNode(true));
-    }
+    // Tag (e.g., Joule Oven, Smart Ovens)
+    const tag = overlay.querySelector('.recipe-card__header .xps-tag');
+    if (tag) textContent.appendChild(tag);
 
     // Title (h4)
     const title = overlay.querySelector('.recipe-card__title .xps-text-h4');
-    if (title) {
-      cellContent.appendChild(title.cloneNode(true));
-    }
+    if (title) textContent.appendChild(title);
 
-    // Author (footer)
-    const authorTagBox = overlay.querySelector('.recipe-card__footer .xps-partner-tag-box');
-    if (authorTagBox) {
-      cellContent.appendChild(authorTagBox.cloneNode(true));
-    }
+    // Footer: chef avatar + name
+    const footer = overlay.querySelector('.recipe-card__footer .xps-partner-tag-box');
+    if (footer) textContent.appendChild(footer);
 
-    // Only add row if mandatory fields present
-    if (img && cellContent.childNodes.length > 0) {
-      rows.push([
-        img.cloneNode(true),
-        cellContent
-      ]);
-    }
+    rows.push([img, textContent]);
   });
 
   // Create the block table
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  const block = WebImporter.DOMUtils.createTable(rows, document);
   // Replace the original element
-  element.replaceWith(table);
+  element.replaceWith(block);
 }

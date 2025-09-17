@@ -1,74 +1,59 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper to create a link for non-image media (e.g. video)
-  function createLinkFromSrc(src, text = 'View Video') {
-    const a = document.createElement('a');
-    a.href = src;
-    a.textContent = text;
-    a.target = '_blank';
-    return a;
-  }
-
-  // Defensive selectors for left and right columns
-  let leftColContent = null;
-  let rightColContent = null;
-
   // Find the main splitteaser block
   const splitTeaser = element.querySelector('.xps-splitteaser');
-  if (splitTeaser) {
-    // Find the left and right teaser columns
-    const teasers = splitTeaser.querySelectorAll('.xps-teaser');
-    if (teasers.length > 0) {
-      // LEFT COLUMN: media (video)
-      const leftTeaser = teasers[0];
-      const mediaWrapper = leftTeaser.querySelector('.xps-teaser--media');
-      if (mediaWrapper) {
-        // Look for video
-        const video = mediaWrapper.querySelector('video');
-        if (video && video.src) {
-          leftColContent = createLinkFromSrc(video.src, 'View Video');
-        }
-      }
-      // If no video, fallback to entire mediaWrapper
-      if (!leftColContent && mediaWrapper) {
-        leftColContent = mediaWrapper;
-      }
-      // Defensive fallback
-      if (!leftColContent) {
-        leftColContent = leftTeaser;
-      }
+  if (!splitTeaser) return;
 
-      // RIGHT COLUMN: content (title, description, button)
-      const contentWrapper = leftTeaser.querySelector('.xps-teaser__content');
-      if (contentWrapper) {
-        rightColContent = contentWrapper;
-      } else {
-        // Defensive fallback: try the next teaser if present
-        if (teasers.length > 1) {
-          rightColContent = teasers[1];
-        }
-      }
+  // Find the left (media) and right (content) columns
+  const teaser = splitTeaser.querySelector('.xps-teaser.left');
+  if (!teaser) return;
+
+  // Left column: media
+  const leftMedia = teaser.querySelector('.xps-teaser--media');
+  let leftCol;
+  if (leftMedia) {
+    // If leftMedia contains a video, replace with a link to its src
+    const video = leftMedia.querySelector('video');
+    if (video && video.src) {
+      const videoLink = document.createElement('a');
+      videoLink.href = video.src;
+      videoLink.textContent = video.src;
+      leftCol = document.createElement('div');
+      leftCol.appendChild(videoLink);
+    } else {
+      leftCol = leftMedia.cloneNode(true);
     }
+  } else {
+    leftCol = document.createElement('div');
   }
 
-  // Fallbacks if parsing fails
-  if (!leftColContent) {
-    leftColContent = document.createElement('div');
-    leftColContent.textContent = '';
-  }
-  if (!rightColContent) {
-    rightColContent = document.createElement('div');
-    rightColContent.textContent = '';
+  // Right column: content (include all text content)
+  const rightContent = teaser.querySelector('.xps-teaser__content');
+  let rightCol;
+  if (rightContent) {
+    // Collect all headings, paragraphs, and buttons
+    rightCol = document.createElement('div');
+    // Heading
+    const heading = rightContent.querySelector('.xps-card-tile-title');
+    if (heading) rightCol.appendChild(heading.cloneNode(true));
+    // Description
+    const desc = rightContent.querySelector('.xps-card-tile-description');
+    if (desc) rightCol.appendChild(desc.cloneNode(true));
+    // Button
+    const btn = rightContent.querySelector('.xps-card-tile-button-wrapper');
+    if (btn) rightCol.appendChild(btn.cloneNode(true));
+  } else {
+    rightCol = document.createElement('div');
   }
 
-  // Table structure: header, then one row with two columns
+  // Table header row
   const headerRow = ['Columns block (columns23)'];
-  const contentRow = [leftColContent, rightColContent];
-  const cells = [headerRow, contentRow];
+  // Table content row: [left column, right column]
+  const contentRow = [leftCol, rightCol];
 
-  // Create table block
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  // Build table
+  const table = WebImporter.DOMUtils.createTable([headerRow, contentRow], document);
 
   // Replace original element
-  element.replaceWith(block);
+  element.replaceWith(table);
 }

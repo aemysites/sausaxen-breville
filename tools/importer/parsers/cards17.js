@@ -1,42 +1,28 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get each card column
-  const columns = Array.from(element.querySelectorAll(':scope > div'));
+  if (!element) return;
 
-  // Prepare table rows
-  const rows = [];
-  // Header row: always use the block name as specified
+  // Header row: must be exactly one column with the block name
   const headerRow = ['Cards (cards17)'];
-  rows.push(headerRow);
+  const rows = [headerRow];
 
-  // For each card column, extract image and title
-  columns.forEach((col) => {
-    // Defensive: look for the card tile inside the column
-    const card = col.querySelector('.xps-card-tile');
-    if (!card) return;
+  // Get all direct card columns
+  const cardColumns = element.querySelectorAll(':scope > div');
 
-    // Image: find the first <img> inside the card
-    const imgWrapper = card.querySelector('.xps-card-tile-image');
-    let img = null;
+  cardColumns.forEach((col) => {
+    const cardTile = col.querySelector('.xps-card-tile');
+    if (!cardTile) return;
+    const imgWrapper = cardTile.querySelector('.xps-card-tile-image');
+    let imgEl = null;
     if (imgWrapper) {
-      img = imgWrapper.querySelector('img');
+      imgEl = imgWrapper.querySelector('img');
     }
-    // Title: find the heading (h6)
-    const title = card.querySelector('.xps-card-tile-title');
-
-    // Defensive: skip if no image or no title
-    if (!img || !title) return;
-
-    // For text cell: wrap the title in a <strong>
-    const strong = document.createElement('strong');
-    strong.textContent = title.textContent;
-
-    // Each row: [image, textCell]
-    rows.push([img, strong]);
+    const titleEl = cardTile.querySelector('.xps-card-tile-title');
+    if (imgEl && titleEl) {
+      rows.push([imgEl, titleEl]);
+    }
   });
 
-  // Build the table block
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-  // Replace the original element
-  element.replaceWith(table);
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(block);
 }

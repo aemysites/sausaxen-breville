@@ -1,61 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Only proceed if element exists
-  if (!element) return;
-
-  // --- HEADER ROW ---
-  const headerRow = ['Hero (hero14)'];
-
-  // --- IMAGE ROW ---
-  // Find the background image (if any)
-  // The image is inside .xps-circle-card__header img (circle card), but the visual background is implied by the aspect-ratio container
-  // For this block, use the prominent product image if present
+  // Find the main image for the hero background (should be the image in the circle card)
   let imageEl = null;
-  const circleHeader = element.querySelector('.xps-circle-card__header');
-  if (circleHeader) {
-    imageEl = circleHeader.querySelector('img');
+  const circleImg = element.querySelector('.xps-circle-card__header img');
+  if (circleImg) {
+    imageEl = circleImg;
   }
-  // Defensive: fallback to any img inside the block if not found
-  if (!imageEl) {
-    imageEl = element.querySelector('img');
+
+  // Find the main heading and subheading
+  const headingEl = element.querySelector('h3.xps-card-tile-title');
+  // The subheading is the first .xps-text-p3 that is NOT the description
+  let subheadingEl = null;
+  const p3s = element.querySelectorAll('.xps-text-p3');
+  for (const p3 of p3s) {
+    if (!p3.closest('.xps-card-tile-description')) {
+      subheadingEl = p3;
+      break;
+    }
   }
-  const imageRow = [imageEl ? imageEl : ''];
+  // The description is the paragraph inside .xps-card-tile-description
+  const descriptionEl = element.querySelector('.xps-card-tile-description p');
+  // The CTA is the button link in .xps-card-tile-button-wrapper
+  const ctaEl = element.querySelector('.xps-card-tile-button-wrapper a');
 
-  // --- CONTENT ROW ---
-  // Compose content: Title, subtitle, description, CTA, and circle card info
-  const contentParts = [];
-
-  // Subheading (Popular Recipes)
-  const subheading = element.querySelector('.xps-text-p3');
-  if (subheading) contentParts.push(subheading);
-
-  // Title (h3)
-  const title = element.querySelector('.xps-card-tile-title');
-  if (title) contentParts.push(title);
-
-  // Circle card ("Tailored for" + product name)
+  // The circle card ("Tailored for") is a visual element, include as-is
   const circleCard = element.querySelector('.xps-circle-card');
+
+  // Compose the content cell for the third row, referencing existing elements
+  const contentParts = [];
+  if (subheadingEl) contentParts.push(subheadingEl);
+  if (headingEl) contentParts.push(headingEl);
   if (circleCard) contentParts.push(circleCard);
+  if (descriptionEl) contentParts.push(descriptionEl);
+  if (ctaEl) contentParts.push(ctaEl);
 
-  // Description paragraph
-  const description = element.querySelector('.xps-card-tile-description');
-  if (description) contentParts.push(description);
-
-  // CTA button ("View recipe")
-  const cta = element.querySelector('.xps-card-tile-button-wrapper');
-  if (cta) contentParts.push(cta);
-
+  // Table rows
+  const headerRow = ['Hero (hero14)'];
+  const imageRow = [imageEl ? imageEl : ''];
   const contentRow = [contentParts];
 
-  // --- TABLE CREATION ---
-  const cells = [
-    headerRow,
-    imageRow,
-    contentRow,
-  ];
+  const cells = [headerRow, imageRow, contentRow];
 
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace original element with block table
-  element.replaceWith(block);
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(table);
 }
