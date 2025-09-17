@@ -1,37 +1,37 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: find the main split teaser content and image
-  // The structure is deeply nested, so we look for the left (content) and right (image) columns
+  // Defensive: Find the main content and image columns
+  // The structure is: left column (text + button), right column (image)
+  // We'll find both by traversing immediate children
 
-  // Get the main teaser content (left column)
-  let leftContent;
-  let rightContent;
+  // Find the main teaser block (contains both columns)
+  const teaser = element.querySelector('.xps-teaser');
+  if (!teaser) return;
 
-  // Find the main content area (text, heading, button)
-  const teaserContent = element.querySelector('.xps-teaser__content');
-  if (teaserContent) {
-    leftContent = teaserContent;
-  } else {
-    // fallback: use first column-like div
-    leftContent = element.querySelector('.xps-card-tile') || element;
-  }
+  // Left column: content
+  const content = teaser.querySelector('.xps-teaser__content');
+  // Defensive: If not found, fallback to first child
+  const leftCol = content || teaser.children[0];
 
-  // Find the image area (right column)
-  const media = element.querySelector('.xps-teaser--media');
+  // Right column: image
+  const media = teaser.querySelector('.xps-teaser--media');
+  let rightCol = null;
   if (media) {
-    // Just the image itself
+    // Find the image inside aspect-ratio container
     const img = media.querySelector('img');
-    rightContent = img ? img : media;
-  } else {
-    // fallback: find first image
-    const img = element.querySelector('img');
-    rightContent = img || null;
+    if (img) {
+      rightCol = img;
+    } else {
+      // If no image, fallback to media block
+      rightCol = media;
+    }
   }
 
   // Table header
   const headerRow = ['Columns block (columns22)'];
-  // Table content row: two columns, left (text/button), right (image)
-  const contentRow = [leftContent, rightContent];
+
+  // Table content row (two columns)
+  const contentRow = [leftCol, rightCol];
 
   // Build table
   const cells = [headerRow, contentRow];

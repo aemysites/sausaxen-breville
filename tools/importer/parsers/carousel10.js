@@ -1,49 +1,49 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper to create an <img> from a video src
-  function createVideoImg(videoEl) {
-    if (!videoEl || !videoEl.src) return '';
-    const img = document.createElement('img');
-    img.src = videoEl.src;
-    img.alt = '';
-    return img;
+  // Helper to get all real slides (not clones)
+  function getSlides(el) {
+    const track = el.querySelector('.splide__track');
+    if (!track) return [];
+    const list = track.querySelector('.splide__list');
+    if (!list) return [];
+    // Only select non-clone slides
+    return Array.from(list.children).filter(li => {
+      return !li.classList.contains('splide__slide--clone');
+    });
   }
 
-  // Find all real slides (ignore clones)
-  const slides = Array.from(
-    element.querySelectorAll('.splide__slide')
-  ).filter(slide => !slide.classList.contains('splide__slide--clone'));
+  // Helper to extract video as an <img> element
+  function extractVideoImage(slide) {
+    const video = slide.querySelector('video');
+    if (video && video.src) {
+      const img = document.createElement('img');
+      img.src = video.src;
+      img.alt = '';
+      return img;
+    }
+    return '';
+  }
 
-  // Table header must match block name exactly
+  // Helper to extract text content (preserving semantic HTML)
+  function extractTextContent(slide) {
+    const content = slide.querySelector('.xps-teaser__content');
+    if (!content) return '';
+    // Clone the content node to preserve all text and structure
+    return content.cloneNode(true);
+  }
+
+  // Build the table rows
   const headerRow = ['Carousel (carousel10)'];
   const rows = [headerRow];
 
+  const slides = getSlides(element);
   slides.forEach(slide => {
-    // Find the left media (video)
-    let imageCell = '';
-    const videoEl = slide.querySelector('.xps-teaser--media video');
-    if (videoEl) {
-      imageCell = createVideoImg(videoEl);
-    }
-
-    // Find the right content
-    let contentCell = '';
-    const content = slide.querySelector('.xps-teaser__content');
-    if (content) {
-      // Instead of targeting only heading/desc, grab all content
-      // This ensures all text is included
-      const cellContent = Array.from(content.childNodes)
-        .filter(node => node.nodeType === 1 || (node.nodeType === 3 && node.textContent.trim()))
-        .map(node => node.cloneNode(true));
-      if (cellContent.length) contentCell = cellContent;
-    }
-
-    rows.push([
-      imageCell,
-      contentCell || ''
-    ]);
+    const leftCell = extractVideoImage(slide);
+    const rightCell = extractTextContent(slide);
+    rows.push([leftCell, rightCell]);
   });
 
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(table);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(block);
 }

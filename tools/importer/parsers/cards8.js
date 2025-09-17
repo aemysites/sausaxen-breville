@@ -1,48 +1,37 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  if (!element) return;
+  if (!element || !document) return;
 
-  // Table header row: must be exactly one column with block name
+  // Table header row: must be one column only
   const headerRow = ['Cards (cards8)'];
   const rows = [headerRow];
 
-  // Get all card containers (each col contains a card)
+  // Get all immediate card containers
   const cardCols = element.querySelectorAll(':scope > div');
-
   cardCols.forEach((col) => {
-    const card = col.querySelector('.xps-support-card');
+    // Each card is inside a col, which contains the card div
+    const card = col.querySelector(':scope > div');
     if (!card) return;
 
-    // Find image (mandatory)
+    // Find the image/icon (first img in card)
     const img = card.querySelector('img');
 
-    // Find text content (mandatory)
+    // Find the text content (usually a div with a p)
     const textDiv = card.querySelector('.xps-text');
-    let textContent = null;
-    if (textDiv) {
-      // Extract the text as a heading (strong) and description (if present)
-      const p = textDiv.querySelector('p');
-      if (p) {
-        // Create a fragment for cell content
-        const frag = document.createDocumentFragment();
-        const strong = document.createElement('strong');
-        strong.textContent = p.textContent;
-        frag.appendChild(strong);
-        textContent = frag;
-      } else {
-        textContent = textDiv;
-      }
+    let textContent = textDiv;
+    if (!textDiv) {
+      const p = card.querySelector('p');
+      textContent = p || '';
     }
 
-    // Only add row if both image and text are present
-    if (img && textContent) {
-      rows.push([img, textContent]);
-    }
+    // Build the row: [image, text]
+    // Each row must be an array in the cells array
+    rows.push([img, textContent]);
   });
 
   // Create the block table
   const table = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element with the new table
+  // Replace the original element with the block table
   element.replaceWith(table);
 }

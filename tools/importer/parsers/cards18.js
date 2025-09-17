@@ -1,45 +1,39 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Defensive: Find the card tile containers
-  const cardRows = [];
+  // Find all card containers
+  const cardContainers = Array.from(
+    element.querySelectorAll(':scope .xps-card-tile')
+  );
 
-  // Always use the required header row
+  if (!cardContainers.length) return;
+
+  // Header row: must be a single cell array
   const headerRow = ['Cards (cards18)'];
-  cardRows.push(headerRow);
 
-  // Find all direct card tile elements within the block
-  // The structure is: element > ... > .grid-container > ... > .row > .col-xl-4 > .xps-card-tile
-  // We'll find all .xps-card-tile elements under the block
-  const cardTiles = element.querySelectorAll('.xps-card-tile');
-
-  cardTiles.forEach((cardTile) => {
-    // Image: find the first img inside the card
-    const imgContainer = cardTile.querySelector('.xps-card-tile-image');
+  // Each card row: two columns [image, text content]
+  const rows = cardContainers.map(card => {
+    // Image (first img inside .xps-card-tile-image)
     let imgEl = null;
+    const imgContainer = card.querySelector('.xps-card-tile-image');
     if (imgContainer) {
       imgEl = imgContainer.querySelector('img');
+      // Remove non-standard width/height attributes if present
+      if (imgEl) {
+        imgEl.removeAttribute('width');
+        imgEl.removeAttribute('height');
+      }
     }
 
-    // Text: find the title (h6)
-    let textEls = [];
-    const titleEl = cardTile.querySelector('.xps-card-tile-title');
-    if (titleEl) {
-      textEls.push(titleEl);
-    }
-
-    // If there is other text (description), add it below (not present in this HTML, but future-proof)
-    // For now, only the h6 is present
-
-    // Compose the row: [image, text]
-    cardRows.push([
-      imgEl,
-      textEls.length > 1 ? textEls : textEls[0]
-    ]);
+    // Text (h6)
+    const titleEl = card.querySelector('h6');
+    // For text cell, use the element itself (not array)
+    return [imgEl, titleEl];
   });
 
-  // Create the table block
-  const block = WebImporter.DOMUtils.createTable(cardRows, document);
+  // Compose cells: header row (single cell), then each row as an array of two elements
+  const cells = [headerRow, ...rows];
 
-  // Replace the original element with the block
+  // Create block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(block);
 }

@@ -1,49 +1,76 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper: get immediate child by class
-  function getChildByClass(parent, className) {
-    return Array.from(parent.children).find(child => child.classList.contains(className));
-  }
-
-  // 1. Header row
+  // Table header row
   const headerRow = ['Hero (hero4)'];
 
-  // 2. Background image row
-  // Find .xps-herobanner-background-image > img
-  let bgImgEl = null;
-  const bgContainer = element.querySelector('.xps-herobanner-background-image');
-  if (bgContainer) {
-    bgImgEl = bgContainer.querySelector('img');
+  // Defensive: Find background image (first img in .xps-herobanner-background-image)
+  let bgImg = null;
+  const bgImgContainer = element.querySelector('.xps-herobanner-background-image');
+  if (bgImgContainer) {
+    const img = bgImgContainer.querySelector('img');
+    if (img) bgImg = img;
   }
-  const bgRow = [bgImgEl ? bgImgEl : ''];
+  // Row 2: background image (if present)
+  const bgImgRow = [bgImg ? bgImg : ''];
 
-  // 3. Content row
-  // Find the main content container
-  let contentContainer = element.querySelector('.xps-herobanner-content-container');
-  if (!contentContainer) {
-    // fallback: try to find .xps-card-tile
-    contentContainer = element.querySelector('.xps-card-tile');
+  // Defensive: Find content container
+  let contentContainer = null;
+  const contentGrid = element.querySelector('.xps-herobanner-content-grid');
+  if (contentGrid) {
+    // Usually one column with .xps-herobanner-content-container
+    const col = contentGrid.querySelector('.xps-herobanner-content-container');
+    if (col) contentContainer = col;
   }
-  let contentElements = [];
+
+  // Defensive: Find title, description, CTA buttons
+  let title = null;
+  let description = null;
+  let ctas = [];
   if (contentContainer) {
-    // Find title (h2), description (div.xps-card-tile-description), and CTA buttons
-    const title = contentContainer.querySelector('h2, h1, h3');
-    if (title) contentElements.push(title);
-    const desc = contentContainer.querySelector('.xps-card-tile-description');
-    if (desc) contentElements.push(desc);
-    // CTA buttons: all <a> in .xps-card-tile-button-wrapper
+    // Title (h2)
+    title = contentContainer.querySelector('h2');
+    // Description (first .xps-card-tile-description)
+    description = contentContainer.querySelector('.xps-card-tile-description');
+    // CTA buttons (all <a> in .xps-card-tile-button-wrapper)
     const btnWrapper = contentContainer.querySelector('.xps-card-tile-button-wrapper');
     if (btnWrapper) {
-      const btns = Array.from(btnWrapper.querySelectorAll('a'));
-      if (btns.length > 0) {
-        contentElements.push(...btns);
-      }
+      const btnLinks = Array.from(btnWrapper.querySelectorAll('a'));
+      btnLinks.forEach((a) => {
+        // Defensive: If <a> contains only graphics, add readable text
+        let label = a.textContent.trim();
+        if (!label) {
+          // Try to get .sr-only text
+          const sr = a.querySelector('.sr-only');
+          if (sr) label = sr.textContent.trim();
+        }
+        // Create a new link with text (for clarity in block)
+        const link = document.createElement('a');
+        link.href = a.href;
+        link.textContent = label || a.getAttribute('href');
+        ctas.push(link);
+      });
     }
   }
-  const contentRow = [contentElements.length ? contentElements : ''];
 
-  // Build table
-  const cells = [headerRow, bgRow, contentRow];
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(table);
+  // Compose content cell: title, description, ctas
+  const contentCell = [];
+  if (title) contentCell.push(title);
+  if (description) contentCell.push(description);
+  if (ctas.length) contentCell.push(...ctas);
+
+  // Row 3: content cell
+  const contentRow = [contentCell.length ? contentCell : ''];
+
+  // Compose table
+  const cells = [
+    headerRow,
+    bgImgRow,
+    contentRow,
+  ];
+
+  // Create block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace original element
+  element.replaceWith(block);
 }
