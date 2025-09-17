@@ -80,33 +80,6 @@
       ]
     },
     {
-      "name": "header",
-      "cluster": 5,
-      "source": "Header",
-      "target": "Header (header5)",
-      "key": "header5",
-      "instances": [
-        {
-          "url": "https://www.breville.com/en-us/brevilleplus",
-          "urlHash": "08d7cf8b8fbd7b20f58cd77594a6e0d912e09757",
-          "uuid": "08d7cf8b-00-3e64bcd1fcc2d5941e46891a0e6bf014c2422c1f",
-          "xpath": "/html[1]/body[1]/div[1]/header[1]"
-        },
-        {
-          "url": "https://www.breville.com/en-us",
-          "urlHash": "340ce710fbbaf835a60b8064476a868ad5b75601",
-          "uuid": "340ce710-00-3e64bcd1fcc2d5941e46891a0e6bf014c2422c1f",
-          "xpath": "/html[1]/body[1]/div[1]/header[1]"
-        },
-        {
-          "url": "https://www.breville.com/en-us/sales",
-          "urlHash": "447b2b9cf3da9f440db2e6622c11f9da00332d37",
-          "uuid": "447b2b9c-00-3e64bcd1fcc2d5941e46891a0e6bf014c2422c1f",
-          "xpath": "/html[1]/body[1]/div[1]/header[1]"
-        }
-      ]
-    },
-    {
       "name": "Columns",
       "cluster": 6,
       "source": "Columns block",
@@ -400,6 +373,9 @@
     {
       "name": "Hero",
       "cluster": 25,
+      "source": "Hero",
+      "target": "Hero (hero25)",
+      "key": "hero25",
       "instances": [
         {
           "url": "https://www.breville.com/en-us/brevilleplus",
@@ -407,12 +383,14 @@
           "uuid": "08d7cf8b-01-a7ffa77f59d6425cb85d06697fffae2af5eaa609",
           "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[1]"
         }
-      ],
-      "target": "Hero"
+      ]
     },
     {
       "name": "Hero",
       "cluster": 26,
+      "source": "Hero",
+      "target": "Hero (hero26)",
+      "key": "hero26",
       "instances": [
         {
           "url": "https://www.breville.com/en-us",
@@ -425,6 +403,9 @@
     {
       "name": "Hero",
       "cluster": 27,
+      "source": "Hero",
+      "target": "Hero (hero27)",
+      "key": "hero27",
       "instances": [
         {
           "url": "https://www.breville.com/en-us/sales",
@@ -435,8 +416,11 @@
       ]
     },
     {
-      "name": "new",
+      "name": "Accordion",
       "cluster": 28,
+      "source": "Accordion", 
+      "target": "Accordion (accordion28)",
+      "key": "accordion28",
       "instances": [
         {
           "url": "https://www.breville.com/en-us/sales",
@@ -444,8 +428,7 @@
           "uuid": "447b2b9c-03-c000e3be9f3b96973bff2c258afe247f3c7b07ca",
           "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/div[4]"
         }
-      ],
-      "target": "Accrodin"
+      ]  
     }
   ],
   "outliers": [
