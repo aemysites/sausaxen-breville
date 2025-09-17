@@ -25,3 +25,164 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+
+.cards.cards7 {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 0;
+}
+
+/* Multi-column grid, responsive */
+.cards.cards7 > ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (width <= 1024px) {
+  .cards.cards7 > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 700px) {
+  .cards.cards7 > ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card container: balanced padding/height */
+.cards.cards7 > ul > li {
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 290px;
+  transition: box-shadow 0.2s;
+  justify-content: flex-start;
+}
+
+/* IMAGE AREA: ensure images always show and are centered */
+.cards.cards7 .cards-card-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 130px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.cards.cards7 .cards-card-image img {
+  display: block;
+  max-width: 190px;
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  margin: 0 auto;
+  box-shadow: none;
+}
+
+/* Card Body: vertical stack, price/title row flex-horizontal */
+.cards.cards7 .cards-card-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 auto;
+  margin-bottom: 4px;
+}
+
+/* Title/Price row: flex row, visually side by side */
+.cards.cards7 .cards-card-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cards.cards7 .cards-card-body h3 + h3 {
+  margin-left: auto;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  display: inline-block;
+  padding-left: 16px;
+}
+
+/* Description: tight below title row */
+.cards.cards7 .cards-card-body p {
+  font-size: 13px;
+  color: #666;
+  margin: 8px 0 0;
+  line-height: 1.42;
+  font-weight: 400;
+}
+
+/* Swatch Row: visually bold and tight spacing */
+.cards.cards7 .cards-card-body ul {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards.cards7 .cards-card-body ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid #b0b0b0;
+  background: #fff;
+  vertical-align: middle;
+  padding: 0;
+}
+
+.cards.cards7 .cards-card-body ul li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Responsive tweaks for smaller screens */
+@media (width <= 600px) {
+  .cards.cards7 {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .cards.cards7 > ul > li {
+    padding: 10px 4px 4px;
+    min-height: 160px;
+  }
+
+  .cards.cards7 .cards-card-image {
+    min-height: 60px;
+  }
+
+  .cards.cards7 .cards-card-image img {
+    max-width: 110px;
+    height: 60px;
+  }
+}
